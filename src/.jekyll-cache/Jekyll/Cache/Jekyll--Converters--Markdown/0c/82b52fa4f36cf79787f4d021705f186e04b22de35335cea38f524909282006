@@ -1,0 +1,63 @@
+I"�<h1 id="155조건-복사">15.5.조건 복사</h1>
+<p>테이블 복사, 데이터 복사 모두 SELECT를 통하여 데이터를 조회한 후에 복사를 진행합 니다. 따라서 복사를 진행할 때 WHERE 조건을 추가하여 필터링된 데이터만 복사할 수 도 있습니다. 이는 테이블의 전체 데이터를 복사하는 것이 아니라 필요한 부분만 처리하여 복사할 수 있습니다.</p>
+
+<p>| 쿼리 문법 |</p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">INSERT</span> <span class="k">INTO</span> <span class="err">기본테이블</span> <span class="p">(</span><span class="err">컬럼명</span><span class="p">)</span> <span class="k">SELECT</span> <span class="p">(</span><span class="err">컬럼명</span><span class="p">)</span> <span class="k">FROM</span> <span class="err">복사</span><span class="n">_</span><span class="err">테이블</span> <span class="k">WHERE</span> <span class="err">조건</span><span class="p">;</span> 
+</code></pre></div></div>
+
+<h2 id="1551-php-코드">15.5.1 PHP 코드</h2>
+<p>PHP 코드를 통하여 조건 설정된 데이터만 출력하여 데이터를 복사해 보도록 합니다.</p>
+
+<p>| PHP 예제 | 
+mysql.class.php 파일에 메서드 예제를 추가합니다.</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// select 데이터를 테이블로 복사합니다.</span>
+<span class="k">public</span> <span class="k">function</span> <span class="nf">insertSelectWhere</span><span class="p">(</span><span class="nv">$src</span><span class="p">,</span> <span class="nv">$dst</span><span class="p">,</span> <span class="nv">$where</span><span class="p">,</span> <span class="nv">$fields</span><span class="p">)</span>
+<span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nv">$src</span><span class="p">)</span> <span class="p">{</span>
+
+                <span class="k">if</span> <span class="p">(</span><span class="nv">$fields</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nv">$queryString</span> <span class="o">=</span> <span class="s2">"insert into </span><span class="nv">$dst</span><span class="s2"> (</span><span class="nv">$fields</span><span class="s2">) select </span><span class="nv">$fields</span><span class="s2"> from </span><span class="nv">$src</span><span class="s2"> where </span><span class="nv">$where</span><span class="s2">"</span><span class="p">;</span>
+                <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                    <span class="nv">$queryString</span> <span class="o">=</span> <span class="s2">"insert into </span><span class="nv">$dst</span><span class="s2"> select * from </span><span class="nv">$src</span><span class="s2"> where </span><span class="nv">$where</span><span class="s2">"</span><span class="p">;</span>
+                <span class="p">}</span>                
+
+                <span class="c1">// 쿼리를 전송합니다.</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nx">mysqli_query</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">dbcon</span><span class="p">,</span> <span class="nv">$queryString</span><span class="p">)</span><span class="o">===</span> <span class="k">TRUE</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="s2">"쿼리성공] "</span><span class="o">.</span><span class="nv">$queryString</span><span class="p">);</span>
+                    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="s2">" 데이터 복사!"</span><span class="p">);</span>
+
+                    <span class="c1">// 객체 반환, 매서드체인</span>
+                    <span class="k">return</span> <span class="nv">$this</span><span class="p">;</span> 
+
+                <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="s2">"Error] "</span><span class="o">.</span><span class="nv">$queryString</span><span class="p">);</span>
+                <span class="p">}</span>
+
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="s2">"Error] 원본 테이블명을 적어주세요."</span><span class="p">);</span>
+            <span class="p">}</span>  
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>예제 파일 | copy-05.php</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+ 
+	<span class="k">include</span> <span class="s2">"dbinfo.php"</span><span class="p">;</span>
+	<span class="k">include</span> <span class="s2">"mysql.class.php"</span><span class="p">;</span>
+ 
+	<span class="c1">// ++ Mysqli DB 연결.</span>
+	<span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">JinyMysql</span><span class="p">();</span>
+ 
+	<span class="c1">// 테이블을 복사합니다.</span>
+	<span class="nv">$db</span><span class="o">-&gt;</span><span class="na">insertSelectWhere</span><span class="p">(</span><span class="s2">"members"</span><span class="p">,</span> <span class="s2">"members1"</span><span class="p">,</span><span class="s2">"Id=1"</span><span class="p">,</span><span class="s2">"FirstName, LastName, email"</span><span class="p">);</span>
+ 
+<span class="cp">?&gt;</span>
+
+</code></pre></div></div>
+
+<p>화면 출력</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql connected!
+쿼리성공] insert into members1 (FirstName, LastName, email) select FirstName, LastName, email from members where Id=1
+데이터 복사!
+</code></pre></div></div>
+:ET

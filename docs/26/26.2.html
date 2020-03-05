@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Jiny Mysql</title>
+
+        <!--부트스트랩4-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <style>
+            img {
+                max-width:100%;
+            }
+        </style>
+        
+
+    </head>
+    <body>
+        <!--네비게이션--><!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="/">Mysql</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="/setup">설치</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/part1">SQL</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/part2">DB연동</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav><nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li></ol>    
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+    <div class="row">
+
+        <!-- Post Content Column -->
+        <div class="col-lg-9">
+            <!-- Title -->
+            <h1 class="mt-4">26.2.문자열 내장 함수 </h1>
+            <hr>
+            <h2 id="2621-concat">26.2.1 CONCAT()</h2>
+<p>문자열을 결합할 수 있습니다. 결합하고자 하는 컬럼 필드 또는 문자들은 콤마 (,)로 구분 합니다.</p>
+
+<p>| 콘솔 실습 화면 |</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql&gt; select * from members;
++----+----------+-----------+-------------+-------+---------+
+| Id | LastName | FirstName | Address     | City  | Country |
++----+----------+-----------+-------------+-------+---------+
+|  1 | hojin    | lee       | shinchon    | seoul | korea   |
+|  2 | jiny     | NULL      | NULL        | NULL  | korea   |
+|  3 | james    | kim       | youngdun-po | seoul | korea   |
+|  4 | eric     | jung      | seocho-gu   | seoul | korea   |
++----+----------+-----------+-------------+-------+---------+
+4 rows in set (0.00 sec)
+
+mysql&gt; select concat(FirstName, ' ', LastName, '님') as customer from members;
++--------------+
+| customer     |
++--------------+
+| lee hojin님  |
+| NULL         |
+| kim james님  |
+| jung eric님  |
++--------------+
+4 rows in set (0.00 sec)
+
+</code></pre></div></div>
+<p>그냥 문자를 넣는 경우에는 작은따옴표(‘)로 감싸서 넣습니다.</p>
+
+<h2 id="2622-left-right">26.2.2 LEFT( )/RIGHT()</h2>
+<p>컬럼의 데이터를 왼쪽/오른쪽부터 지정한 숫자만큼만 출력합니다.</p>
+
+<p>| 콘솔 실습 화면 |</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// 왼쪽부터 2글자만 출력합니다.
+mysql&gt; select left(country,2) from members;
++-----------------+
+| left(country,2) |
++-----------------+
+| ko              |
+| ko              |
+| ko              |
+| ko              |
++-----------------+
+4 rows in set (0.00 sec)
+
+// 오른쪽부터 3글자만 출력합니다.
+mysql&gt; select right(country,3) from members;
++------------------+
+| right(country,3) |
++------------------+
+| rea              |
+| rea              |
+| rea              |
+| rea              |
++------------------+
+4 rows in set (0.00 sec)
+
+</code></pre></div></div>
+
+<h2 id="2623-length">26.2.3 LENGTH()</h2>
+<p>문자열의 길이를 측정합니다.</p>
+
+<p>| 콘솔 실습 화면 |</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql&gt; select name, length(name) from products;
++--------+--------------+
+| name   | length(name) |
++--------+--------------+
+| S-827  |            5 |
+| S-532D |            6 |
+| R-530  |            5 |
++--------+--------------+
+3 rows in set (0.00 sec)
+
+</code></pre></div></div>
+
+<h2 id="2624-공백-제거-함수">26.2.4 공백 제거 함수</h2>
+<p>LTRIM()은 좌측의 공백을 제거합니다. RTRIM()은 우측의 공백을 제거합니다.</p>
+
+<p>| 콘솔 실습 화면 |</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql&gt; select ltrim(' jiny ');
++-----------------+
+| ltrim(' jiny ') |
++-----------------+
+| jiny            |
++-----------------+
+1 row in set (0.00 sec)
+
+mysql&gt; select rtrim(' jiny ');
++-----------------+
+| rtrim(' jiny ') |
++-----------------+
+|  jiny           |
++-----------------+
+1 row in set (0.00 sec)
+
+</code></pre></div></div>
+
+<h2 id="2625-substring-mid">26.2.5 SUBSTRING( )/MID()</h2>
+<p>컬럼의 데이터의 일부분만 출력합니다.</p>
+
+<p>| 콘솔 실습 화면 |</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql&gt; select substring(Country, 2,2) from members;
++-------------------------+
+| substring(Country, 2,2) |
++-------------------------+
+| or                      |
+| or                      |
+| or                      |
+| or                      |
++-------------------------+
+4 rows in set (0.00 sec)
+
+</code></pre></div></div>
+
+<h2 id="2626-replace">26.2.6 REPLACE()</h2>
+<p>문자열의 일부분을 치환할 수 있습니다.</p>
+
+<p>| 콘솔 실습 화면 |</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql&gt; select * from products;
++----+--------+-------+------+-------+
+| Id | name   | price | vat  | stock |
++----+--------+-------+------+-------+
+|  1 | S-827  | 20000 | 2000 |     5 |
+|  2 | S-532D | 36000 | 3600 |     7 |
+|  3 | R-530  | 25000 | 2500 |    10 |
++----+--------+-------+------+-------+
+3 rows in set (0.00 sec)
+
+mysql&gt; select replace(name, 'S-', 'shiny S-') from products;
++---------------------------------+
+| replace(name, 'S-', 'shiny S-') |
++---------------------------------+
+| shiny S-827                     |
+| shiny S-532D                    |
+| R-530                           |
++---------------------------------+
+3 rows in set (0.00 sec)
+
+</code></pre></div></div>
+
+<h2 id="2627-upper-ucase">26.2.7 UPPER( )/UCASE()</h2>
+<p>입력된 문자열을 대문자로 전환합니다.</p>
+
+<p>| 콘솔 실습 화면 |</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql&gt; select UCASE('abcde'), UPPER('abcde');
++----------------+----------------+
+| UCASE('abcde') | UPPER('abcde') |
++----------------+----------------+
+| ABCDE          | ABCDE          |
++----------------+----------------+
+1 row in set (0.01 sec)
+
+</code></pre></div></div>
+
+<h2 id="2628-lcase">26.2.8 LCASE()</h2>
+<p>입력된 문자열을 소문자로 전환합니다.</p>
+
+<p>| 콘솔 실습 화면 |</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql&gt; select name, LCASE(name) from products;
++--------+-------------+
+| name   | LCASE(name) |
++--------+-------------+
+| S-827  | s-827       |
+| S-532D | s-532d      |
+| R-530  | r-530       |
++--------+-------------+
+3 rows in set (0.01 sec)
+
+mysql&gt;
+
+</code></pre></div></div>
+
+<h2 id="2629-repeat-문자-반복-횟수">26.2.9 REPEAT (문자, 반복 횟수)</h2>
+<p>입력된 문자열을 지정 횟수만큼 반복 출력합니다.</p>
+
+<p>| 콘솔 실습 화면 |</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql&gt; select * from products;
++----+--------+-------+------+-------+
+| Id | name   | price | vat  | stock |
++----+--------+-------+------+-------+
+|  1 | S-827  | 20000 | 2000 |     5 |
+|  2 | S-532D | 36000 | 3600 |     7 |
++----+--------+-------+------+-------+
+2 rows in set (0.00 sec)
+
+mysql&gt; select repeat('*',stock) from products;
++-------------------+
+| repeat('*',stock) |
++-------------------+
+| *****             |
+| *******           |
++-------------------+
+2 rows in set (0.00 sec)
+
+</code></pre></div></div>
+
+<p>재고 숫자만큼 *를 출력합니다.</p>
+
+<h2 id="26210-reverse">26.2.10 REVERSE()</h2>
+<p>입력된 문자열을 거꾸로 뒤집습니다.</p>
+
+<p>| 콘솔 실습 화면 |</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql&gt; select reverse(Country) from members;
++------------------+
+| reverse(Country) |
++------------------+
+| aerok            |
+| aerok            |
+| aerok            |
+| aerok            |
++------------------+
+4 rows in set (0.00 sec)
+
+</code></pre></div></div>
+
+<h2 id="26211-ascii문자">26.2.11 ASCII(문자)</h2>
+<p>입력된 단일 문자의 아스키 코드값을 반환합니다.</p>
+
+<p>| 콘솔 실습 화면 |</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql&gt; select ascii('a');
++------------+
+| ascii('a') |
++------------+
+|         97 |
++------------+
+1 row in set (0.00 sec)
+
+</code></pre></div></div>
+
+<h2 id="26212-instr문자열-찾는-문자열">26.2.12 INSTR(‘문자열’, ‘찾는 문자열’)</h2>
+<p>입력된 문자열 중 찾는 문자열의 위치 값을 출력합니다.</p>
+
+<p>| 콘솔 실습 화면 |</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql&gt; select email, instr(email,'@') from members;
++-------------------+------------------+
+| email             | instr(email,'@') |
++-------------------+------------------+
+| hojin@jinyphp.com |                6 |
+| jiny@jinyphp.com  |                5 |
+| james@jinyphp.com |                6 |
+| NULL              |             NULL |
+| NULL              |             NULL |
+| NULL              |             NULL |
+| NULL              |             NULL |
++-------------------+------------------+
+7 rows in set (0.00 sec)
+
+mysql&gt;
+
+</code></pre></div></div>
+
+<h2 id="26213-if논리식-참일-때-값-거짓일-때-값">26.2.13 IF(논리식, 참일 때 값, 거짓일 때 값)</h2>
+<p>논리식이 참이면 참일 때 값을 출력하고 논리식이 거짓이면 거짓일 때 값을 출력합니다.</p>
+
+<p>| 콘솔 실습 화면 |</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql&gt; select * from products;
++----+--------+-------+------+-------+
+| Id | name   | price | vat  | stock |
++----+--------+-------+------+-------+
+|  1 | S-827  | 20000 | 2000 |     5 |
+|  2 | S-532D | 36000 | 3600 |     7 |
+|  3 | R-530  | 25000 | 2500 |    10 |
++----+--------+-------+------+-------+
+3 rows in set (0.00 sec)
+
+mysql&gt; select stock, if(stock&gt;5,'safeStock','Please order this') from products;
++-------+---------------------------------------------+
+| stock | if(stock&gt;5,'safeStock','Please order this') |
++-------+---------------------------------------------+
+|     5 | Please order this                           |
+|     7 | safeStock                                   |
+|    10 | safeStock                                   |
++-------+---------------------------------------------+
+3 rows in set (0.00 sec)
+
+mysql&gt;
+
+</code></pre></div></div>
+
+<h2 id="26214-ifnull값1-값2">26.2.14 IFNULL(값1, 값2)</h2>
+<p>값1이 NULL이면 값2로 대치하고 그렇지 않으면 값1을 출력합니다.</p>
+
+<p>| 콘솔 실습 화면 |</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql&gt; select * from members;
++-----+----------+-----------+-------------+----------+-------+---------+-----------+-------------------+
+| Id  | LastName | FirstName | Address     | address2 | City  | Country | manager   | email             |
++-----+----------+-----------+-------------+----------+-------+---------+-----------+-------------------+
+|   1 | hojin    | lee       | shinchon    | NULL     | seoul | Korea   | infohojin | hojin@jinyphp.com |
+|   2 | lee      | hojin     | NULL        | NULL     |       | Korea   | infohojin | jiny@jinyphp.com  |
+|   3 | james    | kim       | youngdun-po | NULL     | seoul | Korea   | info      | james@jinyphp.com |
+|   5 | 1234     | jiny      | NULL        | NULL     |       | Korea   | NULL      | NULL              |
+|   6 | 1234     | jiny      | NULL        | NULL     |       | Korea   | NULL      | NULL              |
+|   7 | 123400   | jiny      | NULL        | NULL     |       | Korea   | NULL      | NULL              |
+| 100 | dfasdf   | NULL      | NULL        | NULL     |       | NULL    | NULL      | NULL              |
++-----+----------+-----------+-------------+----------+-------+---------+-----------+-------------------+
+7 rows in set (0.00 sec)
+
+mysql&gt; select email, ifnull(email,'empty') from members;
++-------------------+-----------------------+
+| email             | ifnull(email,'empty') |
++-------------------+-----------------------+
+| hojin@jinyphp.com | hojin@jinyphp.com     |
+| jiny@jinyphp.com  | jiny@jinyphp.com      |
+| james@jinyphp.com | james@jinyphp.com     |
+| NULL              | empty                 |
+| NULL              | empty                 |
+| NULL              | empty                 |
+| NULL              | empty                 |
++-------------------+-----------------------+
+7 rows in set (0.01 sec)
+
+</code></pre></div></div>
+
+        </div>
+
+        <!-- Sidebar Column -->
+        <div class="col-md-3"><ul class="list-group">
+    <li class="list-group-item"><a href="/01">데이터</a></li>
+    <li class="list-group-item"><a href="/02">MySQL 관리</a></li>
+    <li class="list-group-item"><a href="/03">SQL</a></li>
+    <li class="list-group-item"><a href="/04">연결</a></li>
+    <li class="list-group-item"><a href="/05">데이터베이스</a></li>
+    <li class="list-group-item"><a href="/06">테이블</a></li>
+    <li class="list-group-item"><a href="/07">데이터 타입</a></li>
+    <li class="list-group-item"><a href="/08">테이블 수정</a></li>
+    <li class="list-group-item"><a href="/09">속성</a></li>
+    <li class="list-group-item"><a href="/10">데이터 삽입 </a></li>
+    <li class="list-group-item"><a href="/11">데이터 조회</a></li>
+    <li class="list-group-item"><a href="/12">조건</a></li>
+    <li class="list-group-item"><a href="/13">데이터 제한</a></li>
+    <li class="list-group-item"><a href="/14">데이터의 정렬</a></li>
+    <li class="list-group-item"><a href="/15">복사</a></li>
+    <li class="list-group-item"><a href="/16">별칭</a></li>
+    <li class="list-group-item"><a href="/17">데이터 수정</a></li>
+    <li class="list-group-item"><a href="/18">데이터 삭제 </a></li>
+    <li class="list-group-item"><a href="/19">UNION</a></li>
+    <li class="list-group-item"><a href="/20">조인</a></li>
+    <li class="list-group-item"><a href="/21">뷰(VIEW)</a></li>
+    <li class="list-group-item"><a href="/22">프로시저</a></li>
+    <li class="list-group-item"><a href="/23">트리거</a></li>
+    <li class="list-group-item"><a href="/24">트랜잭션</a></li>
+    <li class="list-group-item"><a href="/25">함수</a></li>
+    <li class="list-group-item"><a href="/26">내장 함수</a></li>
+    <li class="list-group-item"><a href="/27">인젝션</a></li>
+    <li class="list-group-item"><a href="/29">권한 설정</a></li>
+</ul>
+</div>
+
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->  <!-- Footer -->
+  <footer class="py-3 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; jinydev 2017~2020</p>
+    </div>
+    <!-- /.container -->
+  </footer><!--부트스트랩4-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    </body>
+
+</html>

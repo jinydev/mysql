@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Jiny Mysql</title>
+
+        <!--부트스트랩4-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <style>
+            img {
+                max-width:100%;
+            }
+        </style>
+        
+
+    </head>
+    <body>
+        <!--네비게이션--><!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="/">Mysql</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="/setup">설치</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/part1">SQL</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/part2">DB연동</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav><nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li></ol>    
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+    <div class="row">
+
+        <!-- Post Content Column -->
+        <div class="col-lg-9">
+            <!-- Title -->
+            <h1 class="mt-4">24.4.환경 설정 변경 </h1>
+            <hr>
+            <p>트랜잭션의 명령은 DB 시스템의 커밋 상태를 임시로 변경하게 됩니다. 기본적으로 커밋 상태는 자동 모드입니다.</p>
+
+<p>트랜잭션 시작 명령 이외에도 기본적으로 동작하는 모드를 변경할 수도 있습니다.</p>
+
+<h2 id="2441-자동-커밋">24.4.1 자동 커밋</h2>
+<p>설정 명령을 통하여 자동 커밋 상태를 활성화합니다.</p>
+
+<p>| 자동 커밋 OFF |</p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SET</span> <span class="n">AUTOCOMMIT</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> 
+</code></pre></div></div>
+
+<p>콘솔에서 명령을 입력하여 커밋 모드를 변경해 보도록 합니다. 0의 값은 자동 커밋 모드 상태를 의미합니다.</p>
+
+<p>| 콘솔 실습 화면 |</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql&gt; SET AUTOCOMMIT=0;
+Query OK, 0 rows affected (0.01 sec)
+
+</code></pre></div></div>
+
+<h2 id="2442-수동-커밋">24.4.2 수동 커밋</h2>
+<p>설정 명령을 통하여 수동 커밋 상태로 활성화합니다.</p>
+
+<p>| 자동 커밋 OFF |</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>SET AUTOCOMMIT=1; 
+</code></pre></div></div>
+
+<p>콘솔에서 명령을 입력하여 커밋 모드를 변경해 보도록 합니다. 1의 값은 수동 커밋 모드 상태를 의미합니다.</p>
+
+<p>| 콘솔 실습 화면 |</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql&gt; SET AUTOCOMMIT=1;
+Query OK, 0 rows affected (0.00 sec)
+
+</code></pre></div></div>
+
+<h2 id="2443-php-실습">24.4.3 PHP 실습</h2>
+<p>PHP 코드를 통하여 커밋 모드 상태를 변경하는 메서드를 만들어 봅니다.</p>
+
+<p>| PHP 예제 | 
+mysql.class.php 파일에 메서드 예제를 추가합니다.</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="nf">autoCommit</span><span class="p">(</span><span class="nv">$mode</span><span class="p">)</span>
+<span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nv">$mode</span> <span class="o">==</span> <span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nv">$queryString</span> <span class="o">=</span> <span class="s2">"SET AUTOCOMMIT=1;"</span><span class="p">;</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                <span class="nv">$queryString</span> <span class="o">=</span> <span class="s2">"SET AUTOCOMMIT=0;"</span><span class="p">;</span>
+            <span class="p">}</span>
+
+            <span class="c1">// 쿼리를 전송합니다.</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">mysqli_query</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">dbcon</span><span class="p">,</span> <span class="nv">$queryString</span><span class="p">)</span><span class="o">===</span> <span class="k">TRUE</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="s2">"쿼리성공] "</span><span class="o">.</span><span class="nv">$queryString</span><span class="p">);</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nv">$mode</span> <span class="o">==</span> <span class="kc">true</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="s2">" 자동커밋 상태전환!"</span><span class="p">);</span>
+                <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="s2">" 자동커밋 OFF!"</span><span class="p">);</span>
+                <span class="p">}</span>
+                
+                <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="s2">"Error] "</span><span class="o">.</span><span class="nv">$queryString</span><span class="p">);</span>
+                <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+            <span class="p">}</span>
+
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+        </div>
+
+        <!-- Sidebar Column -->
+        <div class="col-md-3"><ul class="list-group">
+    <li class="list-group-item"><a href="/01">데이터</a></li>
+    <li class="list-group-item"><a href="/02">MySQL 관리</a></li>
+    <li class="list-group-item"><a href="/03">SQL</a></li>
+    <li class="list-group-item"><a href="/04">연결</a></li>
+    <li class="list-group-item"><a href="/05">데이터베이스</a></li>
+    <li class="list-group-item"><a href="/06">테이블</a></li>
+    <li class="list-group-item"><a href="/07">데이터 타입</a></li>
+    <li class="list-group-item"><a href="/08">테이블 수정</a></li>
+    <li class="list-group-item"><a href="/09">속성</a></li>
+    <li class="list-group-item"><a href="/10">데이터 삽입 </a></li>
+    <li class="list-group-item"><a href="/11">데이터 조회</a></li>
+    <li class="list-group-item"><a href="/12">조건</a></li>
+    <li class="list-group-item"><a href="/13">데이터 제한</a></li>
+    <li class="list-group-item"><a href="/14">데이터의 정렬</a></li>
+    <li class="list-group-item"><a href="/15">복사</a></li>
+    <li class="list-group-item"><a href="/16">별칭</a></li>
+    <li class="list-group-item"><a href="/17">데이터 수정</a></li>
+    <li class="list-group-item"><a href="/18">데이터 삭제 </a></li>
+    <li class="list-group-item"><a href="/19">UNION</a></li>
+    <li class="list-group-item"><a href="/20">조인</a></li>
+    <li class="list-group-item"><a href="/21">뷰(VIEW)</a></li>
+    <li class="list-group-item"><a href="/22">프로시저</a></li>
+    <li class="list-group-item"><a href="/23">트리거</a></li>
+    <li class="list-group-item"><a href="/24">트랜잭션</a></li>
+    <li class="list-group-item"><a href="/25">함수</a></li>
+    <li class="list-group-item"><a href="/26">내장 함수</a></li>
+    <li class="list-group-item"><a href="/27">인젝션</a></li>
+    <li class="list-group-item"><a href="/29">권한 설정</a></li>
+</ul>
+</div>
+
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->  <!-- Footer -->
+  <footer class="py-3 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; jinydev 2017~2020</p>
+    </div>
+    <!-- /.container -->
+  </footer><!--부트스트랩4-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    </body>
+
+</html>

@@ -1,0 +1,171 @@
+I"�2<h1 id="231트리거-생성">23.1.트리거 생성</h1>
+<p>트리거의 선언은 CREATE TRIGGER 명령을 통하여 생성합니다. 트리거는 쿼리 명령에 대해서 트랩을 설정하는 것과 유사합니다. 트리거를 명령 실행 전에 설정할 수도 있고, 명령이 실행 후에 동작을 하도록 선언할 수 있습니다.</p>
+
+<p>| 쿼리 문법 |</p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="k">TRIGGER</span> <span class="err">트리거명</span> <span class="k">BEFORE</span><span class="o">/</span><span class="k">AFTER</span> <span class="err">명령</span> <span class="err">키워드</span> <span class="k">ON</span> <span class="err">테이블명</span> <span class="k">FOR</span> <span class="k">EACH</span> <span class="k">ROW</span> <span class="k">BEGIN</span> 
+<span class="err">처리할</span> <span class="err">내용</span> 
+<span class="k">END</span> 
+</code></pre></div></div>
+
+<h4 id="beforeafter">BEFORE/AFTER</h4>
+<p>BEFORE/AFTER는 뒤에 있는 쿼리 명령 전에 작업할 것인지, 이후에 작업을 할 것인지 를 선택하는 키워드입니다. BEFORE를 입력하면 명령 전에 작업합니다. AFTER를 입력 하면 명령 후에 작업합니다.</p>
+
+<h4 id="old-new">OLD. NEW.</h4>
+<p>트리거는 명령 키워드로 인하여 변경되는 데이터를 접근할 수 있습니다. 명령 전의 데이 터 값은 OLD. 컬럼으로, 명령 후의 데이터 값은 NEW. 컬럼으로 확인할 수 있습니다.</p>
+
+<h2 id="2311-쿼리-실습">23.1.1 쿼리 실습</h2>
+<p>트리거에 대한 쿼리 실습을 합니다. 회원 테이블에서 회원을 삭제할 경우 삭제된 회원을 다른 테이블에 백업 저장하는 예제입니다.</p>
+
+<p>| 예제 쿼리 |</p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="k">TRIGGER</span> <span class="n">backup_mem</span> <span class="k">BEFORE</span> <span class="k">DELETE</span> <span class="k">ON</span> <span class="n">members</span> <span class="k">FOR</span> <span class="k">EACH</span> <span class="k">ROW</span> <span class="k">BEGIN</span> <span class="k">INSERT</span> <span class="k">INTO</span> <span class="n">members1</span> <span class="p">(</span><span class="n">FirstName</span><span class="p">,</span><span class="n">LastName</span><span class="p">)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="k">OLD</span><span class="p">.</span><span class="n">FirstName</span><span class="p">,</span> <span class="k">OLD</span><span class="p">.</span> <span class="n">LastName</span><span class="p">);</span> <span class="k">END</span> 
+</code></pre></div></div>
+
+<p>위의 백업 트리거는 회원 정보의 백업입니다. 데이터가 삭제된 이후에 백업할 수는 없기 때문에 BEFORE로 지정하여 삭제 명령 전에 데이터를 백업하고 실제 데이터를 테이블에 서 삭제합니다.</p>
+
+<p>| 콘솔 실습 화면 |</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql&gt; DELIMITER //
+mysql&gt; CREATE TRIGGER backup_mem BEFORE DELETE
+    -&gt; ON members FOR EACH ROW
+    -&gt; BEGIN
+    -&gt; INSERT INTO members1 (FirstName,LastName) VALUES (OLD.FirstName, OLD.LastName);
+    -&gt; END
+    -&gt; //
+Query OK, 0 rows affected (0.02 sec)
+mysql&gt; DELIMITER ;
+
+</code></pre></div></div>
+
+<p>members 테이블에 대해서 DELETE 동작에 대한 트리거를 설정합니다. 트리거 동작은 DELETE 동작이 실행되기 전(BEFORE)에 동작됩니다. 트리거의 이름은 backup_mem입 
+니다.</p>
+
+<p>members 테이블의 데이터를 삭제 명령을 입력하게 되면 삭제가 되기 전에 백업 테이블 members1에 회원 정보를 복사한 후에 삭제합니다. 먼저 members와 members1의 테 
+이블 내용을 확인해 봅니다.</p>
+
+<p>| 콘솔 실습 화면 |</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql&gt; select * from members;
++----+----------+-----------+-------------+-------+---------+-----------+-------------------+
+| Id | LastName | FirstName | Address     | City  | Country | manager   | email             |
++----+----------+-----------+-------------+-------+---------+-----------+-------------------+
+|  1 | hojin    | lee       | shinchon    | seoul | korea   | infohojin | hojin@jinyphp.com |
+|  2 | jiny     | NULL      | NULL        | NULL  | korea   | infohojin | jiny@jinyphp.com  |
+|  3 | james    | kim       | youngdun-po | seoul | korea   | info      | james@jinyphp.com |
+|  4 | eric     | jung      | seocho-gu   | busan | korea   | info      | eric@jinyphp.com  |
++----+----------+-----------+-------------+-------+---------+-----------+-------------------+
+4 rows in set (0.01 sec)
+
+mysql&gt; select * from members1;
++----+----------+-----------+-------------+-------+---------+
+| Id | LastName | FirstName | Address     | City  | Country |
++----+----------+-----------+-------------+-------+---------+
+|  1 | hojin    | lee       | shinchon    | seoul | korea   |
+|  2 | jiny     | NULL      | NULL        | NULL  | korea   |
+|  3 | james    | kim       | youngdun-po | seoul | korea   |
++----+----------+-----------+-------------+-------+---------+
+3 rows in set (0.00 sec)
+
+</code></pre></div></div>
+
+<p>members 테이블에는 4개의 데이터가 있고, 백업 테이블인 members1에는 3개의 데이 터가 있습니다. 트리거 설정을 통하여 데이터를 삭제해 봅니다.</p>
+
+<p>| 콘솔 실습 화면 |</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql&gt; delete from members where Id=4;
+Query OK, 1 row affected (0.00 sec)
+
+</code></pre></div></div>
+
+<p>삭제 명령 실행 후의 테이블의 내용을 다시 한번 확인해 봅니다.</p>
+
+<p>| 콘솔 실습 화면 |</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql&gt; select * from members;
++----+----------+-----------+-------------+-------+---------+-----------+-------------------+
+| Id | LastName | FirstName | Address     | City  | Country | manager   | email             |
++----+----------+-----------+-------------+-------+---------+-----------+-------------------+
+|  1 | hojin    | lee       | shinchon    | seoul | korea   | infohojin | hojin@jinyphp.com |
+|  2 | jiny     | NULL      | NULL        | NULL  | korea   | infohojin | jiny@jinyphp.com  |
+|  3 | james    | kim       | youngdun-po | seoul | korea   | info      | james@jinyphp.com |
++----+----------+-----------+-------------+-------+---------+-----------+-------------------+
+3 rows in set (0.00 sec)
+
+mysql&gt; select * from members1;
++----+----------+-----------+-------------+-------+---------+
+| Id | LastName | FirstName | Address     | City  | Country |
++----+----------+-----------+-------------+-------+---------+
+|  1 | hojin    | lee       | shinchon    | seoul | korea   |
+|  2 | jiny     | NULL      | NULL        | NULL  | korea   |
+|  3 | james    | kim       | youngdun-po | seoul | korea   |
+|  0 | eric     | jung      | NULL        | NULL  | NULL    |
++----+----------+-----------+-------------+-------+---------+
+4 rows in set (0.00 sec)
+
+</code></pre></div></div>
+
+<p>members 테이블에서 회원 아이디 4를 삭제합니다. 정상적으로 삭제가 되어 members 테이블의 회원 목록은 3명으로 줄어들었습니다. 하지만 members 테이블은 DELETE에 대한 트리거가 설정되어 있기 때문에 실제적인 DELETE 작업을 하기 전에 지정한 백업 쿼리가 먼저 실행됩니다.</p>
+
+<p>members 테이블에서 삭제되는 회원을 membets1에 복사를 처리한 후에 요청한 삭제 쿼리를 실행하게 됩니다.</p>
+
+<h2 id="2312-php-실습">23.1.2 PHP 실습</h2>
+<p>PHP 코드를 통하여 트리거 실습을 진행해 봅니다.</p>
+
+<p>| PHP 예제 | 
+mysql.class.php 파일에 메서드 예제를 추가합니다.</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="nf">createTrigger</span><span class="p">(</span><span class="nv">$queryTrigger</span><span class="p">)</span>
+<span class="p">{</span>
+            <span class="nv">$queryString</span> <span class="o">=</span> <span class="s2">"DELIMITER //"</span><span class="p">;</span>
+            <span class="nx">mysqli_query</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">dbcon</span><span class="p">,</span> <span class="nv">$queryString</span><span class="p">);</span>
+            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="nv">$queryString</span> <span class="p">);</span>
+
+            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="nv">$queryTrigger</span><span class="p">);</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">mysqli_query</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">dbcon</span><span class="p">,</span> <span class="nv">$queryTrigger</span><span class="p">)</span><span class="o">===</span> <span class="k">TRUE</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="s2">"트리거 성공] "</span><span class="o">.</span><span class="nv">$queryTrigger</span><span class="p">);</span>
+
+                <span class="nv">$queryString</span> <span class="o">=</span> <span class="s2">"DELIMITER ;"</span><span class="p">;</span>
+                <span class="nx">mysqli_query</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">dbcon</span><span class="p">,</span> <span class="nv">$queryString</span><span class="p">);</span>
+                <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="nv">$queryString</span> <span class="p">);</span>
+
+                <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="s2">"Error] 트리거 생성 실패!"</span><span class="p">);</span>
+                <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+            <span class="p">}</span>
+
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<p>예제 파일 | tri-01.php</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+
+	<span class="k">include</span> <span class="s2">"dbinfo.php"</span><span class="p">;</span>
+	<span class="k">include</span> <span class="s2">"mysql.class.php"</span><span class="p">;</span>
+ 
+	<span class="c1">// ++ Mysqli DB 연결.</span>
+	<span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">JinyMysql</span><span class="p">();</span>
+
+	<span class="nv">$queryTrigger</span> <span class="o">=</span> <span class="s2">"
+        CREATE TRIGGER backup_mem BEFORE DELETE
+        ON members FOR EACH ROW
+        BEGIN
+            INSERT INTO members1 (FirstName,LastName) VALUES (OLD.FirstName, OLD.LastName);
+        END"</span><span class="p">;</span>
+
+	<span class="k">if</span> <span class="p">(</span><span class="nv">$db</span><span class="o">-&gt;</span><span class="na">createTrigger</span><span class="p">(</span><span class="nv">$queryTrigger</span><span class="p">)){</span>
+		<span class="k">echo</span> <span class="s2">"Trigger 성공!"</span><span class="p">;</span>
+	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+		<span class="k">echo</span> <span class="s2">"트리거를 생성이 되지 않았습니다."</span><span class="p">;</span>
+	<span class="p">}</span>  
+ 
+<span class="cp">?&gt;</span>
+
+</code></pre></div></div>
+
+<p>화면 출력</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql connected!
+DELIMITER //
+CREATE TRIGGER backup_mem BEFORE DELETE ON members FOR EACH ROW BEGIN INSERT INTO members1 (FirstName,LastName) VALUES (OLD.FirstName, OLD.LastName); END
+트리거 성공] CREATE TRIGGER backup_mem BEFORE DELETE ON members FOR EACH ROW BEGIN INSERT INTO members1 (FirstName,LastName) VALUES (OLD.FirstName, OLD.LastName); END
+DELIMITER ;
+Trigger 성공!
+
+</code></pre></div></div>
+:ET

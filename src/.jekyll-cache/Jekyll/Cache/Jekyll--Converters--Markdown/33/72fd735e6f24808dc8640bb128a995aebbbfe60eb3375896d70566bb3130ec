@@ -1,0 +1,12 @@
+I":<h1 id="214뷰-조건-일치">21.4.뷰 조건 일치</h1>
+<p>VIEW 가상 테이블의 일부는 간단한 where 절을 포함한 조건일 수 있습니다. 이러한 가 상 테이블은 데이터를 삽입할 수 있는데 where 절과는 상관없이 데이터를 입력할 수 있 습니다.</p>
+
+<p>만일 WHERE 조건문이 맞지 않는 데이터를 삽입하고자 할 경우에는 다음과 같이 WITH CHECK OPTION 명령을 통하여 데이터 입력을 필터링할 수 있습니다.</p>
+
+<p>| 쿼리 문법 |</p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="k">VIEW</span> <span class="n">view_name</span> <span class="k">AS</span> <span class="k">SELECT</span> <span class="n">column1</span><span class="p">,</span> <span class="n">column2</span><span class="p">,</span> <span class="err">…</span> <span class="k">FROM</span> <span class="k">table_name</span> <span class="k">WHERE</span> <span class="n">condition</span> 
+<span class="k">WITH</span> <span class="k">CHECK</span> <span class="k">OPTION</span><span class="p">;</span> 
+</code></pre></div></div>
+
+<p>VIEW를 생성 시에 WITH CHECK OPTION 키워드를 추가하면 VIEW에 데이터를 입 력할 때 조건이 일하지 않으면 오류를 발생합니다.</p>
+:ET

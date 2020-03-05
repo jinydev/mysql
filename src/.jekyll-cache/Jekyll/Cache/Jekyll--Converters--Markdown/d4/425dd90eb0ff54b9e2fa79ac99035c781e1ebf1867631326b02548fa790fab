@@ -1,0 +1,83 @@
+I"R<h1 id="096자동-증가--auto-increment">09.6.자동 증가 -AUTO INCREMENT</h1>
+<p>자동 증가 컬럼은 테이블의 새로운 데이터가 추가될 때마다 컬럼의 값을 자동으로 증가시 키는 속성입니다. 자동 증가 속성은 프라이머리 키 속성과 함께 자주 사용합니다. 또한 자 동 증가 컬럼은 UNIQUE 데이터가 들어가는 속성을 가집니다.</p>
+
+<h2 id="0961-쿼리-실습">09.6.1 쿼리 실습</h2>
+<p>자동 증가 속성은 컬럼의 타입이 INT, TINYINT, SMALLINT형의 정수형 데이터 타입이 어야 합니다.</p>
+
+<p>| 예제 쿼리 |</p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="n">members</span> <span class="p">(</span>
+<span class="n">Id</span> <span class="nb">int</span> <span class="k">NOT</span> <span class="k">NULL</span> <span class="n">AUTO_INCREMENT</span><span class="p">,</span>
+<span class="n">LastName</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span><span class="p">,</span>
+<span class="n">FirstName</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span>
+<span class="k">PRIMARY</span> <span class="k">KEY</span> <span class="p">(</span><span class="n">Id</span><span class="p">)</span>
+<span class="p">);</span>
+
+</code></pre></div></div>
+
+<h4 id="자동-증가-값-초기화">자동 증가 값 초기화</h4>
+<p>자동으로 증가되는 AUTO_INCREAMENT 속성은 새로운 데이터를 신규로 입력할 때 +1씩 증가합니다. + 1씩 증가되는 카운트 값은 별도로 유지됩니다. 이전에 입력된 데이터 를 삭제하더라도 자동 증가되는 값에는 변화가 없습니다. 자동 증가 값은 INSERT 등의 데이터를 추가할 때만 변동됩니다. 
+만일 현재 유지되고 있는 자동 증가 값을 변경하고 싶을 경우에는 ALTER 키워드를 통하 여 자동 증가 값을 초기화할 수 있습니다.</p>
+
+<p>| 예제 쿼리 |</p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">members</span> <span class="n">AUTO_INCREMENT</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> 
+</code></pre></div></div>
+
+<h2 id="0962-php-실습">09.6.2 PHP 실습</h2>
+<p>PHP 코드를 통하여 자동 증가 속성을 처리해 보도록 합니다.</p>
+
+<p>| PHP 예제 | 
+mysql.class.php 파일에 메서드 예제를 추가합니다.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="nf">autoIncrementClear</span><span class="p">(</span><span class="nv">$tbname</span><span class="p">,</span><span class="nv">$inc</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nv">$tbname</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nv">$queryString</span> <span class="o">=</span> <span class="s2">"ALTER TABLE </span><span class="nv">$tbname</span><span class="s2"> AUTO_INCREMENT=</span><span class="nv">$inc</span><span class="s2">;"</span><span class="p">;</span>
+
+                <span class="c1">// 쿼리를 전송합니다.</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nx">mysqli_query</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">dbcon</span><span class="p">,</span> <span class="nv">$queryString</span><span class="p">)</span><span class="o">===</span> <span class="k">TRUE</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="s2">"쿼리성공] "</span><span class="o">.</span><span class="nv">$queryString</span><span class="p">);</span>
+                    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="s2">" 자동증가값 초기화!"</span><span class="p">);</span>
+
+                    <span class="k">return</span> <span class="kc">true</span><span class="p">;</span> 
+
+                <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="s2">"Error] "</span><span class="o">.</span><span class="nv">$queryString</span><span class="p">);</span>
+                    <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+                <span class="p">}</span>                
+            
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+               <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="s2">"Error] 테이블 이름이 없습니다."</span><span class="p">);</span>
+               <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+            <span class="p">}</span>
+
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<p>예제 파일 | attr-04.php</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+ 
+	<span class="k">include</span> <span class="s2">"dbinfo.php"</span><span class="p">;</span>
+	<span class="k">include</span> <span class="s2">"mysql.class.php"</span><span class="p">;</span>
+ 
+	<span class="c1">// ++ Mysqli DB 연결.</span>
+	<span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">JinyMysql</span><span class="p">();</span>
+ 
+	<span class="nv">$tbname</span> <span class="o">=</span> <span class="s2">"members"</span><span class="p">;</span>
+    
+	<span class="c1">// 테이블 자동증가 값을 초기화 합니다.</span>
+	<span class="nv">$db</span><span class="o">-&gt;</span><span class="na">autoIncrementClear</span><span class="p">(</span><span class="nv">$tbname</span><span class="p">,</span><span class="s2">"100"</span><span class="p">);</span>
+ 
+<span class="cp">?&gt;</span>
+
+</code></pre></div></div>
+
+<p>화면 출력</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql connected!
+쿼리성공] ALTER TABLE members AUTO_INCREMENT=100;
+자동증가값 초기화!
+
+</code></pre></div></div>
+
+<p>100으로 초기화하면 앞으로 입력되는 자동 증가 값은 100부터 시작합니다.</p>
+:ET

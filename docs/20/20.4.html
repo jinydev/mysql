@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Jiny Mysql</title>
+
+        <!--부트스트랩4-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <style>
+            img {
+                max-width:100%;
+            }
+        </style>
+        
+
+    </head>
+    <body>
+        <!--네비게이션--><!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="/">Mysql</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="/setup">설치</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/part1">SQL</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/part2">DB연동</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav><nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li></ol>    
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+    <div class="row">
+
+        <!-- Post Content Column -->
+        <div class="col-lg-9">
+            <!-- Title -->
+            <h1 class="mt-4">20.4.RIGHT 조인 </h1>
+            <hr>
+            <p>RIGHT 조인은 오른쪽의 테이블의 데이터를 기준으로 왼쪽의 테이블을 결합합니다. 출 력 결과는 오른쪽의 데이터를 모두 출력하고, 일치하는 왼쪽 데이터를 추가합니다.</p>
+
+<p>| 쿼리 문법 |</p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="err">컬럼</span><span class="mi">1</span><span class="p">,</span> <span class="err">컬럼</span><span class="mi">2</span><span class="p">,</span> <span class="err">컬럼</span><span class="mi">3</span><span class="p">,</span> <span class="err">…</span> <span class="k">from</span> <span class="err">테이블</span><span class="mi">1</span> 
+<span class="k">RIGHT</span> <span class="k">JOIN</span> 
+<span class="err">테이블</span><span class="mi">2</span> <span class="k">ON</span> <span class="err">테이블</span><span class="mi">1</span><span class="p">.</span><span class="err">컬럼</span> <span class="o">=</span><span class="err">테이블</span><span class="mi">2</span><span class="p">.</span><span class="err">컬럼</span> 
+</code></pre></div></div>
+
+<h2 id="2041-쿼리-실습">20.4.1 쿼리 실습</h2>
+<p>RIGHT 조인 명령을 통하여 일치하는 데이터를 출력해 보도록 하겠습니다.</p>
+
+<p>| 예제 쿼리 |</p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">a</span><span class="p">.</span><span class="n">FirstName</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">LastName</span><span class="p">,</span> <span class="n">b</span><span class="p">.</span><span class="n">code</span><span class="p">,</span> <span class="n">b</span><span class="p">.</span><span class="n">email</span> <span class="k">from</span> <span class="n">members</span> <span class="k">AS</span> <span class="n">a</span> <span class="k">RIGHT</span> <span class="k">JOIN</span> <span class="n">orders1</span> <span class="k">as</span> <span class="n">b</span> <span class="k">ON</span> <span class="n">a</span><span class="p">.</span><span class="n">email</span><span class="o">=</span><span class="n">b</span><span class="p">.</span><span class="n">email</span><span class="p">;</span> 
+</code></pre></div></div>
+
+<p>| 콘솔 실습 화면 |</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql&gt; SELECT a.FirstName, a.LastName, b.code, b.email from members AS a RIGHT JOIN orders1 as b ON a.email=b.email;
++-----------+----------+-------+-------------------+
+| FirstName | LastName | code  | email             |
++-----------+----------+-------+-------------------+
+| lee       | hojin    | O_001 | hojin@jinyphp.com |
+| lee       | hojin    | O_002 | hojin@jinyphp.com |
+| jung      | eric     | O_003 | eric@jinyphp.com  |
+| NULL      | NULL     | O_004 | NULL              |
+| NULL      | NULL     | O_005 | NULL              |
+| NULL      | NULL     | O_006 | NULL              |
+| NULL      | NULL     | O_007 | NULL              |
+| NULL      | NULL     | O_008 | NULL              |
+| NULL      | NULL     | O_009 | NULL              |
+| NULL      | NULL     | O_010 | NULL              |
++-----------+----------+-------+-------------------+
+10 rows in set (0.00 sec)
+
+</code></pre></div></div>
+
+<h2 id="2042-php-실습">20.4.2 PHP 실습</h2>
+<p>PHP 코드를 통하여 RIGHT 조인을 실습해 보도록 하겠습니다.</p>
+
+<p>| PHP 예제 | 
+mysql.class.php 파일에 메서드 예제를 추가합니다.</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// RIGHT 조인을 처리합니다.</span>
+<span class="k">public</span> <span class="k">function</span> <span class="nf">rightJoin</span><span class="p">(</span><span class="nv">$tbname1</span><span class="p">,</span> <span class="nv">$tbname2</span><span class="p">,</span> <span class="nv">$onWhere</span><span class="p">,</span> <span class="nv">$fields</span><span class="p">)</span>
+<span class="p">{</span>
+            <span class="nv">$queryString</span> <span class="o">=</span> <span class="s2">"SELECT "</span><span class="p">;</span>
+
+            <span class="c1">// 컬럼필드 선택여부를 지정</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nv">$fields</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nv">$queryString</span> <span class="o">.=</span> <span class="nv">$fields</span><span class="o">.</span><span class="s2">" "</span><span class="p">;</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                <span class="nv">$queryString</span> <span class="o">.=</span> <span class="s2">"* "</span><span class="p">;</span> 
+            <span class="p">}</span>
+
+            <span class="nv">$queryString</span> <span class="o">.=</span> <span class="s2">"from </span><span class="nv">$tbname1</span><span class="s2"> LEFT JOIN </span><span class="nv">$tbname2</span><span class="s2"> ON </span><span class="nv">$onWhere</span><span class="s2">"</span><span class="p">;</span> 
+
+            <span class="k">if</span> <span class="p">(</span><span class="nv">$result</span> <span class="o">=</span> <span class="nx">mysqli_query</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">dbcon</span><span class="p">,</span> <span class="nv">$queryString</span><span class="p">))</span> <span class="p">{</span>
+                <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="s2">"쿼리성공] "</span><span class="o">.</span><span class="nv">$queryString</span><span class="p">);</span>
+                <span class="nv">$rowss</span> <span class="o">=</span> <span class="s2">""</span><span class="p">;</span>
+                <span class="nv">$row_cnt</span> <span class="o">=</span> <span class="nx">mysqli_num_rows</span><span class="p">(</span><span class="nv">$result</span><span class="p">);</span>
+                <span class="k">for</span> <span class="p">(</span><span class="nv">$i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nv">$i</span><span class="o">&lt;</span><span class="nv">$row_cnt</span><span class="p">;</span> <span class="nv">$i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nv">$rowss</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span> <span class="o">=</span> <span class="nx">mysqli_fetch_object</span><span class="p">(</span><span class="nv">$result</span><span class="p">);</span>
+                <span class="p">}</span>
+
+                <span class="nv">$result</span><span class="o">-&gt;</span><span class="na">free</span><span class="p">();</span>
+                <span class="k">return</span> <span class="nv">$rowss</span><span class="p">;</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="s2">"Error] "</span><span class="o">.</span><span class="nv">$queryString</span><span class="p">);</span>
+            <span class="p">}</span> 
+
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<p>예제 파일 | join-03.php</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+
+	<span class="k">include</span> <span class="s2">"dbinfo.php"</span><span class="p">;</span>
+	<span class="k">include</span> <span class="s2">"mysql.class.php"</span><span class="p">;</span>
+ 
+	<span class="c1">// ++ Mysqli DB 연결.</span>
+	<span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">JinyMysql</span><span class="p">();</span>
+
+	<span class="k">if</span> <span class="p">(</span><span class="nv">$rowss</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">rightJoin</span><span class="p">(</span><span class="s2">"members"</span><span class="p">,</span><span class="s2">"orders"</span><span class="p">,</span><span class="s2">"members.email=orders.email"</span><span class="p">))</span> <span class="p">{</span>
+		<span class="k">echo</span> <span class="s2">"tables fields = "</span><span class="o">.</span> <span class="nb">count</span><span class="p">(</span><span class="nv">$rowss</span><span class="p">)</span> <span class="o">.</span> <span class="s2">"&lt;br&gt;"</span><span class="p">;</span>
+ 
+		<span class="k">for</span> <span class="p">(</span><span class="nv">$i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="nv">$i</span><span class="o">&lt;</span><span class="nb">count</span><span class="p">(</span><span class="nv">$rowss</span><span class="p">);</span><span class="nv">$i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+			<span class="k">echo</span> <span class="nv">$i</span><span class="o">.</span><span class="s2">"="</span><span class="p">;</span>            
+			<span class="nb">print_r</span><span class="p">(</span><span class="nv">$rowss</span><span class="p">[</span><span class="nv">$i</span><span class="p">]);</span>
+			<span class="k">echo</span> <span class="s2">"&lt;br&gt;"</span><span class="p">;</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+
+<span class="cp">?&gt;</span>
+
+</code></pre></div></div>
+
+<p>화면 출력</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql connected!
+쿼리성공] SELECT * from members LEFT JOIN orders ON members.email=orders.email
+tables fields = 7
+0=stdClass Object ( [Id] =&gt; 1 [LastName] =&gt; hojin [FirstName] =&gt; lee [Address] =&gt; shinchon [City] =&gt; seoul [Country] =&gt; Korea [manager] =&gt; infohojin [email] =&gt; hojin@jinyphp.com [code] =&gt; O_001 )
+1=stdClass Object ( [Id] =&gt; 2 [LastName] =&gt; hojin [FirstName] =&gt; lee [Address] =&gt; shinchon [City] =&gt; seoul [Country] =&gt; Korea [manager] =&gt; infohojin [email] =&gt; hojin@jinyphp.com [code] =&gt; O_002 )
+2=stdClass Object ( [Id] =&gt; [LastName] =&gt; lee [FirstName] =&gt; hojin [Address] =&gt; [City] =&gt; [Country] =&gt; Korea [manager] =&gt; infohojin [email] =&gt; [code] =&gt; )
+3=stdClass Object ( [Id] =&gt; [LastName] =&gt; james [FirstName] =&gt; kim [Address] =&gt; youngdun-po [City] =&gt; seoul [Country] =&gt; Korea [manager] =&gt; info [email] =&gt; [code] =&gt; )
+4=stdClass Object ( [Id] =&gt; [LastName] =&gt; 1234 [FirstName] =&gt; jiny [Address] =&gt; [City] =&gt; [Country] =&gt; Korea [manager] =&gt; [email] =&gt; [code] =&gt; )
+5=stdClass Object ( [Id] =&gt; [LastName] =&gt; 1234 [FirstName] =&gt; jiny [Address] =&gt; [City] =&gt; [Country] =&gt; Korea [manager] =&gt; [email] =&gt; [code] =&gt; )
+6=stdClass Object ( [Id] =&gt; [LastName] =&gt; 123400 [FirstName] =&gt; jiny [Address] =&gt; [City] =&gt; [Country] =&gt; Korea [manager] =&gt; [email] =&gt; [code] =&gt; ) 
+
+</code></pre></div></div>
+
+        </div>
+
+        <!-- Sidebar Column -->
+        <div class="col-md-3"><ul class="list-group">
+    <li class="list-group-item"><a href="/01">데이터</a></li>
+    <li class="list-group-item"><a href="/02">MySQL 관리</a></li>
+    <li class="list-group-item"><a href="/03">SQL</a></li>
+    <li class="list-group-item"><a href="/04">연결</a></li>
+    <li class="list-group-item"><a href="/05">데이터베이스</a></li>
+    <li class="list-group-item"><a href="/06">테이블</a></li>
+    <li class="list-group-item"><a href="/07">데이터 타입</a></li>
+    <li class="list-group-item"><a href="/08">테이블 수정</a></li>
+    <li class="list-group-item"><a href="/09">속성</a></li>
+    <li class="list-group-item"><a href="/10">데이터 삽입 </a></li>
+    <li class="list-group-item"><a href="/11">데이터 조회</a></li>
+    <li class="list-group-item"><a href="/12">조건</a></li>
+    <li class="list-group-item"><a href="/13">데이터 제한</a></li>
+    <li class="list-group-item"><a href="/14">데이터의 정렬</a></li>
+    <li class="list-group-item"><a href="/15">복사</a></li>
+    <li class="list-group-item"><a href="/16">별칭</a></li>
+    <li class="list-group-item"><a href="/17">데이터 수정</a></li>
+    <li class="list-group-item"><a href="/18">데이터 삭제 </a></li>
+    <li class="list-group-item"><a href="/19">UNION</a></li>
+    <li class="list-group-item"><a href="/20">조인</a></li>
+    <li class="list-group-item"><a href="/21">뷰(VIEW)</a></li>
+    <li class="list-group-item"><a href="/22">프로시저</a></li>
+    <li class="list-group-item"><a href="/23">트리거</a></li>
+    <li class="list-group-item"><a href="/24">트랜잭션</a></li>
+    <li class="list-group-item"><a href="/25">함수</a></li>
+    <li class="list-group-item"><a href="/26">내장 함수</a></li>
+    <li class="list-group-item"><a href="/27">인젝션</a></li>
+    <li class="list-group-item"><a href="/29">권한 설정</a></li>
+</ul>
+</div>
+
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->  <!-- Footer -->
+  <footer class="py-3 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; jinydev 2017~2020</p>
+    </div>
+    <!-- /.container -->
+  </footer><!--부트스트랩4-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    </body>
+
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Jiny Mysql</title>
+
+        <!--부트스트랩4-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <style>
+            img {
+                max-width:100%;
+            }
+        </style>
+        
+
+    </head>
+    <body>
+        <!--네비게이션--><!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="/">Mysql</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="/setup">설치</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/part1">SQL</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/part2">DB연동</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav><nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li></ol>    
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+    <div class="row">
+
+        <!-- Post Content Column -->
+        <div class="col-lg-9">
+            <!-- Title -->
+            <h1 class="mt-4">06.8.테이블 데이터</h1>
+            <hr>
+            <p>데이터베이스의 테이블은 실제적인 데이터가 저장되어 있는 물리적인 파일입니다. 
+하지만 실제적인 테이블 파일을 직접 접근하여 조작할 수는 없습니다.</p>
+
+<p>테이블의 데이터를 조작하기 위해서는 데이터를 처리할 수 있는 관련 SQL 명령 쿼리를 통하여 작업을 해야만 합니다.</p>
+
+<ul>
+  <li>SELECT: 데이터를 읽고, 추출합니다.</li>
+  <li>UPDATE: 데이터를 업데이트합니다.</li>
+  <li>DELETE: 데이터를 삭제합니다.</li>
+  <li>INSERT INTO : 새로운 데이터를 삽입합니다.</li>
+  <li>CREATE DATABASE : 데이터베이스를 생성합니다.</li>
+  <li>ALTER DATABASE : 데이터베이스를 수정합니다.</li>
+  <li>CREATE TABLE : 새로운 테이블을 생성합니다.</li>
+  <li>ALTER TABLE : 테이블을 수정합니다.</li>
+  <li>DROP TABLE : 테이블을 삭제합니다.</li>
+  <li>CREATE INDEX: index를 생성합니다. (search key)</li>
+  <li>DROP INDEX: index를 삭제합니다.</li>
+</ul>
+
+<p>앞으로 위와 관련된 SQL 문법들을 하나씩 배울 것입니다.</p>
+
+
+        </div>
+
+        <!-- Sidebar Column -->
+        <div class="col-md-3"><ul class="list-group">
+    <li class="list-group-item"><a href="/01">데이터</a></li>
+    <li class="list-group-item"><a href="/02">MySQL 관리</a></li>
+    <li class="list-group-item"><a href="/03">SQL</a></li>
+    <li class="list-group-item"><a href="/04">연결</a></li>
+    <li class="list-group-item"><a href="/05">데이터베이스</a></li>
+    <li class="list-group-item"><a href="/06">테이블</a></li>
+    <li class="list-group-item"><a href="/07">데이터 타입</a></li>
+    <li class="list-group-item"><a href="/08">테이블 수정</a></li>
+    <li class="list-group-item"><a href="/09">속성</a></li>
+    <li class="list-group-item"><a href="/10">데이터 삽입 </a></li>
+    <li class="list-group-item"><a href="/11">데이터 조회</a></li>
+    <li class="list-group-item"><a href="/12">조건</a></li>
+    <li class="list-group-item"><a href="/13">데이터 제한</a></li>
+    <li class="list-group-item"><a href="/14">데이터의 정렬</a></li>
+    <li class="list-group-item"><a href="/15">복사</a></li>
+    <li class="list-group-item"><a href="/16">별칭</a></li>
+    <li class="list-group-item"><a href="/17">데이터 수정</a></li>
+    <li class="list-group-item"><a href="/18">데이터 삭제 </a></li>
+    <li class="list-group-item"><a href="/19">UNION</a></li>
+    <li class="list-group-item"><a href="/20">조인</a></li>
+    <li class="list-group-item"><a href="/21">뷰(VIEW)</a></li>
+    <li class="list-group-item"><a href="/22">프로시저</a></li>
+    <li class="list-group-item"><a href="/23">트리거</a></li>
+    <li class="list-group-item"><a href="/24">트랜잭션</a></li>
+    <li class="list-group-item"><a href="/25">함수</a></li>
+    <li class="list-group-item"><a href="/26">내장 함수</a></li>
+    <li class="list-group-item"><a href="/27">인젝션</a></li>
+    <li class="list-group-item"><a href="/29">권한 설정</a></li>
+</ul>
+</div>
+
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->  <!-- Footer -->
+  <footer class="py-3 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; jinydev 2017~2020</p>
+    </div>
+    <!-- /.container -->
+  </footer><!--부트스트랩4-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    </body>
+
+</html>

@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Jiny Mysql</title>
+
+        <!--부트스트랩4-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <style>
+            img {
+                max-width:100%;
+            }
+        </style>
+        
+
+    </head>
+    <body>
+        <!--네비게이션--><!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="/">Mysql</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="/setup">설치</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/part1">SQL</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/part2">DB연동</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav><nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li></ol>    
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+    <div class="row">
+
+        <!-- Post Content Column -->
+        <div class="col-lg-9">
+            <!-- Title -->
+            <h1 class="mt-4">16.1.명칭 변경 </h1>
+            <hr>
+            <p>별칭은 기존의 컬럼명을 다른 이름으로 임시로 바꾸어 사용할 수 있습니다. 새로운 이름 의 별칭을 정의하는 데 AS 키워드를 사용합니다.</p>
+
+<p>| 쿼리 문법 |</p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="err">컬럼명</span> <span class="k">AS</span> <span class="err">별칭</span><span class="p">,</span> <span class="err">컬럼명</span> <span class="k">AS</span> <span class="err">별칭</span><span class="p">,</span> <span class="err">…</span> <span class="k">FROM</span> <span class="err">테이블명</span><span class="p">;</span> 
+</code></pre></div></div>
+
+<p>컬럼명 뒤에 AS 키워드와 별칭명을 넣어서 SQL 쿼리문을 작성하면 됩니다.</p>
+
+<h2 id="1611-쿼리-실습">16.1.1 쿼리 실습</h2>
+<p>별칭을 사용하면 좀 더 컬럼명을 읽기 쉽게 변경하거나, 짧은 이름으로 변경할 수도 있습니다. 기존의 회원 데이터를 조회하면 다음과 같습니다.</p>
+
+<p>| 콘솔 실습 화면 |</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql&gt; select * from members;
++----+----------+-----------+-------------+-------+---------+
+| Id | LastName | FirstName | Address     | City  | Country |
++----+----------+-----------+-------------+-------+---------+
+|  1 | hojin    | lee       | shinchon    | seoul | korea   |
+|  2 | jiny     | NULL      | NULL        | NULL  | korea   |
+|  3 | james    | kim       | youngdun-po | seoul | korea   |
+|  4 | eric     | jung      | seocho-gu   | seoul | korea   |
++----+----------+-----------+-------------+-------+---------+
+4 rows in set (0.00 sec)
+
+</code></pre></div></div>
+
+<p>컬럼의 이름이 영문으로 출력됩니다. 영문 컬럼 이름을 한글 이름으로 별칭을 지정해 봅니다.</p>
+
+<p>| 예제 쿼리 |</p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">select</span> <span class="n">LastName</span> <span class="k">as</span> <span class="err">이름</span><span class="p">,</span> <span class="n">FirstName</span> <span class="k">as</span> <span class="err">성</span> <span class="k">from</span> <span class="n">members</span><span class="p">;</span> 
+</code></pre></div></div>
+
+<p>| 콘솔 실습 화면 |</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql&gt; select LastName as 이름, FirstName as 성 from members;
++--------+--------+
+| 이름   | 성   |
++--------+--------+
+| hojin  | lee    |
+| jiny   | NULL   |
+| james  | kim    |
+| eric   | jung   |
++--------+--------+
+4 rows in set (0.01 sec)
+</code></pre></div></div>
+
+<p>컬럼의 명칭이 한글로 변경되었습니다.</p>
+
+<h2 id="1612-php-실습">16.1.2 PHP 실습</h2>
+<p>PHP 코드에서도 별칭을 사용하여 쿼리를 전송하는 실습을 해봅니다.<br />
+예제 파일 | alias-01.php</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+ 
+	<span class="k">include</span> <span class="s2">"dbinfo.php"</span><span class="p">;</span>
+	<span class="k">include</span> <span class="s2">"mysql.class.php"</span><span class="p">;</span>
+ 
+	<span class="c1">// ++ Mysqli DB 연결.</span>
+	<span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">JinyMysql</span><span class="p">();</span>
+ 
+	<span class="nv">$tbname</span> <span class="o">=</span> <span class="s2">"members"</span><span class="p">;</span>
+ 
+	<span class="c1">// 컬럼 지정조회 </span>
+	<span class="k">echo</span> <span class="s2">"===== 컬럼조회 =====&lt;br&gt;"</span><span class="p">;</span>
+	<span class="k">if</span> <span class="p">(</span><span class="nv">$rowss</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">select</span><span class="p">(</span><span class="nv">$tbname</span><span class="p">,</span><span class="s2">"FirstName as 이름, LastName as 성"</span><span class="p">))</span> <span class="p">{</span>
+		<span class="k">echo</span> <span class="s2">"tables fields = "</span><span class="o">.</span> <span class="nb">count</span><span class="p">(</span><span class="nv">$rowss</span><span class="p">)</span> <span class="o">.</span> <span class="s2">"&lt;br&gt;"</span><span class="p">;</span>
+ 
+		<span class="k">for</span> <span class="p">(</span><span class="nv">$i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="nv">$i</span><span class="o">&lt;</span><span class="nb">count</span><span class="p">(</span><span class="nv">$rowss</span><span class="p">);</span><span class="nv">$i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+			<span class="k">echo</span> <span class="nv">$i</span><span class="o">.</span><span class="s2">"="</span><span class="p">;</span>            
+			<span class="nb">print_r</span><span class="p">(</span><span class="nv">$rowss</span><span class="p">[</span><span class="nv">$i</span><span class="p">]);</span>
+			<span class="k">echo</span> <span class="s2">"&lt;br&gt;"</span><span class="p">;</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+ 
+<span class="cp">?&gt;</span>
+
+</code></pre></div></div>
+
+<p>화면 출력</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql connected!
+===== 컬럼조회 =====
+쿼리성공] SELECT FirstName as 이름, LastName as 성 FROM members;
+tables fields = 6
+0=stdClass Object ( [이름] =&gt; lee [성] =&gt; hojin )
+1=stdClass Object ( [이름] =&gt; hojin [성] =&gt; lee )
+2=stdClass Object ( [이름] =&gt; kim [성] =&gt; james )
+3=stdClass Object ( [이름] =&gt; jiny [성] =&gt; 1234 )
+4=stdClass Object ( [이름] =&gt; jiny [성] =&gt; 1234 )
+5=stdClass Object ( [이름] =&gt; jiny [성] =&gt; 123400 ) 
+
+</code></pre></div></div>
+
+        </div>
+
+        <!-- Sidebar Column -->
+        <div class="col-md-3"><ul class="list-group">
+    <li class="list-group-item"><a href="/01">데이터</a></li>
+    <li class="list-group-item"><a href="/02">MySQL 관리</a></li>
+    <li class="list-group-item"><a href="/03">SQL</a></li>
+    <li class="list-group-item"><a href="/04">연결</a></li>
+    <li class="list-group-item"><a href="/05">데이터베이스</a></li>
+    <li class="list-group-item"><a href="/06">테이블</a></li>
+    <li class="list-group-item"><a href="/07">데이터 타입</a></li>
+    <li class="list-group-item"><a href="/08">테이블 수정</a></li>
+    <li class="list-group-item"><a href="/09">속성</a></li>
+    <li class="list-group-item"><a href="/10">데이터 삽입 </a></li>
+    <li class="list-group-item"><a href="/11">데이터 조회</a></li>
+    <li class="list-group-item"><a href="/12">조건</a></li>
+    <li class="list-group-item"><a href="/13">데이터 제한</a></li>
+    <li class="list-group-item"><a href="/14">데이터의 정렬</a></li>
+    <li class="list-group-item"><a href="/15">복사</a></li>
+    <li class="list-group-item"><a href="/16">별칭</a></li>
+    <li class="list-group-item"><a href="/17">데이터 수정</a></li>
+    <li class="list-group-item"><a href="/18">데이터 삭제 </a></li>
+    <li class="list-group-item"><a href="/19">UNION</a></li>
+    <li class="list-group-item"><a href="/20">조인</a></li>
+    <li class="list-group-item"><a href="/21">뷰(VIEW)</a></li>
+    <li class="list-group-item"><a href="/22">프로시저</a></li>
+    <li class="list-group-item"><a href="/23">트리거</a></li>
+    <li class="list-group-item"><a href="/24">트랜잭션</a></li>
+    <li class="list-group-item"><a href="/25">함수</a></li>
+    <li class="list-group-item"><a href="/26">내장 함수</a></li>
+    <li class="list-group-item"><a href="/27">인젝션</a></li>
+    <li class="list-group-item"><a href="/29">권한 설정</a></li>
+</ul>
+</div>
+
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->  <!-- Footer -->
+  <footer class="py-3 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; jinydev 2017~2020</p>
+    </div>
+    <!-- /.container -->
+  </footer><!--부트스트랩4-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    </body>
+
+</html>

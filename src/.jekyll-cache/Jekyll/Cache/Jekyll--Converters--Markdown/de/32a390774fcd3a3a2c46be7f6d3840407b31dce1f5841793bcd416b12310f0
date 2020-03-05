@@ -1,0 +1,173 @@
+I"�<<h2 id="172조건-데이터-수정">17.2.조건 데이터 수정</h2>
+<p>데이터를 수정하는 UPDATE 쿼리는 테이블 컬럼의 전체를 수정하게 됩니다. 전체의 수 정을 할 필요성도 있겠지만 이런 작업들은 많지 않습니다. 즉, 전체를 수정한다는 것은 다 른 데이터들을 잃게 되는 손실이 발생할 수 있습니다. 수정된 작업은 다시 되돌릴 수 없습니다.</p>
+
+<p>일반적으로 UPDATE 문법은 조건 WHERE문과 함께 사용합니다. 특정 데이터를 조건으 로 찾아서 데이터를 변경합니다.</p>
+
+<p>| 쿼리 문법 |</p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">UPDATE</span> <span class="err">테이블명</span> <span class="k">SET</span> <span class="err">컬럼명</span><span class="o">=</span><span class="n">value</span><span class="p">,</span> <span class="err">컬럼명</span><span class="o">=</span><span class="n">value</span><span class="p">,...</span> <span class="k">WHERE</span> <span class="err">조건</span> <span class="err">컬럼명</span><span class="o">=</span><span class="err">조건</span> <span class="err">값</span> 
+</code></pre></div></div>
+
+<h3 id="1721-쿼리-실습">17.2.1 쿼리 실습</h3>
+<p>테이블의 데이터를 수정할 때는 선택적으로 데이터 열을 지정해야 합니다. 데이터의 열을 지정할 때 많이 이용하는 것이 테이블의 프라이머리 키입니다. 프라이머리 키는 테이블의 
+각각의 데이터로 중복되지 않은 고유의 키입니다.</p>
+
+<p>| 예제 쿼리 |</p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">update</span> <span class="n">members</span> <span class="k">set</span> <span class="n">City</span><span class="o">=</span><span class="s1">'busan'</span> <span class="k">where</span> <span class="n">Id</span><span class="o">=</span><span class="mi">4</span><span class="p">;</span> 
+</code></pre></div></div>
+
+<p>위의 쿼리처럼 Id 프라이머리 키를 이용하면 무난하게 데이터 1개의 열을 지정할 수 있습니다.</p>
+
+<p>| 콘솔 실습 화면 |</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql&gt; update members set City='busan' where Id=4;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+</code></pre></div></div>
+
+<p>UPDATE를 통하여 하나하나 데이터를 변경할 때는 Primary Key 값인 Id 를 사용하면 좋습니다. 만일, 다수의 데이터를 변경할 때는 다른 조건 값을 같이 사용하면 편리합니다.</p>
+
+<p>| 콘솔 실습 화면 |</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql&gt; select * from members;
++----+----------+-----------+-------------+-------+---------+
+| Id | LastName | FirstName | Address     | City  | Country |
++----+----------+-----------+-------------+-------+---------+
+|  1 | hojin    | lee       | shinchon    | seoul | korea   |
+|  2 | jiny     | NULL      | NULL        | NULL  | korea   |
+|  3 | james    | kim       | youngdun-po | seoul | korea   |
+|  4 | eric     | jung      | seocho-gu   | busan | korea   |
++----+----------+-----------+-------------+-------+---------+
+4 rows in set (0.00 sec)
+
+</code></pre></div></div>
+
+<p>위의 예제는 Id=4인 회원의 도시를 변경하는 것입니다.</p>
+
+<h3 id="1722-php-실습">17.2.2 PHP 실습</h3>
+<p>PHP 코드를 통하여 데이터를 변경하는 실습을 해 봅니다.</p>
+
+<p>| PHP 예제 | 
+mysql.class.php 파일에 메서드 예제를 추가합니다.</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// array 배열기반 update 쿼리를 생성합니다.</span>
+<span class="k">public</span> <span class="k">function</span> <span class="nf">arrQueryUpdate</span><span class="p">(</span><span class="nv">$tbname</span><span class="p">,</span> <span class="nv">$arr</span><span class="p">)</span>
+<span class="p">{</span>
+            <span class="nv">$queryString</span> <span class="o">=</span> <span class="s2">"UPDATE </span><span class="nv">$tbname</span><span class="s2"> SET "</span><span class="p">;</span>
+
+            <span class="nv">$arrKey</span> <span class="o">=</span> <span class="nb">array_keys</span><span class="p">(</span><span class="nv">$arr</span><span class="p">);</span>
+            <span class="k">for</span> <span class="p">(</span><span class="nv">$i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="nv">$i</span><span class="o">&lt;</span><span class="nb">count</span><span class="p">(</span><span class="nv">$arr</span><span class="p">);</span><span class="nv">$i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                <span class="c1">// $key = $arr[$i];</span>
+                <span class="k">echo</span> <span class="nv">$arrKey</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span><span class="o">.</span><span class="s2">"&lt;br&gt;"</span><span class="p">;</span>
+                <span class="nv">$key</span> <span class="o">=</span> <span class="nv">$arrKey</span><span class="p">[</span><span class="nv">$i</span><span class="p">];</span>
+                <span class="nv">$queryString</span> <span class="o">.=</span> <span class="s2">"`"</span><span class="o">.</span><span class="nv">$key</span><span class="o">.</span><span class="s2">"`='"</span><span class="o">.</span><span class="nv">$arr</span><span class="p">[</span><span class="nv">$key</span><span class="p">]</span><span class="o">.</span><span class="s2">"',"</span><span class="p">;</span>
+            <span class="p">}</span>
+
+            <span class="nv">$queryString</span> <span class="o">.=</span> <span class="s2">";"</span><span class="p">;</span>
+            <span class="nv">$queryString</span> <span class="o">=</span> <span class="nb">str_replace</span><span class="p">(</span><span class="s2">",;"</span><span class="p">,</span><span class="s2">" "</span><span class="p">,</span><span class="nv">$queryString</span><span class="p">);</span>
+            <span class="k">return</span> <span class="nv">$queryString</span><span class="p">;</span>               
+<span class="p">}</span>
+
+<span class="k">public</span> <span class="k">function</span> <span class="nf">updateID</span><span class="p">(</span><span class="nv">$tbname</span><span class="p">,</span><span class="nv">$arr</span><span class="p">,</span><span class="nv">$Id</span><span class="p">)</span>
+<span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nv">$tbname</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nv">$queryString</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">arrQueryUpdate</span><span class="p">(</span><span class="nv">$tbname</span><span class="p">,</span> <span class="nv">$arr</span><span class="p">);</span>
+                <span class="nv">$queryString</span> <span class="o">.=</span> <span class="s2">"where Id='</span><span class="nv">$Id</span><span class="s2">'"</span><span class="p">;</span>
+
+                <span class="c1">// 쿼리를 전송합니다.</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nx">mysqli_query</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">dbcon</span><span class="p">,</span> <span class="nv">$queryString</span><span class="p">)</span><span class="o">===</span> <span class="k">TRUE</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="s2">"쿼리성공] "</span><span class="o">.</span><span class="nv">$queryString</span><span class="p">);</span>
+                    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="s2">" 데이터 </span><span class="nv">$Id</span><span class="s2"> 업데이트!"</span><span class="p">);</span>
+
+                    <span class="c1">// 객체 반환, 매서드체인</span>
+                    <span class="k">return</span> <span class="nv">$this</span><span class="p">;</span> 
+
+                <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="s2">"Error] "</span><span class="o">.</span><span class="nv">$queryString</span><span class="p">);</span>
+                <span class="p">}</span>
+
+
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="s2">"Error] 테이블 이름이 없습니다."</span><span class="p">);</span> 
+            <span class="p">}</span>
+
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<p>예제 파일 | update-02.php</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+
+	<span class="k">include</span> <span class="s2">"dbinfo.php"</span><span class="p">;</span>
+	<span class="k">include</span> <span class="s2">"mysql.class.php"</span><span class="p">;</span>
+ 
+	<span class="c1">// ++ Mysqli DB 연결.</span>
+	<span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">JinyMysql</span><span class="p">();</span>
+
+	<span class="nv">$tbname</span> <span class="o">=</span> <span class="s2">"members"</span><span class="p">;</span>
+	<span class="nv">$arr</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s1">'FirstName'</span> <span class="o">=&gt;</span> <span class="s1">'hojin'</span><span class="p">,</span> <span class="s1">'LastName'</span> <span class="o">=&gt;</span> <span class="s1">'lee'</span><span class="p">);</span>
+	<span class="nv">$db</span><span class="o">-&gt;</span><span class="na">updateID</span><span class="p">(</span><span class="nv">$tbname</span><span class="p">,</span> <span class="nv">$arr</span><span class="p">,</span> <span class="mi">2</span><span class="p">);</span>
+
+<span class="cp">?&gt;</span>
+
+</code></pre></div></div>
+
+<p>화면 출력</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql connected!
+FirstName
+LastName
+쿼리성공] UPDATE members SET `FirstName`='hojin',`LastName`='lee' where Id='2'
+데이터 2 업데이트!
+
+</code></pre></div></div>
+
+<p>| PHP 예제 | 
+mysql.class.php 파일에 메서드 예제를 추가합니다.</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 조건 업데이트</span>
+<span class="k">public</span> <span class="k">function</span> <span class="nf">updateWhere</span><span class="p">(</span><span class="nv">$tbname</span><span class="p">,</span><span class="nv">$arr</span><span class="p">,</span><span class="nv">$where</span><span class="p">){</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nv">$tbname</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nv">$queryString</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">arrQueryUpdate</span><span class="p">(</span><span class="nv">$tbname</span><span class="p">,</span> <span class="nv">$arr</span><span class="p">);</span>
+                <span class="nv">$queryString</span> <span class="o">.=</span> <span class="s2">"where </span><span class="nv">$where</span><span class="s2">"</span><span class="p">;</span>
+
+                <span class="c1">// 쿼리를 전송합니다.</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nx">mysqli_query</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">dbcon</span><span class="p">,</span> <span class="nv">$queryString</span><span class="p">)</span><span class="o">===</span> <span class="k">TRUE</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="s2">"쿼리성공] "</span><span class="o">.</span><span class="nv">$queryString</span><span class="p">);</span>
+                    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="s2">" 데이터 업데이트!"</span><span class="p">);</span>
+
+                    <span class="c1">// 객체 반환, 매서드체인</span>
+                    <span class="k">return</span> <span class="nv">$this</span><span class="p">;</span> 
+
+                <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="s2">"Error] "</span><span class="o">.</span><span class="nv">$queryString</span><span class="p">);</span>
+                <span class="p">}</span>
+
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="s2">"Error] 테이블 이름이 없습니다."</span><span class="p">);</span> 
+            <span class="p">}</span>
+
+<span class="p">}</span>
+ 
+</code></pre></div></div>
+
+<p>예제 파일 | update-03.php</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+
+	<span class="k">include</span> <span class="s2">"dbinfo.php"</span><span class="p">;</span>
+	<span class="k">include</span> <span class="s2">"mysql.class.php"</span><span class="p">;</span>
+ 
+	<span class="c1">// ++ Mysqli DB 연결.</span>
+	<span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">JinyMysql</span><span class="p">();</span>
+
+	<span class="nv">$tbname</span> <span class="o">=</span> <span class="s2">"members"</span><span class="p">;</span>
+	<span class="nv">$arr</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s1">'Country'</span> <span class="o">=&gt;</span> <span class="s1">'Korea'</span><span class="p">);</span>
+	<span class="nv">$db</span><span class="o">-&gt;</span><span class="na">updateWhere</span><span class="p">(</span><span class="nv">$tbname</span><span class="p">,</span> <span class="nv">$arr</span><span class="p">,</span> <span class="s2">"Id&gt;='2'"</span><span class="p">);</span>
+
+<span class="cp">?&gt;</span>
+
+</code></pre></div></div>
+
+<p>화면 출력</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql connected!
+Country
+쿼리성공] UPDATE members SET `Country`='Korea' where Id&gt;='2'
+데이터 업데이트!
+
+</code></pre></div></div>
+:ET

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Jiny Mysql</title>
+
+        <!--부트스트랩4-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <style>
+            img {
+                max-width:100%;
+            }
+        </style>
+        
+
+    </head>
+    <body>
+        <!--네비게이션--><!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="/">Mysql</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="/setup">설치</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/part1">SQL</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/part2">DB연동</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav><nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li></ol>    
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+    <div class="row">
+
+        <!-- Post Content Column -->
+        <div class="col-lg-9">
+            <!-- Title -->
+            <h1 class="mt-4">28.2.Workbench </h1>
+            <hr>
+            <p>Workbench(워크벤치)는 mysql을 인수한 오라클에서 제공하는 무료 관리 툴입니다. 윈 도우용, 리눅스용, 맥OS용 등 다양한 개발 환경을 지원하는 것이 장점입니다.</p>
+
+<h2 id="디자인">디자인</h2>
+<p>MySQL Workbench 는 DBA, 개발자 또는 데이터 아키텍트가 데이터베이스를 시각적으 로 설계, 모델링, 생성 및 관리할 수 있도록 합니다. 여기에는 복잡한 ER 모델, 정방향 및 역방향 엔지니어링을 생성하는 데 필요한 데이터 모델러가 모두 포함되어 있으며 일반적 으로 많은 시간과 노력이 요구되는 어려운 변경 관리 및 문서 작업을 수행하는 데 필요한 주요 기능을 제공합니다.</p>
+
+<h2 id="개발자">개발자</h2>
+<p>MySQL Workbench 는 SQL 쿼리 생성, 실행 및 최적화를 위한 비주얼 툴을 제공합니다. SQL Editor 는 색상 구문 강조, 자동 완성, SQL 스니펫 재사용 및 SQL 실행 기록을 제공 합니다. 데이터베이스 연결 패널을 통해 개발자는 MySQL Fabric 을 포함한 표준 데이터 베이스 연결을 쉽게 관리할 수 있습니다. 개체 브라우저는 데이터베이스 스키마와 개체에 대한 즉각적인 액세스를 제공합니다.</p>
+
+<h2 id="관리자">관리자</h2>
+<p>MySQL Workbench 는 MySQL 환경을 쉽게 관리하고 데이터베이스에 대한 더 나은 가 시성을 확보할 수 있는 시각적 콘솔을 제공합니다. 개발자와 DBA는 서버 구성, 사용자 관리, 백업 및 복구 수행, 감사 데이터 검사 및 데이터베이스 상태 보기를 위해 비주얼 툴 을 사용할 수 있습니다.<br />
+<code class="highlighter-rouge">https://www.mysql.com/products/workbench/</code>에서 무료로 다운로드할 수 있습 니다.</p>
+
+        </div>
+
+        <!-- Sidebar Column -->
+        <div class="col-md-3"><ul class="list-group">
+    <li class="list-group-item"><a href="/01">데이터</a></li>
+    <li class="list-group-item"><a href="/02">MySQL 관리</a></li>
+    <li class="list-group-item"><a href="/03">SQL</a></li>
+    <li class="list-group-item"><a href="/04">연결</a></li>
+    <li class="list-group-item"><a href="/05">데이터베이스</a></li>
+    <li class="list-group-item"><a href="/06">테이블</a></li>
+    <li class="list-group-item"><a href="/07">데이터 타입</a></li>
+    <li class="list-group-item"><a href="/08">테이블 수정</a></li>
+    <li class="list-group-item"><a href="/09">속성</a></li>
+    <li class="list-group-item"><a href="/10">데이터 삽입 </a></li>
+    <li class="list-group-item"><a href="/11">데이터 조회</a></li>
+    <li class="list-group-item"><a href="/12">조건</a></li>
+    <li class="list-group-item"><a href="/13">데이터 제한</a></li>
+    <li class="list-group-item"><a href="/14">데이터의 정렬</a></li>
+    <li class="list-group-item"><a href="/15">복사</a></li>
+    <li class="list-group-item"><a href="/16">별칭</a></li>
+    <li class="list-group-item"><a href="/17">데이터 수정</a></li>
+    <li class="list-group-item"><a href="/18">데이터 삭제 </a></li>
+    <li class="list-group-item"><a href="/19">UNION</a></li>
+    <li class="list-group-item"><a href="/20">조인</a></li>
+    <li class="list-group-item"><a href="/21">뷰(VIEW)</a></li>
+    <li class="list-group-item"><a href="/22">프로시저</a></li>
+    <li class="list-group-item"><a href="/23">트리거</a></li>
+    <li class="list-group-item"><a href="/24">트랜잭션</a></li>
+    <li class="list-group-item"><a href="/25">함수</a></li>
+    <li class="list-group-item"><a href="/26">내장 함수</a></li>
+    <li class="list-group-item"><a href="/27">인젝션</a></li>
+    <li class="list-group-item"><a href="/29">권한 설정</a></li>
+</ul>
+</div>
+
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->  <!-- Footer -->
+  <footer class="py-3 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; jinydev 2017~2020</p>
+    </div>
+    <!-- /.container -->
+  </footer><!--부트스트랩4-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    </body>
+
+</html>

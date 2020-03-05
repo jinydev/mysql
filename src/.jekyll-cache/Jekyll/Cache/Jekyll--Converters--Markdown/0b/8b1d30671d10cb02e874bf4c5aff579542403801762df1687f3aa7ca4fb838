@@ -1,0 +1,30 @@
+I"%<h1 id="036데이터-반환">03.6.데이터 반환</h1>
+<p>SQL 쿼리 명령의 동작에는 크게 두 가지의 종류가 있습니다. 출력 결과 반환이 있는 명령 문과 출력 반환이 없는 명령문입니다.</p>
+
+<p>use, delimiter와 같은 명령은 데이터베이스에 실행 명령을 하지만 출력 결과는 없는 명령입니다. 그냥 데이터베이스 시스템에 명령을 전달하는 역할만 수행합니다.</p>
+
+<p>| 콘솔 실습 화면 |</p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mysql</span><span class="o">&gt;</span> <span class="n">use</span> <span class="n">jiny</span><span class="p">;</span>
+<span class="k">Database</span> <span class="n">changed</span>
+
+</code></pre></div></div>
+
+<p>데이터 출력은 없고 결과 메시지만 출력합니다.</p>
+
+<p>이와 달리 show, select와 같은 명령은 데이터를 반환하는 명령문입니다. 데이터베이스 는 입력된 명령을 분석하여 실행 후에 결과값을 다시 화면에 출력합니다.</p>
+
+<p>| 콘솔 실습 화면 |</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql&gt; select * from members;
++----+----------+-----------+-------------+-------+---------+-----------+-------------------+
+| Id | LastName | FirstName | Address     | City  | Country | manager   | email             |
++----+----------+-----------+-------------+-------+---------+-----------+-------------------+
+|  1 | hojin    | lee       | shinchon    | seoul | korea   | infohojin | hojin@jinyphp.com |
+|  2 | jiny     | NULL      | NULL        | NULL  | korea   | infohojin | jiny@jinyphp.com  |
+|  3 | james    | kim       | youngdun-po | seoul | korea   | info      | james@jinyphp.com |
++----+----------+-----------+-------------+-------+---------+-----------+-------------------+
+3 rows in set (0.00 sec)
+
+</code></pre></div></div>
+
+<p>위의 화면은 회원 목록을 출력하는 select 명령입니다. 명령에 반응한 데이터를 출력합니다.</p>
+:ET

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Jiny Mysql</title>
+
+        <!--부트스트랩4-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <style>
+            img {
+                max-width:100%;
+            }
+        </style>
+        
+
+    </head>
+    <body>
+        <!--네비게이션--><!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="/">Mysql</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="/setup">설치</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/part1">SQL</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/part2">DB연동</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav><nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li></ol>    
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+    <div class="row">
+
+        <!-- Post Content Column -->
+        <div class="col-lg-9">
+            <!-- Title -->
+            <h1 class="mt-4">08.3.자료형 변경</h1>
+            <hr>
+            <p>테이블의 컬럼을 변경 외에도 컬럼의 데이터 타입 자료형도 변경이 가능합니다. 하지만 컬럼의 데이터 타입을 변경할 때는 주의할 사항이 많습니다.</p>
+
+<p>데이터의 타입을 변경할 때는 변경하고자 하는 데이터의 타입이 자료를 유지할 수 있는 호 환적인 형태이어야 합니다. 만일 잘못된 자료형으로 변경하게 되면 기존 데이터에 문제가 발생합니다. 저장되어 있는 데이터가 삭제되거나 이상한 값으로 변경될 수도 있습니다.</p>
+
+<p>| 쿼리 문법 |</p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">ALTER</span> <span class="k">TABLE</span> <span class="err">테이블명</span> <span class="k">MODIFY</span> <span class="err">컬럼명</span> <span class="err">자료형</span><span class="p">;</span> 
+</code></pre></div></div>
+
+<h2 id="0831-쿼리-실습">08.3.1 쿼리 실습</h2>
+<p>desc 쿼리 명령을 통하여 members 의 테이블의 구조를 확인합니다. members 테이블의 age 칼럼은 데이터 타입이 가변 문자열 10자리 varchar(10)으로 되어 있습니다.</p>
+
+<p>| 콘솔 실습 화면 |</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql&gt; desc members;
++-----------+--------------+------+-----+---------+----------------+
+| Field     | Type         | Null | Key | Default | Extra          |
++-----------+--------------+------+-----+---------+----------------+
+| Id        | int(11)      | NO   | PRI | NULL    | auto_increment |
+| LastName  | varchar(255) | YES  |     | NULL    |                |
+| FirstName | varchar(255) | YES  |     | NULL    |                |
+| Address   | varchar(255) | YES  |     | NULL    |                |
+| City      | varchar(255) | YES  |     | NULL    |                |
+| Country   | varchar(255) | YES  |     | NULL    |                |
+| age       | varchar(10)  | YES  |     | NULL    |                |
++-----------+--------------+------+-----+---------+----------------+
+7 rows in set (0.02 sec)
+
+</code></pre></div></div>
+
+<p>기존 age 컬럼의 데이터 타입을 정수형 타입 int(8) 형태로 변경해 보도록 하겠습니다.</p>
+
+<p>| 예제 쿼리 |</p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">alter</span> <span class="k">table</span> <span class="n">members</span> <span class="k">modify</span> <span class="n">age</span> <span class="nb">int</span><span class="p">(</span><span class="mi">8</span><span class="p">);</span> 
+</code></pre></div></div>
+
+<p>| 콘솔 실습 화면 |</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql&gt; alter table members modify age int(8);
+Query OK, 0 rows affected (0.04 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+</code></pre></div></div>
+
+<p>쿼리가 정상적으로 수행되었습니다. desc 쿼리 명령을 통하여 다시 한번 테이블의 구조 를 확인해 보도록 합니다.</p>
+
+<p>| 콘솔 실습 화면 |</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql&gt; desc members;
++-----------+--------------+------+-----+---------+----------------+
+| Field     | Type         | Null | Key | Default | Extra          |
++-----------+--------------+------+-----+---------+----------------+
+| Id        | int(11)      | NO   | PRI | NULL    | auto_increment |
+| LastName  | varchar(255) | YES  |     | NULL    |                |
+| FirstName | varchar(255) | YES  |     | NULL    |                |
+| Address   | varchar(255) | YES  |     | NULL    |                |
+| City      | varchar(255) | YES  |     | NULL    |                |
+| Country   | varchar(255) | YES  |     | NULL    |                |
+| age       | int(8)       | YES  |     | NULL    |                |
++-----------+--------------+------+-----+---------+----------------+
+7 rows in set (0.02 sec)
+
+</code></pre></div></div>
+
+<p>테이블의 구조를 확인해 보면 컬럼 age의 데이터 타입이 변경된 것을 확인할 수 있습니다.</p>
+
+<h2 id="0832-php-실습">08.3.2 PHP 실습</h2>
+<p>PHP 코드를 통하여 컬럼의 데이터 타입을 변경해 보도록 하겠습니다.</p>
+
+<p>예제 파일 | alter-04.php</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+ 
+	<span class="k">include</span> <span class="s2">"dbinfo.php"</span><span class="p">;</span>
+	<span class="k">include</span> <span class="s2">"mysql.class.php"</span><span class="p">;</span>
+ 
+	<span class="c1">// ++ Mysqli DB 연결.</span>
+	<span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">JinyMysql</span><span class="p">();</span>
+ 
+	<span class="nv">$tbname</span> <span class="o">=</span> <span class="s2">"members"</span><span class="p">;</span>
+	<span class="nv">$field</span> <span class="o">=</span> <span class="s2">"birth"</span><span class="p">;</span>
+	<span class="nv">$datatype</span> <span class="o">=</span> <span class="s2">"varchar(20)"</span><span class="p">;</span>
+    
+	<span class="c1">// 필드를 추가합니다.</span>
+	<span class="nv">$db</span><span class="o">-&gt;</span><span class="na">tableFieldModify</span><span class="p">(</span><span class="nv">$tbname</span><span class="p">,</span> <span class="nv">$field</span><span class="p">,</span> <span class="nv">$datatype</span><span class="p">);</span>
+ 
+<span class="cp">?&gt;</span>
+
+</code></pre></div></div>
+
+<p>화면 출력</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql connected!
+쿼리성공] ALTER TABLE members MODIFY birth varchar(20)
+컬럼변경!
+</code></pre></div></div>
+
+        </div>
+
+        <!-- Sidebar Column -->
+        <div class="col-md-3"><ul class="list-group">
+    <li class="list-group-item"><a href="/01">데이터</a></li>
+    <li class="list-group-item"><a href="/02">MySQL 관리</a></li>
+    <li class="list-group-item"><a href="/03">SQL</a></li>
+    <li class="list-group-item"><a href="/04">연결</a></li>
+    <li class="list-group-item"><a href="/05">데이터베이스</a></li>
+    <li class="list-group-item"><a href="/06">테이블</a></li>
+    <li class="list-group-item"><a href="/07">데이터 타입</a></li>
+    <li class="list-group-item"><a href="/08">테이블 수정</a></li>
+    <li class="list-group-item"><a href="/09">속성</a></li>
+    <li class="list-group-item"><a href="/10">데이터 삽입 </a></li>
+    <li class="list-group-item"><a href="/11">데이터 조회</a></li>
+    <li class="list-group-item"><a href="/12">조건</a></li>
+    <li class="list-group-item"><a href="/13">데이터 제한</a></li>
+    <li class="list-group-item"><a href="/14">데이터의 정렬</a></li>
+    <li class="list-group-item"><a href="/15">복사</a></li>
+    <li class="list-group-item"><a href="/16">별칭</a></li>
+    <li class="list-group-item"><a href="/17">데이터 수정</a></li>
+    <li class="list-group-item"><a href="/18">데이터 삭제 </a></li>
+    <li class="list-group-item"><a href="/19">UNION</a></li>
+    <li class="list-group-item"><a href="/20">조인</a></li>
+    <li class="list-group-item"><a href="/21">뷰(VIEW)</a></li>
+    <li class="list-group-item"><a href="/22">프로시저</a></li>
+    <li class="list-group-item"><a href="/23">트리거</a></li>
+    <li class="list-group-item"><a href="/24">트랜잭션</a></li>
+    <li class="list-group-item"><a href="/25">함수</a></li>
+    <li class="list-group-item"><a href="/26">내장 함수</a></li>
+    <li class="list-group-item"><a href="/27">인젝션</a></li>
+    <li class="list-group-item"><a href="/29">권한 설정</a></li>
+</ul>
+</div>
+
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->  <!-- Footer -->
+  <footer class="py-3 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; jinydev 2017~2020</p>
+    </div>
+    <!-- /.container -->
+  </footer><!--부트스트랩4-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    </body>
+
+</html>

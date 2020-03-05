@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Jiny Mysql</title>
+
+        <!--부트스트랩4-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <style>
+            img {
+                max-width:100%;
+            }
+        </style>
+        
+
+    </head>
+    <body>
+        <!--네비게이션--><!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="/">Mysql</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="/setup">설치</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/part1">SQL</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/part2">DB연동</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav><nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li></ol>    
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+    <div class="row">
+
+        <!-- Post Content Column -->
+        <div class="col-lg-9">
+            <!-- Title -->
+            <h1 class="mt-4">06.2.테이블 생성 </h1>
+            <hr>
+            <p>SQL 명령문을 통하여 실제적인 테이블을 생성해 봅니다. 테이블 생성은 테이블명과 소괄 호( ) 안에 컬럼 정보를 같이 선언하면 됩니다.</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="err">테이블명</span> <span class="p">(</span>   
+<span class="err">컬럼정보…</span>
+<span class="p">)</span>
+</code></pre></div></div>
+
+<p>테이블 생성 시 들어가는 컬럼은 컬럼명, 데이터타입, 컬럼속성 세 가지의 값을 한 줄로 선 언하면 됩니다. 또한 여러 개의 컬럼 설정은 콤마(,)로 구분합니다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>컬럼명 데이터 타입 컬럼 속성, 
+</code></pre></div></div>
+
+<p>컬럼 속성은 생략 가능합니다. 하지만 하나의 테이블에는 반드시 프라이머리 (Primary)키 속성을 가지고 있는 컬럼을 포함하고 있어야 합니다. 주로 프라이머리 키로 컬럼명을 ‘id’ 로 사용하는 경우가 많습니다. 프라이머리 키는 각 레코드 데이터는 중복되지 않는 유일 한 키 값을 가지고 있습니다.</p>
+
+<h2 id="0621-콘솔-실습">06.2.1 콘솔 실습</h2>
+<p>다음 예제 쿼리는 회원 목록을 담고 있는 테이블입니다. SQL 쿼리를 통하여 테이블을 생 성해 봅니다.</p>
+
+<p>| 예제 쿼리 |</p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="nv">`members`</span> <span class="p">(</span> 
+<span class="nv">`Id`</span> <span class="nb">int</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span> <span class="n">AUTO_INCREMENT</span><span class="p">,</span> 
+<span class="n">LastName</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span> 
+<span class="n">FirstName</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span> 
+<span class="n">Address</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span> 
+<span class="n">City</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span> 
+<span class="n">Country</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span> 
+<span class="k">PRIMARY</span> <span class="k">KEY</span> <span class="p">(</span><span class="nv">`Id`</span><span class="p">)</span> 
+<span class="p">)</span> <span class="n">ENGINE</span><span class="o">=</span><span class="n">InnoDB</span> <span class="k">DEFAULT</span> <span class="n">CHARSET</span><span class="o">=</span><span class="n">utf8</span><span class="p">;</span> 
+</code></pre></div></div>
+
+<p>예제 쿼리를 콘솔에 입력하여 테이블을 생성하도록 실습하겠습니다.</p>
+
+<p>| 콘솔 실습 화면 |</p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">CREATE</span> <span class="k">TABLE</span> <span class="nv">`members`</span> <span class="p">(</span>
+    <span class="o">-&gt;</span> <span class="nv">`Id`</span> <span class="nb">int</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span> <span class="k">NOT</span> <span class="k">NULL</span> <span class="n">AUTO_INCREMENT</span><span class="p">,</span>
+    <span class="o">-&gt;</span> <span class="n">LastName</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span>
+    <span class="o">-&gt;</span> <span class="n">FirstName</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span>
+    <span class="o">-&gt;</span> <span class="n">Address</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span>
+    <span class="o">-&gt;</span> <span class="n">City</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span>
+    <span class="o">-&gt;</span> <span class="n">Country</span> <span class="nb">varchar</span><span class="p">(</span><span class="mi">255</span><span class="p">),</span>
+    <span class="o">-&gt;</span> <span class="k">PRIMARY</span> <span class="k">KEY</span> <span class="p">(</span><span class="nv">`Id`</span><span class="p">)</span>
+    <span class="o">-&gt;</span> <span class="p">)</span> <span class="n">ENGINE</span><span class="o">=</span><span class="n">InnoDB</span> <span class="k">DEFAULT</span> <span class="n">CHARSET</span><span class="o">=</span><span class="n">utf8</span><span class="p">;</span>
+<span class="n">Query</span> <span class="n">OK</span><span class="p">,</span> <span class="mi">0</span> <span class="k">rows</span> <span class="n">affected</span> <span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">04</span> <span class="n">sec</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>테이블 생성 시 추가로 DB 엔진과 언어 세트를 함께 설정하여 생성할 수도 있습니다. 이 에 대해서는 다음에 다시 설명 하겠습니다.</p>
+
+<h2 id="0622-php-실습">06.2.2 PHP 실습</h2>
+<p>PHP를 통하여 소스상에서 쿼리 전송을 통한 테이블을 생성하도록 하겠습니다.</p>
+
+<p>| PHP 예제 | 
+mysql.class.php 파일에 메서드 예제를 추가합니다. 테이블을 생성하는 메서드를 추가 
+합니다.</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 테이블 생성</span>
+<span class="k">public</span> <span class="k">function</span> <span class="nf">createTable</span><span class="p">(</span><span class="nv">$queryString</span><span class="p">){</span>
+            <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="nv">$queryString</span><span class="p">);</span>
+
+            <span class="c1">// 쿼리를 전송합니다.</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">mysqli_query</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">dbcon</span><span class="p">,</span> <span class="nv">$queryString</span><span class="p">)</span><span class="o">===</span> <span class="k">TRUE</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="s2">"쿼리성공] "</span><span class="o">.</span><span class="nv">$queryString</span><span class="p">);</span>
+                <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="s2">" 테이블 생성!"</span><span class="p">);</span>
+
+                <span class="c1">// 객체 반환, 매서드체인</span>
+                <span class="k">return</span> <span class="nv">$this</span><span class="p">;</span> 
+
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="s2">"Error] "</span><span class="o">.</span><span class="nv">$queryString</span><span class="p">);</span>
+            <span class="p">}</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<p>예제 파일 | sql-11.php</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+
+	<span class="k">include</span> <span class="s2">"dbinfo.php"</span><span class="p">;</span>
+	<span class="k">include</span> <span class="s2">"mysql.class.php"</span><span class="p">;</span>
+ 
+	<span class="c1">// ++ Mysqli DB 연결.</span>
+	<span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">JinyMysql</span><span class="p">();</span>
+
+	<span class="nv">$queryString</span> <span class="o">=</span> <span class="s2">"
+    	CREATE TABLE `members123` (
+			`Id` int(11) NOT NULL AUTO_INCREMENT,
+			LastName varchar(255),
+    			FirstName varchar(255),
+    			Address varchar(255),
+    			City varchar(255),
+			Country varchar(255),
+			PRIMARY KEY (`Id`)
+		) ENGINE=InnoDB DEFAULT CHARSET=utf8;"</span><span class="p">;</span>
+
+	<span class="c1">// 테이블을 생성합니다.</span>
+	<span class="nv">$db</span><span class="o">-&gt;</span><span class="na">createTable</span><span class="p">(</span><span class="nv">$queryString</span><span class="p">);</span>
+
+<span class="cp">?&gt;</span>
+</code></pre></div></div>
+
+<p>화면 출력</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql connected!
+CREATE TABLE `members123` ( `Id` int(11) NOT NULL AUTO_INCREMENT, LastName varchar(255), FirstName varchar(255), Address varchar(255), City varchar(255), Country varchar(255), PRIMARY KEY (`Id`) ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+쿼리성공] CREATE TABLE `members123` ( `Id` int(11) NOT NULL AUTO_INCREMENT, LastName varchar(255), FirstName varchar(255), Address varchar(255), City varchar(255), Country varchar(255), PRIMARY KEY (`Id`) ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+데이터베이스 삭제!
+
+</code></pre></div></div>
+
+<p>PHP를 통해서 테이블 생성 쿼리를 전송합니다. 실제로 데이터베이스에 테이블이 생성되 었습니다.</p>
+
+        </div>
+
+        <!-- Sidebar Column -->
+        <div class="col-md-3"><ul class="list-group">
+    <li class="list-group-item"><a href="/01">데이터</a></li>
+    <li class="list-group-item"><a href="/02">MySQL 관리</a></li>
+    <li class="list-group-item"><a href="/03">SQL</a></li>
+    <li class="list-group-item"><a href="/04">연결</a></li>
+    <li class="list-group-item"><a href="/05">데이터베이스</a></li>
+    <li class="list-group-item"><a href="/06">테이블</a></li>
+    <li class="list-group-item"><a href="/07">데이터 타입</a></li>
+    <li class="list-group-item"><a href="/08">테이블 수정</a></li>
+    <li class="list-group-item"><a href="/09">속성</a></li>
+    <li class="list-group-item"><a href="/10">데이터 삽입 </a></li>
+    <li class="list-group-item"><a href="/11">데이터 조회</a></li>
+    <li class="list-group-item"><a href="/12">조건</a></li>
+    <li class="list-group-item"><a href="/13">데이터 제한</a></li>
+    <li class="list-group-item"><a href="/14">데이터의 정렬</a></li>
+    <li class="list-group-item"><a href="/15">복사</a></li>
+    <li class="list-group-item"><a href="/16">별칭</a></li>
+    <li class="list-group-item"><a href="/17">데이터 수정</a></li>
+    <li class="list-group-item"><a href="/18">데이터 삭제 </a></li>
+    <li class="list-group-item"><a href="/19">UNION</a></li>
+    <li class="list-group-item"><a href="/20">조인</a></li>
+    <li class="list-group-item"><a href="/21">뷰(VIEW)</a></li>
+    <li class="list-group-item"><a href="/22">프로시저</a></li>
+    <li class="list-group-item"><a href="/23">트리거</a></li>
+    <li class="list-group-item"><a href="/24">트랜잭션</a></li>
+    <li class="list-group-item"><a href="/25">함수</a></li>
+    <li class="list-group-item"><a href="/26">내장 함수</a></li>
+    <li class="list-group-item"><a href="/27">인젝션</a></li>
+    <li class="list-group-item"><a href="/29">권한 설정</a></li>
+</ul>
+</div>
+
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->  <!-- Footer -->
+  <footer class="py-3 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; jinydev 2017~2020</p>
+    </div>
+    <!-- /.container -->
+  </footer><!--부트스트랩4-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    </body>
+
+</html>

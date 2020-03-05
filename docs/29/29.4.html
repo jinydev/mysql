@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Jiny Mysql</title>
+
+        <!--부트스트랩4-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <style>
+            img {
+                max-width:100%;
+            }
+        </style>
+        
+
+    </head>
+    <body>
+        <!--네비게이션--><!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="/">Mysql</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="/setup">설치</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/part1">SQL</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/part2">DB연동</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav><nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li></ol>    
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+    <div class="row">
+
+        <!-- Post Content Column -->
+        <div class="col-lg-9">
+            <!-- Title -->
+            <h1 class="mt-4">29.4.접속 관리 </h1>
+            <hr>
+            <p>MySQL의 각각의 접속은 독립적인 스레드로 동작합니다. 또한 멀티 스레드를 생성할 수 있습니다. 멀티 스레드를 통하여 동시에 같은 테이블에 여러 쿼리를 처리할 수 있습니다. 
+모든 스레드에서 인덱스 파일은 공유합니다.</p>
+
+<h2 id="2941-processlist">29.4.1 ProcessList</h2>
+<p>현재 접속하여 동작하는 스레드를 확인할 수 있습니다.</p>
+
+<p>| 콘솔 실습 화면 |</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql&gt; show processlist;
++----+------+-----------------+------+---------+------+-------+------------------+
+| Id | User | Host            | db   | Command | Time | State | Info             |
++----+------+-----------------+------+---------+------+-------+------------------+
+| 79 | root | localhost:62222 | jiny | Query   |    0 | init  | show processlist |
+| 80 | root | localhost:62401 | jiny | Sleep   | 1168 |       | NULL             |
++----+------+-----------------+------+---------+------+-------+------------------+
+2 rows in set (0.01 sec)
+
+</code></pre></div></div>
+
+<p>스레드 접속 확인은 셸 명령창에서도 확인할 수 있습니다.</p>
+
+<p>| 콘솔 실습 화면 |</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>C:\Bitnami\wampstack-5.6.30-0\mysql\bin&gt;mysqladmin -u root -p processlist
+Enter password: ********
++----+------+-----------------+------+---------+------+-------+------------------+
+| Id | User | Host            | db   | Command | Time | State | Info             |
++----+------+-----------------+------+---------+------+-------+------------------+
+| 79 | root | localhost:62222 | jiny | Sleep   | 152  |       |                  |
+| 85 | root | localhost:63007 |      | Query   | 0    | init  | show processlist |
++----+------+-----------------+------+---------+------+-------+------------------+
+
+</code></pre></div></div>
+
+<h2 id="2942-접속-해제">29.4.2 접속 해제</h2>
+<p>KILL 명령은 사용하지 않는 스레드를 강제로 종료할 수 있습니다.</p>
+
+<p>| 콘솔 실습 화면 |</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql&gt; KILL 80;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql&gt; show processlist;
++----+------+-----------------+------+---------+------+-------+------------------+
+| Id | User | Host            | db   | Command | Time | State | Info             |
++----+------+-----------------+------+---------+------+-------+------------------+
+| 79 | root | localhost:62222 | jiny | Query   |    0 | init  | show processlist |
++----+------+-----------------+------+---------+------+-------+------------------+
+1 row in set (0.00 sec)
+
+</code></pre></div></div>
+
+<p>사용하지 않은 스레드를 정리함으로써 MySQL의 접속 및 성능을 높여 충분한 자원 관리 를 할 수 있습니다.</p>
+
+
+        </div>
+
+        <!-- Sidebar Column -->
+        <div class="col-md-3"><ul class="list-group">
+    <li class="list-group-item"><a href="/01">데이터</a></li>
+    <li class="list-group-item"><a href="/02">MySQL 관리</a></li>
+    <li class="list-group-item"><a href="/03">SQL</a></li>
+    <li class="list-group-item"><a href="/04">연결</a></li>
+    <li class="list-group-item"><a href="/05">데이터베이스</a></li>
+    <li class="list-group-item"><a href="/06">테이블</a></li>
+    <li class="list-group-item"><a href="/07">데이터 타입</a></li>
+    <li class="list-group-item"><a href="/08">테이블 수정</a></li>
+    <li class="list-group-item"><a href="/09">속성</a></li>
+    <li class="list-group-item"><a href="/10">데이터 삽입 </a></li>
+    <li class="list-group-item"><a href="/11">데이터 조회</a></li>
+    <li class="list-group-item"><a href="/12">조건</a></li>
+    <li class="list-group-item"><a href="/13">데이터 제한</a></li>
+    <li class="list-group-item"><a href="/14">데이터의 정렬</a></li>
+    <li class="list-group-item"><a href="/15">복사</a></li>
+    <li class="list-group-item"><a href="/16">별칭</a></li>
+    <li class="list-group-item"><a href="/17">데이터 수정</a></li>
+    <li class="list-group-item"><a href="/18">데이터 삭제 </a></li>
+    <li class="list-group-item"><a href="/19">UNION</a></li>
+    <li class="list-group-item"><a href="/20">조인</a></li>
+    <li class="list-group-item"><a href="/21">뷰(VIEW)</a></li>
+    <li class="list-group-item"><a href="/22">프로시저</a></li>
+    <li class="list-group-item"><a href="/23">트리거</a></li>
+    <li class="list-group-item"><a href="/24">트랜잭션</a></li>
+    <li class="list-group-item"><a href="/25">함수</a></li>
+    <li class="list-group-item"><a href="/26">내장 함수</a></li>
+    <li class="list-group-item"><a href="/27">인젝션</a></li>
+    <li class="list-group-item"><a href="/29">권한 설정</a></li>
+</ul>
+</div>
+
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->  <!-- Footer -->
+  <footer class="py-3 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; jinydev 2017~2020</p>
+    </div>
+    <!-- /.container -->
+  </footer><!--부트스트랩4-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    </body>
+
+</html>

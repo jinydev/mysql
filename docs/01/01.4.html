@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Jiny Mysql</title>
+
+        <!--부트스트랩4-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <style>
+            img {
+                max-width:100%;
+            }
+        </style>
+        
+
+    </head>
+    <body>
+        <!--네비게이션--><!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="/">Mysql</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item active">
+            <a class="nav-link" href="/setup">설치</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/part1">SQL</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/part2">DB연동</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav><nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li></ol>    
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+    <div class="row">
+
+        <!-- Post Content Column -->
+        <div class="col-lg-9">
+            <!-- Title -->
+            <h1 class="mt-4">01.4.DBMS</h1>
+            <hr>
+            <p>데이터베이스 시스템은 DATABASE Management System 의 약자입니다. 
+전문적인 데 이터를 관리하고 처리할 수 있는 전문화된 프로그램이라고 보면 됩니다.</p>
+
+<p>엑셀과 같은 소규모 관리 프로그램들은 개인의 컴퓨터에 설치되어 동작합니다. 
+하지만 전 문적인 DBMS는 전용 서버라는 컴퓨터에 설치되고 데이터를 처리하게 됩니다.</p>
+
+<p>DBMS의 이론과 개발은 오랜 역사를 가지고 있습니다. 
+이로 인하여 DBMS는 여러 분류 의 유형으로 발전하게 됩니다. DBMS는 크게 다음과 같이 분류할 수 있습니다.</p>
+
+<ul>
+  <li>계층형</li>
+  <li>망형</li>
+  <li>관계형</li>
+  <li>객체지향형</li>
+  <li>객체관계형</li>
+</ul>
+
+<p>여러 DBMS 분류 중에서 우리가 좀 더 관심을 가지고 봐야 할 데이터베이스 모델 이론이 있습니다. 바로 관계형 DBMS입니다.</p>
+
+<h2 id="0141-계층형-모델">01.4.1 계층형 모델</h2>
+<p>1970년대 대부분의 컴퓨터 저장매체는 테이프 형태였습니다. 테이프 저장매체와 적합한 환경에서의 데이터 처리 모델을 구상하던 과정에서 가장 많이 사용하던 모델이 계층형 모 델입니다.</p>
+
+<p>계층형 데이터베이스란 데이터가 조직도와 같이 트리 모양의 계층형으로 데이터가 설계되어 있는 모형을 말합니다. 계층형의 특성상 각각의 데이터는 상위의 부모와 하위의 자 식을 가지는 구조로 데이터들이 연결됩니다.</p>
+
+<p>계층형 데이터베이스의 장점은 데이터 테이블의 관계를 명시적으로 표현함으로써 바로 빠르게 원하는 자료를 검색할 수 있습니다. 또한 데이터의 무결성을 잘 유지할 수 있습 니다.</p>
+
+<p>하지만 계층형은 데이터의 중복성 문제로 인하여 부정확한 데이터의 연결이 발생할 수 있 습니다.</p>
+
+<h2 id="0142-네트워크-모델">01.4.2 네트워크 모델</h2>
+<p>네트워크 데이터베이스는 계층형 데이터베이스의 단점을 보완한 모델입니다. 
+네트워크 모델은 계층형의 트리 구조를 노드와 집합 구조 형태로 변환하여 구조화했습니다.</p>
+
+<p>네트워크 모델의 경우 계층형 모델처럼 데이터의 검색 처리가 빠른 것이 장점입니다. 
+하지만 데이터의 구조가 복잡하여 이를 이해하고 설계하기가 힘든 점이 있습니다.</p>
+
+        </div>
+
+        <!-- Sidebar Column -->
+        <div class="col-md-3"><ul class="list-group">
+    <li class="list-group-item"><a href="/01">데이터</a></li>
+    <li class="list-group-item"><a href="/02">MySQL 관리</a></li>
+    <li class="list-group-item"><a href="/03">SQL</a></li>
+    <li class="list-group-item"><a href="/04">연결</a></li>
+    <li class="list-group-item"><a href="/05">데이터베이스</a></li>
+    <li class="list-group-item"><a href="/06">테이블</a></li>
+    <li class="list-group-item"><a href="/07">데이터 타입</a></li>
+    <li class="list-group-item"><a href="/08">테이블 수정</a></li>
+    <li class="list-group-item"><a href="/09">속성</a></li>
+    <li class="list-group-item"><a href="/10">데이터 삽입 </a></li>
+    <li class="list-group-item"><a href="/11">데이터 조회</a></li>
+    <li class="list-group-item"><a href="/12">조건</a></li>
+    <li class="list-group-item"><a href="/13">데이터 제한</a></li>
+    <li class="list-group-item"><a href="/14">데이터의 정렬</a></li>
+    <li class="list-group-item"><a href="/15">복사</a></li>
+    <li class="list-group-item"><a href="/16">별칭</a></li>
+    <li class="list-group-item"><a href="/17">데이터 수정</a></li>
+    <li class="list-group-item"><a href="/18">데이터 삭제 </a></li>
+    <li class="list-group-item"><a href="/19">UNION</a></li>
+    <li class="list-group-item"><a href="/20">조인</a></li>
+    <li class="list-group-item"><a href="/21">뷰(VIEW)</a></li>
+    <li class="list-group-item"><a href="/22">프로시저</a></li>
+    <li class="list-group-item"><a href="/23">트리거</a></li>
+    <li class="list-group-item"><a href="/24">트랜잭션</a></li>
+    <li class="list-group-item"><a href="/25">함수</a></li>
+    <li class="list-group-item"><a href="/26">내장 함수</a></li>
+    <li class="list-group-item"><a href="/27">인젝션</a></li>
+    <li class="list-group-item"><a href="/29">권한 설정</a></li>
+</ul>
+</div>
+
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->  <!-- Footer -->
+  <footer class="py-3 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; jinydev 2017~2020</p>
+    </div>
+    <!-- /.container -->
+  </footer><!--부트스트랩4-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    </body>
+
+</html>

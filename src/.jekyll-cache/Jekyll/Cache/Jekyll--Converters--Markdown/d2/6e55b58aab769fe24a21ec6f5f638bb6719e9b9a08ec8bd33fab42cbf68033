@@ -1,0 +1,112 @@
+I"�2<h1 id="102선택-삽입">10.2.선택 삽입</h1>
+<p>첫 번째 데이터 삽입 방법은 컬럼 개수에 맞게 전체의 데이터를 입력하는 방식이었습니다. 데이터를 입력하다 보면 전체의 데이터를 모두 입력할 필요가 없는 경우도 많습니다.</p>
+
+<p>INSERT 쿼리 명령 시 테이블 이름 뒤에 괄호를 이용하여 입력하고자 하는 컬럼명을 지정 할 수 있습니다. 지정된 컬럼만 선택되어 데이터를 삽입하게 됩니다. 이때도 지정한 컬럼 
+의 개수와 데이터의 개수는 일치해야 합니다.</p>
+
+<p>| 쿼리 문법 |</p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">INSERT</span> <span class="k">INTO</span> <span class="err">테이블명</span> <span class="p">(</span><span class="err">컬럼명</span><span class="mi">1</span><span class="p">,</span> <span class="err">컬럼명</span><span class="mi">2</span><span class="p">,</span> <span class="err">컬럼명</span><span class="mi">3</span><span class="p">,</span> <span class="p">...)</span> <span class="k">VALUES</span> <span class="p">(</span><span class="n">value1</span><span class="p">,</span> <span class="n">value2</span><span class="p">,</span> <span class="n">value3</span><span class="p">,</span> <span class="p">...);</span>
+</code></pre></div></div>
+
+<h2 id="1021-쿼리-실습">10.2.1 쿼리 실습</h2>
+<p>컬럼을 선택하여 입력할 때는 테이블의 컬럼의 순서와 상관없습니다.</p>
+
+<p>| 예제 쿼리 |</p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">insert</span> <span class="k">into</span> <span class="n">members</span> <span class="p">(</span><span class="n">LastName</span><span class="p">,</span><span class="n">Country</span><span class="p">)</span> <span class="k">values</span> <span class="p">(</span><span class="s1">'jiny'</span><span class="p">,</span><span class="s1">'korea'</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>선언한 순서대로 1:1로 매칭이 되어 데이터 값이 입력됩니다.</p>
+
+<p>| 콘솔 실습 화면 |</p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">insert</span> <span class="k">into</span> <span class="n">members</span> <span class="p">(</span><span class="n">LastName</span><span class="p">,</span><span class="n">Country</span><span class="p">)</span> <span class="k">values</span> <span class="p">(</span><span class="s1">'jiny'</span><span class="p">,</span><span class="s1">'korea'</span><span class="p">);</span>
+<span class="n">Query</span> <span class="n">OK</span><span class="p">,</span> <span class="mi">1</span> <span class="k">row</span> <span class="n">affected</span> <span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">00</span> <span class="n">sec</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>정상적으로 데이터 입력 쿼리가 실행되었습니다. Select 명령을 통하여 데이터를 확인해 봅니다.</p>
+
+<p>| 콘솔 실습 화면 |</p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">members</span><span class="p">;</span>
+<span class="o">+</span><span class="c1">----+----------+-----------+----------+-------+---------+</span>
+<span class="o">|</span> <span class="n">Id</span> <span class="o">|</span> <span class="n">LastName</span> <span class="o">|</span> <span class="n">FirstName</span> <span class="o">|</span> <span class="n">Address</span>  <span class="o">|</span> <span class="n">City</span>  <span class="o">|</span> <span class="n">Country</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+-----------+----------+-------+---------+</span>
+<span class="o">|</span>  <span class="mi">1</span> <span class="o">|</span> <span class="n">hojin</span>    <span class="o">|</span> <span class="n">lee</span>       <span class="o">|</span> <span class="n">shinchon</span> <span class="o">|</span> <span class="n">seoul</span> <span class="o">|</span> <span class="n">korea</span>   <span class="o">|</span>
+<span class="o">|</span>  <span class="mi">2</span> <span class="o">|</span> <span class="n">jiny</span>     <span class="o">|</span> <span class="k">NULL</span>      <span class="o">|</span> <span class="k">NULL</span>     <span class="o">|</span> <span class="k">NULL</span>  <span class="o">|</span> <span class="n">korea</span>   <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+-----------+----------+-------+---------+</span>
+<span class="mi">2</span> <span class="k">rows</span> <span class="k">in</span> <span class="k">set</span> <span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">00</span> <span class="n">sec</span><span class="p">)</span>
+
+</code></pre></div></div>
+<p>우리는 테이블의 모든 컬럼에 데이터를 저장하지 않았습니다. 결과를 보면 입력한 값 이외의 필드에는 NULL로 채워집니다.</p>
+
+<h2 id="1022-php-실습">10.2.2 PHP 실습</h2>
+<p>PHP코드를 통하여 데이터를 삽입하도록 합니다. 관련 메서드를 생성하여 소스에 적용합니다.</p>
+
+<p>| PHP 예제 | 
+mysql.class.php 파일에 메서드 예제를 추가합니다.</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// array 배열기반 insert 쿼리를 생성합니다.</span>
+<span class="k">public</span> <span class="k">function</span> <span class="nf">arrQueryInsert</span><span class="p">(</span><span class="nv">$tbname</span><span class="p">,</span> <span class="nv">$arr</span><span class="p">)</span>
+<span class="p">{</span>
+            <span class="nv">$arrKey</span> <span class="o">=</span> <span class="nb">array_keys</span><span class="p">(</span><span class="nv">$arr</span><span class="p">);</span>
+            <span class="nx">For</span> <span class="p">(</span><span class="nv">$i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="nv">$i</span><span class="o">&lt;</span><span class="nb">count</span><span class="p">(</span><span class="nv">$arr</span><span class="p">);</span><span class="nv">$i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                <span class="c1">// $key = $arr[$i];</span>
+                <span class="k">echo</span> <span class="nv">$arrKey</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span><span class="o">.</span><span class="s2">"&lt;br&gt;"</span><span class="p">;</span>
+                <span class="nv">$key</span> <span class="o">=</span> <span class="nv">$arrKey</span><span class="p">[</span><span class="nv">$i</span><span class="p">];</span>
+                <span class="nv">$insert_filed</span> <span class="o">.=</span> <span class="s2">"`"</span><span class="o">.</span><span class="nv">$key</span><span class="o">.</span><span class="s2">"`,"</span><span class="p">;</span> 
+                <span class="nv">$insert_value</span> <span class="o">.=</span> <span class="s2">"'"</span><span class="o">.</span><span class="nv">$arr</span><span class="p">[</span><span class="nv">$key</span><span class="p">]</span><span class="o">.</span><span class="s2">"',"</span><span class="p">;</span>
+            <span class="p">}</span>
+
+            <span class="nv">$queryString</span> <span class="o">=</span> <span class="s2">"INSERT INTO "</span><span class="o">.</span><span class="nv">$tbname</span><span class="o">.</span><span class="s2">" (</span><span class="nv">$insert_filed</span><span class="s2">) VALUES (</span><span class="nv">$insert_value</span><span class="s2">);"</span><span class="p">;</span>
+            <span class="nv">$queryString</span> <span class="o">=</span> <span class="nb">str_replace</span><span class="p">(</span><span class="s2">",)"</span><span class="p">,</span><span class="s2">")"</span><span class="p">,</span><span class="nv">$queryString</span><span class="p">);</span>
+            <span class="k">return</span> <span class="nv">$queryString</span><span class="p">;</span>               
+<span class="p">}</span>
+
+<span class="c1">// 어레이데이터를 insert 쿼리로 삽입합니다. </span>
+<span class="k">public</span> <span class="k">function</span> <span class="nf">arrInsert</span><span class="p">(</span><span class="nv">$tbname</span><span class="p">,</span> <span class="nv">$arr</span><span class="p">)</span>
+<span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nv">$tbname</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nv">$queryString</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">arrQueryInsert</span><span class="p">(</span><span class="nv">$tbname</span><span class="p">,</span> <span class="nv">$arr</span><span class="p">);</span>
+
+                <span class="c1">// 쿼리를 전송합니다.</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nx">mysqli_query</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">dbcon</span><span class="p">,</span> <span class="nv">$queryString</span><span class="p">)</span><span class="o">===</span> <span class="k">TRUE</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="s2">"쿼리성공] "</span><span class="o">.</span><span class="nv">$queryString</span><span class="p">);</span>
+                    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="s2">" 데이터 삽입!"</span><span class="p">);</span>
+
+                    <span class="c1">// 객체 반환, 매서드체인</span>
+                    <span class="k">return</span> <span class="nv">$this</span><span class="p">;</span> 
+
+                <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="s2">"Error] "</span><span class="o">.</span><span class="nv">$queryString</span><span class="p">);</span>
+                <span class="p">}</span> 
+
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+               <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="s2">"Error] 테이블 이름이 없습니다."</span><span class="p">);</span> 
+            <span class="p">}</span>
+
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>예제 파일 | insert-01.php</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+
+	<span class="k">include</span> <span class="s2">"dbinfo.php"</span><span class="p">;</span>
+	<span class="k">include</span> <span class="s2">"mysql.class.php"</span><span class="p">;</span>
+ 
+	<span class="c1">// ++ Mysqli DB 연결.</span>
+	<span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">JinyMysql</span><span class="p">();</span>
+
+	<span class="c1">// 어레이 배열의 키/값을 통하여 데이터를 삽입합니다.</span>
+	<span class="nv">$tbname</span> <span class="o">=</span> <span class="s2">"members"</span><span class="p">;</span>
+	<span class="nv">$arr</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span><span class="s1">'FirstName'</span> <span class="o">=&gt;</span> <span class="s2">"jiny"</span><span class="p">,</span> <span class="s1">'LastName'</span> <span class="o">=&gt;</span> <span class="s2">"1234"</span><span class="p">);</span>
+	<span class="nv">$db</span><span class="o">-&gt;</span><span class="na">arrInsert</span><span class="p">(</span><span class="nv">$tbname</span><span class="p">,</span><span class="nv">$arr</span><span class="p">);</span>
+
+<span class="cp">?&gt;</span>
+ 
+</code></pre></div></div>
+
+<p>화면 출력</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql connected!
+FirstName
+LastName
+새로운 데이터를 삽입합니다.
+쿼리성공] INSERT INTO members (`FirstName`,`LastName`) VALUES ('jiny','1234')
+</code></pre></div></div>
+:ET
