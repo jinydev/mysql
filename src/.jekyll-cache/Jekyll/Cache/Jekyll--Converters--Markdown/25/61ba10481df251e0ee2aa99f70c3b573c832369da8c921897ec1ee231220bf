@@ -1,0 +1,50 @@
+I"�<p>MySQL 데이터베이스는 무료로 다운로드하여 설치할 수 있습니다. 
+다운로드는 공식 사 이트 <code class="highlighter-rouge">http://www.mysql.com</code>에서 무료로 가능합니다.</p>
+
+<p>공식 사이트를 통하여 설치하는 것 외에도 MySQL을 설치하는 다양한 방법이 존재합니다. 
+인터넷을 검색하면 APM이라 하는 PHP와 MySQL 환경을 동시에 설치하고 설정할 수 있는 설치 프로그램들이 많이 존재합니다. 
+만일 리눅스에 MySQL을 설치하고자 할 경 우 직접 소스를 <code class="highlighter-rouge">다운로드</code>하여 <code class="highlighter-rouge">컴파일</code>해서 설치할 수도 있습니다.</p>
+
+<p>이 책에서는 지면상 MySQL 설치에 대한 자세한 부분을 설명하지 않습니다. 
+또한 버전 업그레이드 등 변경도 있기 때문입니다.</p>
+
+<ul>
+  <li><a href="01.6">MySQL</a></li>
+  <li><a href="01.7">MySQL 버전</a></li>
+</ul>
+
+<p><br /></p>
+<hr />
+
+<h3 id="사용자-환경">사용자 환경</h3>
+<ul>
+  <li>02.1 <a href="02.1">비밀번호</a></li>
+  <li>02.2 <a href="02.2">콘솔</a>
+    <ul>
+      <li>02.2.1 접속</li>
+      <li>02.2.2 종료</li>
+      <li>02.2.3 포트</li>
+    </ul>
+  </li>
+  <li>02.3 <a href="02.3">환경 설정</a></li>
+  <li>02.4 <a href="02.4">실행 화면 저장</a>
+    <ul>
+      <li>02.4.1 출력 설정</li>
+      <li>02.4.2 출력 중지</li>
+    </ul>
+  </li>
+  <li>02.5 <a href="02.5">덤프</a>
+    <ul>
+      <li>02.5.1 백업</li>
+      <li>02.5.2 복원</li>
+    </ul>
+  </li>
+  <li>02.6 <a href="02.6">파일 삽입</a></li>
+  <li>02.7 <a href="02.7">파일 출력</a></li>
+  <li>02.8 <a href="02.8">SOURCE</a>
+    <ul>
+      <li>02.8.1 외부 실행</li>
+    </ul>
+  </li>
+</ul>
+:ET

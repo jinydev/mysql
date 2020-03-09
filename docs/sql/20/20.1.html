@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Jiny Mysql</title>
+
+        <!--부트스트랩4-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <style>
+            img {
+                max-width:100%;
+            }
+        </style>
+        
+
+    </head>
+    <body>
+        <!--네비게이션--><!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="/">Mysql</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/data">개념</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="/setup">설치</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/sql">SQL</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/connect">DB연동</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/injection">인젝션</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/function">함수</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav><nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li></ol>    
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+    <div class="row">
+
+        <!-- Post Content Column -->
+        <div class="col-lg-9">
+            <!-- Title -->
+            <h1 class="mt-4">20.1.내부 조인</h1>
+            <hr>
+            <p>내부 조인 (INNER JOIN)은 일치하는 키 값의 데이터만 출력합니다. 2개의 테이블의 컬럼 과 컬럼을 처리하여 데이터를 출력합니다. 내부 조인은 JOIN 키워드 외에 INNER JOIN 이라고 입력해도 됩니다.</p>
+
+<p>| 쿼리 문법 |</p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="err">컬럼</span><span class="p">,</span> <span class="err">컬럼</span> <span class="k">from</span> <span class="err">테이블</span><span class="mi">1</span> <span class="k">JOIN</span> <span class="err">테이블</span><span class="mi">2</span> <span class="k">ON</span> <span class="err">테이블</span><span class="mi">1</span><span class="p">.</span><span class="err">컬럼</span> <span class="o">=</span> <span class="err">테이블</span><span class="mi">2</span><span class="p">.</span><span class="err">컬럼</span><span class="p">;</span> 
+</code></pre></div></div>
+
+<p>위의 문법은 간단한 JOIN입니다. 결합되는 조건은 JOIN 키워드 다음에 결합할 테이블명 과 키 값의 조건을 작성합니다. 결합 조건 ON 키워드 다음에 결합의 기준이 되는 컬럼 조 건을 설정합니다.</p>
+
+<p>컬럼의 조건을 선언할 때는 컬럼명과는 의미가 없습니다. 즉 JOIN 결합하고자 하는 테이 블에 일치하는 이름의 컬럼을 만들거나, 이름 규격을 유지하지 않아도 됩니다. 
+예로 table1.aaa = table2.bbb 형태로 작성해도 됩니다.</p>
+
+<h2 id="2011-쿼리-실습">20.1.1 쿼리 실습</h2>
+<p>JOIN 키워드를 통하여 내부 조인 처리 방법을 실습해 보도록 하겠습니다. 다음 예제는 회원 테이블과 주문 목록 테이블의 데이터를 결합합니다. 결합하는 조건은 각각의 테이블에 있는 이메일 주소 값을 기준으로 합니다.</p>
+
+<p>| 예제 쿼리 |</p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="o">*</span> <span class="k">from</span> <span class="n">members</span> <span class="k">JOIN</span> <span class="n">orders1</span> <span class="k">ON</span> <span class="n">members</span><span class="p">.</span><span class="n">email</span> <span class="o">=</span> <span class="n">orders1</span><span class="p">.</span><span class="n">email</span><span class="p">;</span> 
+</code></pre></div></div>
+
+<p>| 콘솔 실습 화면 |</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql&gt; SELECT * from members JOIN orders1 ON members.email = orders1.email;
++----+----------+-----------+-----------+-------+---------+-----------+-------------------+----+-------+-------------------+
+| Id | LastName | FirstName | Address   | City  | Country | manager   | email             | Id | code  | email             |
++----+----------+-----------+-----------+-------+---------+-----------+-------------------+----+-------+-------------------+
+|  1 | hojin    | lee       | shinchon  | seoul | korea   | infohojin | hojin@jinyphp.com |  1 | O_001 | hojin@jinyphp.com |
+|  1 | hojin    | lee       | shinchon  | seoul | korea   | infohojin | hojin@jinyphp.com |  2 | O_002 | hojin@jinyphp.com |
+|  4 | eric     | jung      | seocho-gu | busan | korea   | info      | eric@jinyphp.com  |  3 | O_003 | eric@jinyphp.com  |
++----+----------+-----------+-----------+-------+---------+-----------+-------------------+----+-------+-------------------+
+3 rows in set (0.00 sec)
+
+</code></pre></div></div>
+
+<p>이메일 주소가 동일한 데이터를 기준으로 2개의 테이블의 데이터가 출력됩니다.</p>
+
+<p>JOIN은 컬럼 안에 들어 있는 데이터를 기준으로 결합합니다. 만일 2개 테이블의 컬럼 이 름이 동일하다면 USING 키워드를 이용하여 조건 값 앞에 붙어 있는 테이블명을 생략할 수 있습니다.</p>
+
+<p>| 예제 쿼리 |</p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="o">*</span> <span class="k">from</span> <span class="n">members</span> <span class="k">JOIN</span> <span class="n">orders1</span> <span class="k">ON</span> <span class="k">USING</span><span class="p">(</span><span class="n">email</span><span class="p">);</span> 
+</code></pre></div></div>
+
+<p>와일드 카드 <code class="highlighter-rouge">*</code>는 결합되는 테이블의 모든 컬럼 필드가 출력됩니다. 출력할 컬럼을 직접 입 력하면 선택된 컬럼만 출력됩니다. 컬럼을 선택할 때는 테이블명.컬럼명 형태로 입력합니다.</p>
+
+<p>| 콘솔 실습 화면 |</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql&gt; SELECT members.FirstName, members.LastName, orders1.code, orders1.email from members JOIN orders1 ON members.email = orders1.email;
++-----------+----------+-------+-------------------+
+| FirstName | LastName | code  | email             |
++-----------+----------+-------+-------------------+
+| lee       | hojin    | O_001 | hojin@jinyphp.com |
+| lee       | hojin    | O_002 | hojin@jinyphp.com |
+| jung      | eric     | O_003 | eric@jinyphp.com  |
++-----------+----------+-------+-------------------+
+3 rows in set (0.01 sec)
+
+</code></pre></div></div>
+
+<p>조인 결합 시에는 테이블명과 컬럼명을 함께 입력하기 때문에 쿼리의 작성 문법이 길어질 수 있습니다. 또한 길어진 이름은 철자 오류를 발생할 수도 있습니다. 이런 경우 별칭을 이용하면 매우 편리합니다.</p>
+
+<p>별칭은 테이블명, 컬럼 이름 모두 사용 가능합니다. 별칭을 사용하면 길어진 이름을 짧게 처리할 수 있습니다.</p>
+
+<p>| 콘솔 실습 화면 |</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql&gt; SELECT a.FirstName, a.LastName, b.code, b.email from members AS a JOIN orders1 as b ON a.email = b.email;
++-----------+----------+-------+-------------------+
+| FirstName | LastName | code  | email             |
++-----------+----------+-------+-------------------+
+| lee       | hojin    | O_001 | hojin@jinyphp.com |
+| lee       | hojin    | O_002 | hojin@jinyphp.com |
+| jung      | eric     | O_003 | eric@jinyphp.com  |
++-----------+----------+-------+-------------------+
+3 rows in set (0.00 sec)
+
+</code></pre></div></div>
+
+<h2 id="2012-조건-추가">20.1.2 조건 추가</h2>
+<p>JOIN으로 결합된 출력 결과에 추가로 WHERE 조건을 설정하여 데이터를 필터링할 수 있습니다. 다음 예제는 별칭을 이용하여 JOIN을 설정합니다. 또한 Where 조건을 추가하여 데이터를 출력합니다.</p>
+
+<p>| 예제 쿼리 |</p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="n">a</span><span class="p">.</span><span class="n">FirstName</span><span class="p">,</span> <span class="n">a</span><span class="p">.</span><span class="n">LastName</span><span class="p">,</span> <span class="n">b</span><span class="p">.</span><span class="n">code</span><span class="p">,</span> <span class="n">b</span><span class="p">.</span><span class="n">email</span> <span class="k">from</span> <span class="n">members</span> <span class="k">AS</span> <span class="n">a</span> <span class="k">JOIN</span> <span class="n">orders1</span> <span class="k">as</span> <span class="n">b</span> <span class="k">ON</span> <span class="n">a</span><span class="p">.</span><span class="n">email</span><span class="o">=</span><span class="n">b</span><span class="p">.</span><span class="n">email</span> <span class="k">WHERE</span> <span class="n">a</span><span class="p">.</span><span class="n">email</span> <span class="o">=</span> <span class="s1">'eric@hojin.io'</span><span class="p">;</span> 
+</code></pre></div></div>
+
+<p>| 콘솔 실습 화면 |</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql&gt; SELECT a.FirstName, a.LastName, b.code, b.email from members AS a JOIN orders1 as b ON a.email=b.email WHERE a.email = 'eric@jinyphp.com';
++-----------+----------+-------+------------------+
+| FirstName | LastName | code  | email            |
++-----------+----------+-------+------------------+
+| jung      | eric     | O_003 | eric@jinyphp.com |
++-----------+----------+-------+------------------+
+1 row in set (0.00 sec)
+
+</code></pre></div></div>
+
+<p>출력 결과에서 조건을 추가하여 결과를 필터링합니다.</p>
+
+<h2 id="2013-다수-테이블">20.1.3 다수 테이블</h2>
+<p>JOIN은 여러 개의 테이블의 데이터를 필터링하여 결과를 결합할 수 있습니다.</p>
+
+<p>| 쿼리 문법 |</p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="err">컬럼</span><span class="p">,</span> <span class="err">컬럼</span> <span class="k">from</span> <span class="err">테이블</span><span class="mi">1</span> <span class="k">JOIN</span> <span class="err">테이블</span><span class="mi">2</span> <span class="k">ON</span> <span class="err">테이블</span><span class="mi">1</span><span class="p">.</span><span class="err">컬럼</span> <span class="o">=</span> <span class="err">테이블</span><span class="mi">2</span><span class="p">.</span><span class="err">컬럼</span> <span class="k">JOIN</span> <span class="err">테이블</span><span class="mi">3</span> <span class="k">ON</span> <span class="k">USING</span> <span class="p">(</span><span class="err">컬럼</span><span class="p">)</span> <span class="p">...</span> <span class="k">JOIN</span> <span class="err">테이블</span><span class="mi">4</span> <span class="k">ON</span> <span class="err">테이블</span><span class="mi">1</span><span class="p">.</span><span class="err">컬럼</span> <span class="o">=</span> <span class="err">테이블</span><span class="mi">4</span><span class="p">.</span><span class="err">컬럼</span><span class="p">;</span> 
+</code></pre></div></div>
+
+<p>JOIN 키워드를 통하여 결합 조건을 연결하면 됩니다.</p>
+
+<h2 id="2014-php-실습">20.1.4 PHP 실습</h2>
+<p>PHP 코드를 통하여 JOIN 결합 처리를 실습해 보도록 합니다. 내부 조인 메서드를 추가 하여 실습하도록 하겠습니다.</p>
+
+<p>| PHP 예제 | 
+mysql.class.php 파일에 메서드 예제를 추가합니다.</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 내부조인을 처리합니다.</span>
+<span class="k">public</span> <span class="k">function</span> <span class="nf">innerJoin</span><span class="p">(</span><span class="nv">$tbname1</span><span class="p">,</span> <span class="nv">$tbname2</span><span class="p">,</span> <span class="nv">$onWhere</span><span class="p">,</span> <span class="nv">$fields</span><span class="p">)</span>
+<span class="p">{</span>
+            <span class="nv">$queryString</span> <span class="o">=</span> <span class="s2">"SELECT "</span><span class="p">;</span>
+
+            <span class="c1">// 컬럼필드 선택여부를 지정</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nv">$fields</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nv">$queryString</span> <span class="o">.=</span> <span class="nv">$fields</span><span class="o">.</span><span class="s2">" "</span><span class="p">;</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                <span class="nv">$queryString</span> <span class="o">.=</span> <span class="s2">"* "</span><span class="p">;</span> 
+            <span class="p">}</span>
+
+            <span class="nv">$queryString</span> <span class="o">.=</span> <span class="s2">"from </span><span class="nv">$tbname1</span><span class="s2"> JOIN </span><span class="nv">$tbname2</span><span class="s2"> ON </span><span class="nv">$onWhere</span><span class="s2">"</span><span class="p">;</span> 
+
+            <span class="k">if</span> <span class="p">(</span><span class="nv">$result</span> <span class="o">=</span> <span class="nx">mysqli_query</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">dbcon</span><span class="p">,</span> <span class="nv">$queryString</span><span class="p">))</span> <span class="p">{</span>
+                <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="s2">"쿼리성공] "</span><span class="o">.</span><span class="nv">$queryString</span><span class="p">);</span>
+                <span class="nv">$rowss</span> <span class="o">=</span> <span class="s2">""</span><span class="p">;</span>
+                <span class="nv">$row_cnt</span> <span class="o">=</span> <span class="nx">mysqli_num_rows</span><span class="p">(</span><span class="nv">$result</span><span class="p">);</span>
+                <span class="k">for</span> <span class="p">(</span><span class="nv">$i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nv">$i</span><span class="o">&lt;</span><span class="nv">$row_cnt</span><span class="p">;</span> <span class="nv">$i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nv">$rowss</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span> <span class="o">=</span> <span class="nx">mysqli_fetch_object</span><span class="p">(</span><span class="nv">$result</span><span class="p">);</span>
+                <span class="p">}</span>
+
+                <span class="nv">$result</span><span class="o">-&gt;</span><span class="na">free</span><span class="p">();</span>
+                <span class="k">return</span> <span class="nv">$rowss</span><span class="p">;</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="s2">"Error] "</span><span class="o">.</span><span class="nv">$queryString</span><span class="p">);</span>
+            <span class="p">}</span> 
+
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<p>예제 파일 | join-01.php</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+
+	<span class="k">include</span> <span class="s2">"dbinfo.php"</span><span class="p">;</span>
+	<span class="k">include</span> <span class="s2">"mysql.class.php"</span><span class="p">;</span>
+ 
+	<span class="c1">// ++ Mysqli DB 연결.</span>
+	<span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">JinyMysql</span><span class="p">();</span>
+
+	<span class="k">if</span> <span class="p">(</span><span class="nv">$rowss</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">innerJoin</span><span class="p">(</span><span class="s2">"members"</span><span class="p">,</span><span class="s2">"orders"</span><span class="p">,</span><span class="s2">"members.email=orders.email"</span><span class="p">))</span> <span class="p">{</span>
+		<span class="k">echo</span> <span class="s2">"tables fields = "</span><span class="o">.</span> <span class="nb">count</span><span class="p">(</span><span class="nv">$rowss</span><span class="p">)</span> <span class="o">.</span> <span class="s2">"&lt;br&gt;"</span><span class="p">;</span>
+ 
+		<span class="k">for</span><span class="p">(</span><span class="nv">$i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="nv">$i</span><span class="o">&lt;</span><span class="nb">count</span><span class="p">(</span><span class="nv">$rowss</span><span class="p">);</span><span class="nv">$i</span><span class="o">++</span><span class="p">){</span>
+			<span class="k">echo</span> <span class="nv">$i</span><span class="o">.</span><span class="s2">"="</span><span class="p">;</span>            
+			<span class="nb">print_r</span><span class="p">(</span><span class="nv">$rowss</span><span class="p">[</span><span class="nv">$i</span><span class="p">]);</span>
+			<span class="k">echo</span> <span class="s2">"&lt;br&gt;"</span><span class="p">;</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+
+<span class="cp">?&gt;</span>
+
+</code></pre></div></div>
+
+<p>화면 출력</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql connected!
+쿼리성공] SELECT * from members JOIN orders ON members.email=orders.email
+tables fields = 2
+0=stdClass Object ( [Id] =&gt; 1 [LastName] =&gt; hojin [FirstName] =&gt; lee [Address] =&gt; shinchon [City] =&gt; seoul [Country] =&gt; Korea [manager] =&gt; infohojin [email] =&gt; hojin@jinyphp.com [code] =&gt; O_001 )
+1=stdClass Object ( [Id] =&gt; 2 [LastName] =&gt; hojin [FirstName] =&gt; lee [Address] =&gt; shinchon [City] =&gt; seoul [Country] =&gt; Korea [manager] =&gt; infohojin [email] =&gt; hojin@jinyphp.com [code] =&gt; O_002 ) 
+
+</code></pre></div></div>
+
+        </div>
+
+        <!-- Sidebar Column -->
+        <div class="col-md-3"><ul class="list-group">
+    <li class="list-group-item list-group-item-dark">Site Menu</li>
+    <li class="list-group-item"><a href="/data">개념</a></li>
+    <li class="list-group-item"><a href="/setup">설치</a></li>
+    <li class="list-group-item"><a href="/sql">SQL</a></li>
+    <li class="list-group-item"><a href="/connect">DB연동</a></li>
+    <li class="list-group-item"><a href="/injection">인젝션</a></li>
+    <li class="list-group-item"><a href="/function">함수</a></li>
+</ul>
+
+<br>
+</div>
+
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->  <!-- Footer -->
+  <footer class="py-3 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; jinydev 2017~2020</p>
+    </div>
+    <!-- /.container -->
+  </footer><!--부트스트랩4-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    </body>
+
+</html>

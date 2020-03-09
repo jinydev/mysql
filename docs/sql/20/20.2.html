@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Jiny Mysql</title>
+
+        <!--부트스트랩4-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <style>
+            img {
+                max-width:100%;
+            }
+        </style>
+        
+
+    </head>
+    <body>
+        <!--네비게이션--><!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="/">Mysql</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/data">개념</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="/setup">설치</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/sql">SQL</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/connect">DB연동</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/injection">인젝션</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/function">함수</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav><nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li></ol>    
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+    <div class="row">
+
+        <!-- Post Content Column -->
+        <div class="col-lg-9">
+            <!-- Title -->
+            <h1 class="mt-4">20.2.외부 조인</h1>
+            <hr>
+            <p>JOIN 결합은 여러 개의 테이블의 집합 관계를 지정하여 일치하는 조건의 데이터를 출력 합니다. 또한 집합 관계에 따라서 동작하는 명령과 결과는 약간씩 달라집니다.</p>
+
+<p>내부 조인 (inner join)은 테이블 데이터 결합을 할 때 키 값을 기준으로 일치하는 조건의 데이터만 출력합니다. 즉, 두 테이블의 교집합 영역입니다.</p>
+
+<p>따라서 공통의 자료 이외의 것들은 출력되지 않습니다. 내부 조인은 가장 많이 사용하는 검색 결합 집합 중 하나입니다.</p>
+
+<p>교집합 적인 데이터를 정의했다고 하면 그 외의 결합 조건도 있습니다. 그 외의 결합 조건 을 외부 조인 (outer join)이라고 표현합니다. 외부 조인은 테이블의 교집합 이외의 영역을 선택할 수 있습니다.</p>
+
+<p>외부 조인으로는 크게 LEFT JOIN, RIGHT JOIN, FULL JOIN 으로 구분할 수 있습니다. 그림으로 표시하면 다음과 같습니다.</p>
+
+
+        </div>
+
+        <!-- Sidebar Column -->
+        <div class="col-md-3"><ul class="list-group">
+    <li class="list-group-item list-group-item-dark">Site Menu</li>
+    <li class="list-group-item"><a href="/data">개념</a></li>
+    <li class="list-group-item"><a href="/setup">설치</a></li>
+    <li class="list-group-item"><a href="/sql">SQL</a></li>
+    <li class="list-group-item"><a href="/connect">DB연동</a></li>
+    <li class="list-group-item"><a href="/injection">인젝션</a></li>
+    <li class="list-group-item"><a href="/function">함수</a></li>
+</ul>
+
+<br>
+</div>
+
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->  <!-- Footer -->
+  <footer class="py-3 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; jinydev 2017~2020</p>
+    </div>
+    <!-- /.container -->
+  </footer><!--부트스트랩4-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    </body>
+
+</html>

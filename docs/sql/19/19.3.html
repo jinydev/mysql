@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Jiny Mysql</title>
+
+        <!--부트스트랩4-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <style>
+            img {
+                max-width:100%;
+            }
+        </style>
+        
+
+    </head>
+    <body>
+        <!--네비게이션--><!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="/">Mysql</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/data">개념</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="/setup">설치</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/sql">SQL</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/connect">DB연동</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/injection">인젝션</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/function">함수</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav><nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li></ol>    
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+    <div class="row">
+
+        <!-- Post Content Column -->
+        <div class="col-lg-9">
+            <!-- Title -->
+            <h1 class="mt-4">19.3.중복 허용</h1>
+            <hr>
+            <p>테이블의 데이터를 UNION으로 결합할 때 중복되는 데이터의 내용은 출력되지 않습 니다. UNION은 기본적으로 중복 데이터를 허용하지 않는 형태로 필터링을 처리합니다.</p>
+
+<p>UNION의 기본 중복 필터링을 허용하지 않고 전체 데이터를 출력할 수도 있습니다. UNION ALL 을 사용하게 되면 모든 전체의 데이터가 출력됩니다.</p>
+
+<p>| 쿼리 문법 |</p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="err">컬럼</span><span class="mi">1</span><span class="p">,</span> <span class="err">컬럼</span><span class="mi">2</span> <span class="p">...</span> <span class="k">FROM</span> <span class="err">테이블</span><span class="mi">1</span> 
+<span class="k">UNION</span> <span class="k">ALL</span> 
+<span class="k">SELECT</span> <span class="err">컬럼</span><span class="mi">1</span><span class="p">,</span> <span class="err">컬럼</span><span class="mi">2</span> <span class="p">...</span> <span class="k">FROM</span> <span class="err">테이블</span><span class="mi">2</span><span class="p">;</span> 
+</code></pre></div></div>
+
+<h2 id="1931-쿼리-실습">19.3.1 쿼리 실습</h2>
+<p>앞에서 실습한 두 테이블의 결합의 예를 보면 각각의 테이블은 중복된 데이터 테이블입 니다. 동일한 값이 있는 데도 출력 결과가 2개가 표시되지 않고 1개씩만 표시가 됩니다.</p>
+
+<p>| 콘솔 실습 화면 |</p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">select</span> <span class="n">FirstName</span><span class="p">,</span> <span class="n">LastName</span> <span class="k">from</span> <span class="n">members</span> <span class="k">union</span> <span class="k">select</span> <span class="n">FirstName</span><span class="p">,</span> <span class="n">LastName</span> <span class="k">from</span> <span class="n">members1</span><span class="p">;</span>
+<span class="o">+</span><span class="c1">-----------+----------+</span>
+<span class="o">|</span> <span class="n">FirstName</span> <span class="o">|</span> <span class="n">LastName</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">-----------+----------+</span>
+<span class="o">|</span> <span class="n">lee</span>       <span class="o">|</span> <span class="n">hojin</span>    <span class="o">|</span>
+<span class="o">|</span> <span class="k">NULL</span>      <span class="o">|</span> <span class="n">jiny</span>     <span class="o">|</span>
+<span class="o">|</span> <span class="n">kim</span>       <span class="o">|</span> <span class="n">james</span>    <span class="o">|</span>
+<span class="o">|</span> <span class="n">jung</span>      <span class="o">|</span> <span class="n">eric</span>     <span class="o">|</span>
+<span class="o">+</span><span class="c1">-----------+----------+</span>
+<span class="mi">4</span> <span class="k">rows</span> <span class="k">in</span> <span class="k">set</span> <span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">00</span> <span class="n">sec</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>즉, 중복되는 이름은 제외가 된 것입니다. 다음은 2개의 테이블의 중복값을 포함한 모든 데이터를 출력합니다. 만일 중복된 내용을 모두 출력하기 위해서는 UNION보다 UNION ALL로 사용하면 됩니다.</p>
+
+<p>| 예제 쿼리 |</p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">select</span> <span class="n">FirstName</span><span class="p">,</span> <span class="n">LastName</span> <span class="k">from</span> <span class="n">members</span> 
+<span class="k">union</span> <span class="k">ALL</span> 
+<span class="k">select</span> <span class="n">FirstName</span><span class="p">,</span> <span class="n">LastName</span> <span class="k">from</span> <span class="n">members1</span><span class="p">;</span> 
+</code></pre></div></div>
+<p>UNION ALL 을 적용하여 입력하도록 합니다.</p>
+
+<p>| 콘솔 실습 화면 |</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql&gt; select FirstName, LastName from members union ALL select FirstName, LastName from members1;
++-----------+----------+
+| FirstName | LastName |
++-----------+----------+
+| lee       | hojin    |
+| NULL      | jiny     |
+| kim       | james    |
+| jung      | eric     |
+| lee       | hojin    |
+| NULL      | jiny     |
+| kim       | james    |
++-----------+----------+
+7 rows in set (0.00 sec)
+</code></pre></div></div>
+
+<p>2개의 테이블 모든 데이터가 결합되어 출력됩니다. UNION을 통하여 결과를 결합할 때 의 출력은 첫 번째 SELECT 의 컬럼의 순번 형태로 출력됩니다.</p>
+
+<h2 id="1932-php-실습">19.3.2 PHP 실습</h2>
+<p>PHP 코드를 통하여 UNION 출력을 실습해 보겠습니다. UNION 결과를 처리할 수 있는 메서드를 추가하여 실습해 봅니다.</p>
+
+<p>| PHP 예제 | 
+mysql.class.php 파일에 메서드 예제를 추가합니다.</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 다수의 query를 union 연결 문장을 실행합니다.</span>
+<span class="c1">// query 문장을 가진 배열을 입력받습니다.</span>
+<span class="k">public</span> <span class="k">function</span> <span class="nf">union</span><span class="p">(</span><span class="nv">$queryARR</span><span class="p">)</span>
+<span class="p">{</span>
+            <span class="k">for</span> <span class="p">(</span><span class="nv">$i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="nv">$i</span><span class="o">&lt;</span><span class="nb">count</span><span class="p">(</span><span class="nv">$queryARR</span><span class="p">);</span><span class="nv">$i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                <span class="nv">$queryString</span> <span class="o">.=</span> <span class="s2">"("</span><span class="o">.</span><span class="nv">$queryARR</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span><span class="o">.</span><span class="s2">") union "</span><span class="p">;</span>
+            <span class="p">}</span>
+            <span class="nv">$queryString</span> <span class="o">.=</span> <span class="s2">";"</span><span class="p">;</span>
+            <span class="nv">$queryString</span> <span class="o">=</span> <span class="nb">str_replace</span><span class="p">(</span><span class="s2">"union ;"</span><span class="p">,</span><span class="s2">""</span><span class="p">,</span><span class="nv">$queryString</span><span class="p">);</span>
+
+            <span class="k">if</span> <span class="p">(</span><span class="nv">$result</span> <span class="o">=</span> <span class="nx">mysqli_query</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">dbcon</span><span class="p">,</span> <span class="nv">$queryString</span><span class="p">))</span> <span class="p">{</span>
+                <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="s2">"쿼리성공] "</span><span class="o">.</span><span class="nv">$queryString</span><span class="p">);</span>
+                <span class="nv">$rowss</span> <span class="o">=</span> <span class="s2">""</span><span class="p">;</span>
+                <span class="nv">$row_cnt</span> <span class="o">=</span> <span class="nx">mysqli_num_rows</span><span class="p">(</span><span class="nv">$result</span><span class="p">);</span>
+                <span class="k">for</span> <span class="p">(</span><span class="nv">$i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="nv">$i</span><span class="o">&lt;</span><span class="nv">$row_cnt</span><span class="p">;</span> <span class="nv">$i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="nv">$rowss</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span> <span class="o">=</span> <span class="nx">mysqli_fetch_object</span><span class="p">(</span><span class="nv">$result</span><span class="p">);</span>
+                <span class="p">}</span>
+
+                <span class="nv">$result</span><span class="o">-&gt;</span><span class="na">free</span><span class="p">();</span>
+                <span class="k">return</span> <span class="nv">$rowss</span><span class="p">;</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                    <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="s2">"Error] "</span><span class="o">.</span><span class="nv">$queryString</span><span class="p">);</span>
+            <span class="p">}</span>            
+
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<p>예제 파일 | union-01.php</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+
+	<span class="k">include</span> <span class="s2">"dbinfo.php"</span><span class="p">;</span>
+	<span class="k">include</span> <span class="s2">"mysql.class.php"</span><span class="p">;</span>
+ 
+	<span class="c1">// ++ Mysqli DB 연결.</span>
+	<span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">JinyMysql</span><span class="p">();</span>
+
+	<span class="nv">$queryARR</span> <span class="o">=</span> <span class="k">array</span><span class="p">(</span>
+ 		<span class="s1">'select * from members'</span><span class="p">,</span>
+		<span class="s1">'select * from members_all'</span> <span class="p">);</span> 
+
+	<span class="k">if</span><span class="p">(</span><span class="nv">$rowss</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">union</span><span class="p">(</span><span class="nv">$queryARR</span><span class="p">)){</span>
+		<span class="k">echo</span> <span class="s2">"tables fields = "</span><span class="o">.</span> <span class="nb">count</span><span class="p">(</span><span class="nv">$rowss</span><span class="p">)</span> <span class="o">.</span> <span class="s2">"&lt;br&gt;"</span><span class="p">;</span>
+ 
+		<span class="k">for</span><span class="p">(</span><span class="nv">$i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="nv">$i</span><span class="o">&lt;</span><span class="nb">count</span><span class="p">(</span><span class="nv">$rowss</span><span class="p">);</span><span class="nv">$i</span><span class="o">++</span><span class="p">){</span>
+			<span class="k">echo</span> <span class="nv">$i</span><span class="o">.</span><span class="s2">"="</span><span class="p">;</span>            
+			<span class="nb">print_r</span><span class="p">(</span><span class="nv">$rowss</span><span class="p">[</span><span class="nv">$i</span><span class="p">]);</span>
+			<span class="k">echo</span> <span class="s2">"&lt;br&gt;"</span><span class="p">;</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+
+<span class="cp">?&gt;</span>
+
+</code></pre></div></div>
+
+<p>화면 출력</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql connected!
+쿼리성공] (select * from members) union (select * from members_all)
+tables fields = 12
+0=stdClass Object ( [Id] =&gt; 1 [LastName] =&gt; hojin [FirstName] =&gt; lee [Address] =&gt; shinchon [City] =&gt; seoul [Country] =&gt; Korea [manager] =&gt; infohojin [email] =&gt; hojin@jinyphp.com )
+1=stdClass Object ( [Id] =&gt; 2 [LastName] =&gt; lee [FirstName] =&gt; hojin [Address] =&gt; [City] =&gt; [Country] =&gt; Korea [manager] =&gt; infohojin [email] =&gt; jiny@jinyphp.com )
+2=stdClass Object ( [Id] =&gt; 3 [LastName] =&gt; james [FirstName] =&gt; kim [Address] =&gt; youngdun-po [City] =&gt; seoul [Country] =&gt; Korea [manager] =&gt; info [email] =&gt; james@jinyphp.com )
+3=stdClass Object ( [Id] =&gt; 5 [LastName] =&gt; 1234 [FirstName] =&gt; jiny [Address] =&gt; [City] =&gt; [Country] =&gt; Korea [manager] =&gt; [email] =&gt; )
+4=stdClass Object ( [Id] =&gt; 6 [LastName] =&gt; 1234 [FirstName] =&gt; jiny [Address] =&gt; [City] =&gt; [Country] =&gt; Korea [manager] =&gt; [email] =&gt; )
+5=stdClass Object ( [Id] =&gt; 7 [LastName] =&gt; 123400 [FirstName] =&gt; jiny [Address] =&gt; [City] =&gt; [Country] =&gt; Korea [manager] =&gt; [email] =&gt; )
+6=stdClass Object ( [Id] =&gt; 1 [LastName] =&gt; 0000-00-00 [FirstName] =&gt; 2017-06-02 00:00:00 [Address] =&gt; s [City] =&gt; seoul [Country] =&gt; Korea [manager] =&gt; infohojin [email] =&gt; hojin@jinyphp.com )
+7=stdClass Object ( [Id] =&gt; 2 [LastName] =&gt; 0000-00-00 [FirstName] =&gt; 2017-06-02 00:00:00 [Address] =&gt; [City] =&gt; [Country] =&gt; Korea [manager] =&gt; infohojin [email] =&gt; jiny@jinyphp.com )
+8=stdClass Object ( [Id] =&gt; 3 [LastName] =&gt; 0000-00-00 [FirstName] =&gt; 2017-06-02 00:00:00 [Address] =&gt; y [City] =&gt; seoul [Country] =&gt; Korea [manager] =&gt; info [email] =&gt; james@jinyphp.com )
+9=stdClass Object ( [Id] =&gt; 5 [LastName] =&gt; 0000-00-00 [FirstName] =&gt; 2017-06-02 00:00:00 [Address] =&gt; [City] =&gt; [Country] =&gt; Korea [manager] =&gt; [email] =&gt; )
+10=stdClass Object ( [Id] =&gt; 6 [LastName] =&gt; 0000-00-00 [FirstName] =&gt; 2017-06-02 00:00:00 [Address] =&gt; [City] =&gt; [Country] =&gt; Korea [manager] =&gt; [email] =&gt; )
+11=stdClass Object ( [Id] =&gt; 7 [LastName] =&gt; 0000-00-00 [FirstName] =&gt; 2017-06-02 00:00:00 [Address] =&gt; [City] =&gt; [Country] =&gt; Korea [manager] =&gt; [email] =&gt; ) 
+</code></pre></div></div>
+
+        </div>
+
+        <!-- Sidebar Column -->
+        <div class="col-md-3"><ul class="list-group">
+    <li class="list-group-item list-group-item-dark">Site Menu</li>
+    <li class="list-group-item"><a href="/data">개념</a></li>
+    <li class="list-group-item"><a href="/setup">설치</a></li>
+    <li class="list-group-item"><a href="/sql">SQL</a></li>
+    <li class="list-group-item"><a href="/connect">DB연동</a></li>
+    <li class="list-group-item"><a href="/injection">인젝션</a></li>
+    <li class="list-group-item"><a href="/function">함수</a></li>
+</ul>
+
+<br>
+</div>
+
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->  <!-- Footer -->
+  <footer class="py-3 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; jinydev 2017~2020</p>
+    </div>
+    <!-- /.container -->
+  </footer><!--부트스트랩4-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    </body>
+
+</html>

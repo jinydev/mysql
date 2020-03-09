@@ -12,4 +12,4 @@ MySQL Workbench 는 SQL 쿼리 생성, 실행 및 최적화를 위한 비주얼 
 
 ## 관리자 
 MySQL Workbench 는 MySQL 환경을 쉽게 관리하고 데이터베이스에 대한 더 나은 가 시성을 확보할 수 있는 시각적 콘솔을 제공합니다. 개발자와 DBA는 서버 구성, 사용자 관리, 백업 및 복구 수행, 감사 데이터 검사 및 데이터베이스 상태 보기를 위해 비주얼 툴 을 사용할 수 있습니다.  
-`https://www.mysql.com/products/workbench/`에서 무료로 다운로드할 수 있습 니다. 
+`https://www.mysql.com/products/workbench/`에서 무료로 다운로드할 수 있습니다. 

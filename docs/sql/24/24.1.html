@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Jiny Mysql</title>
+
+        <!--부트스트랩4-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <style>
+            img {
+                max-width:100%;
+            }
+        </style>
+        
+
+    </head>
+    <body>
+        <!--네비게이션--><!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="/">Mysql</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/data">개념</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="/setup">설치</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/sql">SQL</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/connect">DB연동</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/injection">인젝션</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/function">함수</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav><nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li></ol>    
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+    <div class="row">
+
+        <!-- Post Content Column -->
+        <div class="col-lg-9">
+            <!-- Title -->
+            <h1 class="mt-4">24.1.커밋 모드</h1>
+            <hr>
+            <p>트랜잭션에는 커밋이라는 명령을 함께 사용합니다. 커밋은 임시로 실행 처리한 쿼리 명령 을 실제적인 데이터베이스에 반영을 처리하는 명령입니다.</p>
+
+<p>기본적으로 데이터베이스는 커밋 동작에 대하여 자동 처리되어 있습니다. 자동 처리한 현 재와 같이 SQL 쿼리를 입력하고 실행하게 되면 바로 실시간으로 데이터를 반영하여 처리 하는 것입니다.</p>
+
+<p>트랜잭션으로 작업하기 위해서는 자동 처리되는 커밋을 수동으로 변경해야 합니다. 수동 커밋 모드 상태에서 실제적인 데이터 쿼리 작업을 실행합니다. 쿼리의 실행이 정상적이라 고 판단되었을 때 COMMIT 명령을 통하여 작업을 실제 데이터베이스에 반영합니다.</p>
+
+<p>| 쿼리 문법 |</p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">START</span> <span class="n">TRANSACTION</span><span class="p">;</span> 
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">START TRANSACTION;</code>은 현재 자동 커밋 모드 상태에서 트랜잭션을 시작하겠다는 명 령입니다. 트랜잭션 시작을 하게 되면 자동 커밋 상태에서 수동 커밋 상태로 전환됩니다.</p>
+
+<h2 id="2411-쿼리-실습">24.1.1 쿼리 실습</h2>
+<p>트랜잭션 시작을 통하여 수동 커밋 모드 상태로 전환합니다.</p>
+
+<p>| 콘솔 실습 화면 |</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql&gt; START TRANSACTION;
+Query OK, 0 rows affected (0.00 sec)
+ 
+</code></pre></div></div>
+
+<h2 id="2412-php-실습">24.1.2 PHP 실습</h2>
+<p>PHP 코드를 통하여 트랜잭션 모든 전환 메서드를 생성해 봅니다.</p>
+
+<p>| PHP 예제 | 
+mysql.class.php 파일에 메서드 예제를 추가합니다.</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="nf">transaction</span><span class="p">()</span>
+<span class="p">{</span>
+            <span class="nv">$queryString</span> <span class="o">=</span> <span class="s2">"START TRANSACTION"</span><span class="p">;</span>
+                
+            <span class="c1">// 쿼리를 전송합니다.</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">mysqli_query</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">dbcon</span><span class="p">,</span> <span class="nv">$queryString</span><span class="p">)</span><span class="o">===</span> <span class="k">TRUE</span><span class="p">){</span> 
+                <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="s2">"쿼리성공] "</span><span class="o">.</span><span class="nv">$queryString</span><span class="p">);</span>
+                <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="s2">" 트렌젝션 시작!"</span><span class="p">);</span>
+
+                <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+                <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="s2">"Error] "</span><span class="o">.</span><span class="nv">$queryString</span><span class="p">);</span>
+                <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+            <span class="p">}</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+        </div>
+
+        <!-- Sidebar Column -->
+        <div class="col-md-3"><ul class="list-group">
+    <li class="list-group-item list-group-item-dark">Site Menu</li>
+    <li class="list-group-item"><a href="/data">개념</a></li>
+    <li class="list-group-item"><a href="/setup">설치</a></li>
+    <li class="list-group-item"><a href="/sql">SQL</a></li>
+    <li class="list-group-item"><a href="/connect">DB연동</a></li>
+    <li class="list-group-item"><a href="/injection">인젝션</a></li>
+    <li class="list-group-item"><a href="/function">함수</a></li>
+</ul>
+
+<br>
+</div>
+
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->  <!-- Footer -->
+  <footer class="py-3 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; jinydev 2017~2020</p>
+    </div>
+    <!-- /.container -->
+  </footer><!--부트스트랩4-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    </body>
+
+</html>

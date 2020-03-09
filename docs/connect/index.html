@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Jiny Mysql</title>
+
+        <!--부트스트랩4-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <style>
+            img {
+                max-width:100%;
+            }
+        </style>
+        
+
+    </head>
+    <body>
+        <!--네비게이션--><!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="/">Mysql</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/data">개념</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="/setup">설치</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/sql">SQL</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/connect">DB연동</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/injection">인젝션</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/function">함수</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav><nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li></ol>    
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+    <div class="row">
+
+        <!-- Post Content Column -->
+        <div class="col-lg-9">
+            <!-- Title -->
+            <h1 class="mt-4">Database 연결</h1>
+            <hr>
+            <p>데이터베이스 시스템은 복잡한 데이터를 운영 관리하기에 필요한 다양한 처리 기능들을 제공해 줍니다. 그리고 데이터를 저장하고 조작할 수 있는 SQL 언어와 콘솔 인터페이스 도 지원하고 있습니다. 하지만 단순히 데이터의 저장과 관리는 정보 데이터를 100% 효율 적으로 활용한다고는 볼 수 없습니다.</p>
+
+<p>축적 및 보관된 데이터는 별도의 프로그램 및 정보 서비스를 통하여 더 가치가 있는 데이 터로 거듭날 것입니다. 그래서 대부분의 데이터베이스 시스템은 외부 프로그램들과 접속 하여 데이터를 처리할 수 있도록 다양한 연결 인터페이스를 제공하고 있습니다.</p>
+
+<ul>
+  <li><a href="04.1">DB 연동</a></li>
+  <li><a href="04.2">연결 접속방법</a>
+    <ul>
+      <li>MySQLi</li>
+      <li>PDO</li>
+    </ul>
+  </li>
+  <li><a href="04.3">PHP 연결</a>
+    <ul>
+      <li>접속 계정</li>
+      <li>설정값</li>
+      <li>mysqli 객체지향적</li>
+      <li>mysqli 절차적</li>
+      <li>PDO</li>
+    </ul>
+  </li>
+  <li><a href="04.4">연결 종료</a></li>
+  <li><a href="04.5">언어 세트</a></li>
+  <li><a href="04.6">클래스 만들기</a></li>
+  <li><a href="04.7">mysqli 함수</a>
+    <ul>
+      <li>04.7.1 쿼리 전송</li>
+      <li>04.7.2 반환 개수</li>
+      <li>04.7.3 데이터 읽기</li>
+      <li>04.7.4 메모리 해제</li>
+    </ul>
+  </li>
+  <li>04.8 <a href="04.8">잠금</a>
+    <ul>
+      <li>04.8.1 잠금</li>
+      <li>04.8.2 해제</li>
+    </ul>
+  </li>
+</ul>
+
+
+        </div>
+
+        <!-- Sidebar Column -->
+        <div class="col-md-3"><ul class="list-group">
+    <li class="list-group-item list-group-item-dark">Site Menu</li>
+    <li class="list-group-item"><a href="/data">개념</a></li>
+    <li class="list-group-item"><a href="/setup">설치</a></li>
+    <li class="list-group-item"><a href="/sql">SQL</a></li>
+    <li class="list-group-item"><a href="/connect">DB연동</a></li>
+    <li class="list-group-item"><a href="/injection">인젝션</a></li>
+    <li class="list-group-item"><a href="/function">함수</a></li>
+</ul>
+
+<br>
+</div>
+
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->  <!-- Footer -->
+  <footer class="py-3 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; jinydev 2017~2020</p>
+    </div>
+    <!-- /.container -->
+  </footer><!--부트스트랩4-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    </body>
+
+</html>

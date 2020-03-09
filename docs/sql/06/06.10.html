@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>Jiny Mysql</title>
+
+        <!--부트스트랩4-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <style>
+            img {
+                max-width:100%;
+            }
+        </style>
+        
+
+    </head>
+    <body>
+        <!--네비게이션--><!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="/">Mysql</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/data">개념</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="/setup">설치</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/sql">SQL</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/connect">DB연동</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/injection">인젝션</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/function">함수</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav><nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li></ol>    
+</nav>
+
+<!-- Page Content -->
+<div class="container">
+    <div class="row">
+
+        <!-- Post Content Column -->
+        <div class="col-lg-9">
+            <!-- Title -->
+            <h1 class="mt-4">06.10 테이블 최적화</h1>
+            <hr>
+            <p>테이블은 자료의 삽입과 수정, 삭제 작업이 자주 발생합니다. 이러한 잦은 데이터의 변경 요구는 테이블의 실제 데이터의 구조를 엉키게 만들어 처리 속도를 저하시킵니다.</p>
+
+<p>예전, 우리가 컴퓨터의 디스크 조각 모음 기능을 실행했던 것처럼 파일의 데이터 링크 구 조가 엉키게 됩니다. 만일 테이블에 가변폭 varchar 형태의 컬럼 데이터 타입을 많이 사 용했다고 한다면 테이블에서는 불연속적인 공간이 더욱 늘어날 것입니다. 불연속적인 공 간이 증가할수록 테이블 데이터 구조는 낭비되고 속도가 저하됩니다.</p>
+
+<p>이런 경우 중간중간 테이블 최적화 기능을 통하여 테이블의 불연속적인 공간을 정리해 주 는 것이 좋습니다. 불연속적인 공간이 줄어들면 테이블의 파일 크기도 작아지고, 더 빠른 동작 처리도 가능해집니다.</p>
+
+<p>| 쿼리 문법 |</p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">OPTIMIZE</span> <span class="k">TABLE</span> <span class="err">데이블명</span> 
+</code></pre></div></div>
+
+<p>| 콘솔 실습 화면 |</p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mysql</span><span class="o">&gt;</span> <span class="n">optimize</span> <span class="k">table</span> <span class="n">members</span><span class="p">;</span>
+<span class="o">+</span><span class="c1">--------------+----------+----------+----------+</span>
+<span class="o">|</span> <span class="k">Table</span>        <span class="o">|</span> <span class="n">Op</span>       <span class="o">|</span> <span class="n">Msg_type</span> <span class="o">|</span> <span class="n">Msg_text</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">--------------+----------+----------+----------+</span>
+<span class="o">|</span> <span class="n">jiny</span><span class="p">.</span><span class="n">members</span> <span class="o">|</span> <span class="n">optimize</span> <span class="o">|</span> <span class="n">status</span>   <span class="o">|</span> <span class="n">OK</span>       <span class="o">|</span>
+<span class="o">+</span><span class="c1">--------------+----------+----------+----------+</span>
+<span class="mi">1</span> <span class="k">row</span> <span class="k">in</span> <span class="k">set</span> <span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">03</span> <span class="n">sec</span><span class="p">)</span>
+
+</code></pre></div></div>
+<p>OPTIMIZE TABLE 은 작업 원리는 원본 데이터를 복사한 후에 데이터 정리 작업을 진행 합니다. 따라서 최적화 작업 중에 검색과 같은 데이터 처리 작업은 유지할 수 있습니다. 
+정리 작업이 완료되면 이전의 테이블은 삭제되고 정리된 새로운 테이블을 유지하게 됩니다.</p>
+
+<p>주의할 점은 최적화 작업 중에는 읽기만 가능하며 새로운 자료의 삽입이나 업데이트가 잠시 지연됩니다.</p>
+
+        </div>
+
+        <!-- Sidebar Column -->
+        <div class="col-md-3"><ul class="list-group">
+    <li class="list-group-item list-group-item-dark">Site Menu</li>
+    <li class="list-group-item"><a href="/data">개념</a></li>
+    <li class="list-group-item"><a href="/setup">설치</a></li>
+    <li class="list-group-item"><a href="/sql">SQL</a></li>
+    <li class="list-group-item"><a href="/connect">DB연동</a></li>
+    <li class="list-group-item"><a href="/injection">인젝션</a></li>
+    <li class="list-group-item"><a href="/function">함수</a></li>
+</ul>
+
+<br>
+</div>
+
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->  <!-- Footer -->
+  <footer class="py-3 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; jinydev 2017~2020</p>
+    </div>
+    <!-- /.container -->
+  </footer><!--부트스트랩4-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    </body>
+
+</html>
