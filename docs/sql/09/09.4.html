@@ -49,10 +49,9 @@
     </div>
   </nav><nav aria-label="breadcrumb">
     <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/">Home</a></li></ol>    
-</nav>
-
-<!-- Page Content -->
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <!--breadcrumb loop--></ol>    
+</nav><!-- Page Content -->
 <div class="container">
     <div class="row">
 
@@ -99,19 +98,28 @@
 <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">members</span> <span class="k">ADD</span> <span class="k">PRIMARY</span> <span class="k">KEY</span> <span class="p">(</span><span class="n">Id</span><span class="p">);</span> 
 </code></pre></div></div>
 
+<h2 id="다중컬럼-키">다중컬럼 키</h2>
 <p>CONSTRAINT 키워드를 통하여 2개의 컬럼 필드를 가지는 프라이머리 키를 추가할 수 있습니다.</p>
 
 <p>| 예제 쿼리 |</p>
 <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">members</span> <span class="k">ADD</span> <span class="k">CONSTRAINT</span> <span class="n">PK_members</span> <span class="k">PRIMARY</span> <span class="k">KEY</span> <span class="p">(</span><span class="n">Id</span><span class="p">,</span><span class="n">LastName</span><span class="p">);</span> 
 </code></pre></div></div>
 
-<p>2개의 필드를 가지는 프라이머리 키 생성 시 각각의 컬럼은 NULL 값이 허용되지 않은 컬 럼이어야 합니다.</p>
+<p>2개의 필드를 가지는 프라이머리 키 생성 시 각각의 컬럼은 NULL 값이 허용되지 않은 컬럼이어야 합니다.</p>
 
+<blockquote>
+  <p>note: 다중 컬럼키는 중복상의 키를 생성하지 안도록 방지할 수 있습니다.</p>
+</blockquote>
+
+<p>다중컬럼 인덱스를 다른말로 결합 인덱스(composite index)라고 합니다.</p>
+
+<h2 id="삭제">삭제</h2>
 <p>| 예제 쿼리 |</p>
 <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">ALTER</span> <span class="k">TABLE</span> <span class="n">members</span> <span class="k">DROP</span> <span class="k">PRIMARY</span> <span class="k">KEY</span><span class="p">;</span> 
 </code></pre></div></div>
 
 <p>프라이머리 키를 삭합니다.</p>
+
 
         </div>
 
@@ -127,18 +135,23 @@
 </ul>
 
 <br>
-</div>
+<script data-ad-client="ca-pub-3321560028329475" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<br></div>
 
     </div>
     <!-- /.row -->
 </div>
-<!-- /.container -->  <!-- Footer -->
+<!-- /.container -->
+
+        <footer>  <!-- Footer -->
   <footer class="py-3 bg-dark">
     <div class="container">
       <p class="m-0 text-center text-white">Copyright &copy; jinydev 2017~2020</p>
     </div>
     <!-- /.container -->
-  </footer><!--부트스트랩4-->
+  </footer></footer>        
+
+        <!--부트스트랩4-->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>

@@ -1,14 +1,7 @@
 ---
 layout: default
 --- 
-<nav aria-label="breadcrumb">
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="/">Home</a></li>
-        {%- for breadcrumb in page.breadcrumb -%}
-        <li class="breadcrumb-item active"><a href="#">{{ breadcrumb }}</a></li>
-        {%- endfor -%}
-    </ol>    
-</nav>
+{%- include breadcrumb.html -%}
 
 <!-- Page Content -->
 <div class="container">
