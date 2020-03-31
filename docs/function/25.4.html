@@ -4,15 +4,20 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Jiny Mysql</title>
-
-        <!--부트스트랩4-->
+        <!--SEO--><title>JinyDev | 함수 확인</title>
+            <meta name="title" content="함수 확인" /><!--부트스트랩4-->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <style>
             img {
                 max-width:100%;
             }
         </style>
+
+        <link rel="stylesheet" href="/assets/highlight.css">
+        <link rel="stylesheet" href="/assets/style.css">
+
+        <script data-ad-client="ca-pub-3321560028329475" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
         
 
     </head>
@@ -47,45 +52,56 @@
         </ul>
       </div>
     </div>
-  </nav><nav aria-label="breadcrumb">
+  </nav><div class="container"><nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/">Home</a></li>
         <!--breadcrumb loop--></ol>    
-</nav><!-- Page Content -->
+</nav></div>
+
+<!-- Page Content -->
 <div class="container">
     <div class="row">
 
         <!-- Post Content Column -->
         <div class="col-lg-9">
-            <!-- Title -->
-            <h1 class="mt-4">25.4.함수 확인 </h1>
-            <hr>
-            <p>사용자 정의로 저장된 함수들은 데이터베이스 시스템에 저장됩니다. 저장된 함수들은 재사용이 가능합니다. 사용자 정의된 함수의 내용들을 SHOW CREATE FUNCTION 명령 을 통하여 확인할 수 있습니다.</p>
+            <section>
+                <h1 id="함수-확인">함수 확인</h1>
+<hr />
+
+<p>사용자 정의로 저장된 함수들은 데이터베이스 시스템에 저장됩니다. 저장된 함수들은 재사용이 가능합니다. 사용자 정의된 함수의 내용들을 SHOW CREATE FUNCTION 명령 을 통하여 확인할 수 있습니다.</p>
 
 <p>| 쿼리 문법 |</p>
 <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SHOW</span> <span class="k">CREATE</span> <span class="k">FUNCTION</span> <span class="err">함수명</span><span class="p">;</span> 
 </code></pre></div></div>
 
+<p><br /></p>
+
 <h2 id="2541-쿼리-실습">25.4.1 쿼리 실습</h2>
+<hr />
+
 <p>작성한 사용자 함수의 내용을 확인해 보도록 합니다.</p>
 
 <p>| 콘솔 실습 화면 |</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql&gt; show create function test;
-+----------+------------------------+------------------------------------------------------------------------------------------------------------------------------------+----------------------+----------------------+--------------------+
-| Function | sql_mode               | Create Function                                                                                                                    | character_set_client | collation_connection | Database Collation |
-+----------+------------------------+------------------------------------------------------------------------------------------------------------------------------------+----------------------+----------------------+--------------------+
-| test     | NO_ENGINE_SUBSTITUTION | CREATE DEFINER=`root`@`localhost` FUNCTION `test`(a INT) RETURNS double
-BEGIN
-DECLARE s DOUBLE;
-SELECT a * a INTO s;
-RETURN s;
-END | utf8                 | utf8_general_ci      | utf8_general_ci    |
-+----------+------------------------+------------------------------------------------------------------------------------------------------------------------------------+----------------------+----------------------+--------------------+
-1 row in set (0.00 sec)
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">show</span> <span class="k">create</span> <span class="k">function</span> <span class="n">test</span><span class="p">;</span>
+<span class="o">+</span><span class="c1">----------+------------------------+------------------------------------------------------------------------------------------------------------------------------------+----------------------+----------------------+--------------------+</span>
+<span class="o">|</span> <span class="k">Function</span> <span class="o">|</span> <span class="n">sql_mode</span>               <span class="o">|</span> <span class="k">Create</span> <span class="k">Function</span>                                                                                                                    <span class="o">|</span> <span class="n">character_set_client</span> <span class="o">|</span> <span class="n">collation_connection</span> <span class="o">|</span> <span class="k">Database</span> <span class="k">Collation</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">----------+------------------------+------------------------------------------------------------------------------------------------------------------------------------+----------------------+----------------------+--------------------+</span>
+<span class="o">|</span> <span class="n">test</span>     <span class="o">|</span> <span class="n">NO_ENGINE_SUBSTITUTION</span> <span class="o">|</span> <span class="k">CREATE</span> <span class="k">DEFINER</span><span class="o">=</span><span class="nv">`root`</span><span class="o">@</span><span class="nv">`localhost`</span> <span class="k">FUNCTION</span> <span class="nv">`test`</span><span class="p">(</span><span class="n">a</span> <span class="nb">INT</span><span class="p">)</span> <span class="k">RETURNS</span> <span class="nb">double</span>
+<span class="k">BEGIN</span>
+<span class="k">DECLARE</span> <span class="n">s</span> <span class="nb">DOUBLE</span><span class="p">;</span>
+<span class="k">SELECT</span> <span class="n">a</span> <span class="o">*</span> <span class="n">a</span> <span class="k">INTO</span> <span class="n">s</span><span class="p">;</span>
+<span class="k">RETURN</span> <span class="n">s</span><span class="p">;</span>
+<span class="k">END</span> <span class="o">|</span> <span class="n">utf8</span>                 <span class="o">|</span> <span class="n">utf8_general_ci</span>      <span class="o">|</span> <span class="n">utf8_general_ci</span>    <span class="o">|</span>
+<span class="o">+</span><span class="c1">----------+------------------------+------------------------------------------------------------------------------------------------------------------------------------+----------------------+----------------------+--------------------+</span>
+<span class="mi">1</span> <span class="k">row</span> <span class="k">in</span> <span class="k">set</span> <span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">00</span> <span class="n">sec</span><span class="p">)</span>
 
 </code></pre></div></div>
 
+<p><br /></p>
+
 <h2 id="2542-php-실습">25.4.2 PHP 실습</h2>
+<hr />
+
 <p>PHP 코드를 통하여 사용자 함수를 확인해 보는 메서드를 만들어 봅니다.</p>
 
 <p>| PHP 예제 | 
@@ -146,25 +162,37 @@ mysql.class.php 파일에 메서드 예제를 추가합니다.</p>
 쿼리성공] SHOW CREATE FUNCTION test
 tables fields = 1
 0=stdClass Object ( [Function] =&gt; test [sql_mode] =&gt; NO_ENGINE_SUBSTITUTION [Create Function] =&gt; CREATE DEFINER=`root`@`localhost` FUNCTION `test`(a INT) RETURNS double BEGIN DECLARE s DOUBLE; SELECT a * a INTO s; RETURN s; END [character_set_client] =&gt; utf8 [collation_connection] =&gt; utf8_general_ci [Database Collation] =&gt; utf8_general_ci ) 
-
 </code></pre></div></div>
 
+<p><br /><br /></p>
+
+            </section>
         </div>
 
         <!-- Sidebar Column -->
-        <div class="col-md-3"><ul class="list-group">
-    <li class="list-group-item list-group-item-dark">Site Menu</li>
+        <div class="col-md-3">
+            <aside><ul class="list-group">
     <li class="list-group-item"><a href="/data">개념</a></li>
     <li class="list-group-item"><a href="/setup">설치</a></li>
     <li class="list-group-item"><a href="/sql">SQL</a></li>
-    <li class="list-group-item"><a href="/connect">DB연동</a></li>
+    
     <li class="list-group-item"><a href="/injection">인젝션</a></li>
     <li class="list-group-item"><a href="/function">함수</a></li>
 </ul>
-
 <br>
-<script data-ad-client="ca-pub-3321560028329475" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<br></div>
+
+<ul class="list-group">
+    <li class="list-group-item"><a href="/connect">DB연동</a></li>
+    <li class="list-group-item">jinyMysql</li>
+    <li class="list-group-item">jinyMysqlAdmin</li>
+</ul>
+<br>
+
+<ul class="list-group">
+    <li class="list-group-item">WorkBench</li>
+    <li class="list-group-item">phpMyAdmin</li>
+</ul></aside>            
+        </div>
 
     </div>
     <!-- /.row -->

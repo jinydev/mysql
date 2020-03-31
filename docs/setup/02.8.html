@@ -4,15 +4,20 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Jiny Mysql</title>
-
-        <!--부트스트랩4-->
+        <!--SEO--><title>JinyDev | 02.8.SOURCE </title>
+            <meta name="title" content="02.8.SOURCE " /><!--부트스트랩4-->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <style>
             img {
                 max-width:100%;
             }
         </style>
+
+        <link rel="stylesheet" href="/assets/highlight.css">
+        <link rel="stylesheet" href="/assets/style.css">
+
+        <script data-ad-client="ca-pub-3321560028329475" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
         
 
     </head>
@@ -47,20 +52,20 @@
         </ul>
       </div>
     </div>
-  </nav><nav aria-label="breadcrumb">
+  </nav><div class="container"><nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/">Home</a></li>
         <!--breadcrumb loop--></ol>    
-</nav><!-- Page Content -->
+</nav></div>
+
+<!-- Page Content -->
 <div class="container">
     <div class="row">
 
         <!-- Post Content Column -->
         <div class="col-lg-9">
-            <!-- Title -->
-            <h1 class="mt-4">02.8.SOURCE </h1>
-            <hr>
-            <p>보통 sql 파일들은 데이터를 보관하고 있는 형태의 백업 파일이 대부분입니다. 하지만 sql 파일에 특정한 동작을 조작하는 실행 명령이 있을 경우 특수한 쿼리 문법으로 외부의 sql 파일을 실행할 수 있습니다.</p>
+            <section>
+                <p>보통 sql 파일들은 데이터를 보관하고 있는 형태의 백업 파일이 대부분입니다. 하지만 sql 파일에 특정한 동작을 조작하는 실행 명령이 있을 경우 특수한 쿼리 문법으로 외부의 sql 파일을 실행할 수 있습니다.</p>
 
 <p>다음과 같이 SOURCE 명령은 외부에 저장된 SQL 명령문 파일을 읽어서 실행할 수 있습 니다.</p>
 
@@ -105,22 +110,33 @@
 <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mysql</span> <span class="o">-</span><span class="n">u</span><span class="err">계정명</span> <span class="o">-</span><span class="n">p</span><span class="err">패스워드</span> <span class="o">-</span><span class="n">e</span> <span class="err">“</span><span class="k">SOURCE</span> <span class="err">파일명”</span> 
 </code></pre></div></div>
 
+            </section>
         </div>
 
         <!-- Sidebar Column -->
-        <div class="col-md-3"><ul class="list-group">
-    <li class="list-group-item list-group-item-dark">Site Menu</li>
+        <div class="col-md-3">
+            <aside><ul class="list-group">
     <li class="list-group-item"><a href="/data">개념</a></li>
     <li class="list-group-item"><a href="/setup">설치</a></li>
     <li class="list-group-item"><a href="/sql">SQL</a></li>
-    <li class="list-group-item"><a href="/connect">DB연동</a></li>
+    
     <li class="list-group-item"><a href="/injection">인젝션</a></li>
     <li class="list-group-item"><a href="/function">함수</a></li>
 </ul>
-
 <br>
-<script data-ad-client="ca-pub-3321560028329475" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<br></div>
+
+<ul class="list-group">
+    <li class="list-group-item"><a href="/connect">DB연동</a></li>
+    <li class="list-group-item">jinyMysql</li>
+    <li class="list-group-item">jinyMysqlAdmin</li>
+</ul>
+<br>
+
+<ul class="list-group">
+    <li class="list-group-item">WorkBench</li>
+    <li class="list-group-item">phpMyAdmin</li>
+</ul></aside>            
+        </div>
 
     </div>
     <!-- /.row -->

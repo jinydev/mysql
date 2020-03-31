@@ -1,0 +1,22 @@
+I"<h1 id="연결-종료">연결 종료</h1>
+<p>PHP가 데이터베이스 처리 작업을 모두 한 후에는 연결한 DB를 종료해야 합니다. 물론 스크립트가 종료되면 연결된 DB는 자동으로 종료됩니다. 하지만 정상적인 완료를 위해 서 종료 처리를 하도록 합니다.</p>
+
+<ul>
+  <li>MySQLi 객체지향
+    <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$conn</span><span class="o">-&gt;</span><span class="na">close</span><span class="p">(</span> <span class="p">);</span> 
+</code></pre></div>    </div>
+  </li>
+  <li>mySQLi 절차적
+    <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">mysqli_close</span><span class="p">(</span><span class="nv">$conn</span><span class="p">);</span> 
+</code></pre></div>    </div>
+  </li>
+  <li>PDO
+    <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$conn</span> <span class="o">=</span> <span class="kc">null</span><span class="p">;</span> 
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<p>DB의 연결 종류는 접속한 방식에 따라서 약간씩 차이가 있습니다.</p>
+
+<p><br /><br /></p>
+:ET

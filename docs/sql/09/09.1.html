@@ -4,15 +4,20 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Jiny Mysql</title>
-
-        <!--부트스트랩4-->
+        <!--SEO--><title>JinyDev | 09.1.제약사항 NOT NULL</title>
+            <meta name="title" content="09.1.제약사항 NOT NULL" /><!--부트스트랩4-->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <style>
             img {
                 max-width:100%;
             }
         </style>
+
+        <link rel="stylesheet" href="/assets/highlight.css">
+        <link rel="stylesheet" href="/assets/style.css">
+
+        <script data-ad-client="ca-pub-3321560028329475" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
         
 
     </head>
@@ -47,20 +52,20 @@
         </ul>
       </div>
     </div>
-  </nav><nav aria-label="breadcrumb">
+  </nav><div class="container"><nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/">Home</a></li>
         <!--breadcrumb loop--></ol>    
-</nav><!-- Page Content -->
+</nav></div>
+
+<!-- Page Content -->
 <div class="container">
     <div class="row">
 
         <!-- Post Content Column -->
         <div class="col-lg-9">
-            <!-- Title -->
-            <h1 class="mt-4">09.1.제약사항 NOT NULL</h1>
-            <hr>
-            <p>제약사항 ‘NOT NULL ’은 컬럼의 NULL 값에 대한 처리 여부를 지정하는 속성입니다. 보 통 컬럼에 아무런 데이터가 입력되지 않으면 NULL 값으로 설정됩니다.</p>
+            <section>
+                <p>제약사항 ‘NOT NULL ’은 컬럼의 NULL 값에 대한 처리 여부를 지정하는 속성입니다. 보 통 컬럼에 아무런 데이터가 입력되지 않으면 NULL 값으로 설정됩니다.</p>
 
 <p>컬럼의 데이터에 반드시 들어가야 하는 필수 데이터 값은 ‘NOT NULL’ 속성을 부여하는 것이 좋습니다. NOT NULL 제약사항이 설정된 컬럼은 데이터를 필수적으로 입력해야 하기 때문에 데이터 값이 없는 경우 SQL 쿼리 구문은 오류로 실행되지 않습니다.</p>
 
@@ -177,22 +182,33 @@ NULL 설정!
 
 <p>NOT NULL 설정은 MySQL 검색 및 처리 성능을 향상시킬 수 있습니다. 만일 모든 컬럼을 NOT NULL 로 설정하면 각각의 컬럼마다 1비트의 공간을 절약할 수 있습니다.</p>
 
+            </section>
         </div>
 
         <!-- Sidebar Column -->
-        <div class="col-md-3"><ul class="list-group">
-    <li class="list-group-item list-group-item-dark">Site Menu</li>
+        <div class="col-md-3">
+            <aside><ul class="list-group">
     <li class="list-group-item"><a href="/data">개념</a></li>
     <li class="list-group-item"><a href="/setup">설치</a></li>
     <li class="list-group-item"><a href="/sql">SQL</a></li>
-    <li class="list-group-item"><a href="/connect">DB연동</a></li>
+    
     <li class="list-group-item"><a href="/injection">인젝션</a></li>
     <li class="list-group-item"><a href="/function">함수</a></li>
 </ul>
-
 <br>
-<script data-ad-client="ca-pub-3321560028329475" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<br></div>
+
+<ul class="list-group">
+    <li class="list-group-item"><a href="/connect">DB연동</a></li>
+    <li class="list-group-item">jinyMysql</li>
+    <li class="list-group-item">jinyMysqlAdmin</li>
+</ul>
+<br>
+
+<ul class="list-group">
+    <li class="list-group-item">WorkBench</li>
+    <li class="list-group-item">phpMyAdmin</li>
+</ul></aside>            
+        </div>
 
     </div>
     <!-- /.row -->

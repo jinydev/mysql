@@ -4,15 +4,20 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Jiny Mysql</title>
-
-        <!--부트스트랩4-->
+        <!--SEO--><title>JinyDev | 07.1.숫자형 데이터</title>
+            <meta name="title" content="07.1.숫자형 데이터" /><!--부트스트랩4-->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <style>
             img {
                 max-width:100%;
             }
         </style>
+
+        <link rel="stylesheet" href="/assets/highlight.css">
+        <link rel="stylesheet" href="/assets/style.css">
+
+        <script data-ad-client="ca-pub-3321560028329475" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
         
 
     </head>
@@ -47,20 +52,20 @@
         </ul>
       </div>
     </div>
-  </nav><nav aria-label="breadcrumb">
+  </nav><div class="container"><nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/">Home</a></li>
         <!--breadcrumb loop--></ol>    
-</nav><!-- Page Content -->
+</nav></div>
+
+<!-- Page Content -->
 <div class="container">
     <div class="row">
 
         <!-- Post Content Column -->
         <div class="col-lg-9">
-            <!-- Title -->
-            <h1 class="mt-4">07.1.숫자형 데이터</h1>
-            <hr>
-            <p>숫자형 데이터란 숫자의 값을 저장하는 유형입니다. 컴퓨터는 우리가 수학적으로 알고 있 는 모든 가능한 수를 다 표현을 할 수 없습니다. 그 이유는 컴퓨터는 모든 데이터를 2진수 의 비트 값으로 처리하기 때문입니다.</p>
+            <section>
+                <p>숫자형 데이터란 숫자의 값을 저장하는 유형입니다. 컴퓨터는 우리가 수학적으로 알고 있 는 모든 가능한 수를 다 표현을 할 수 없습니다. 그 이유는 컴퓨터는 모든 데이터를 2진수 의 비트 값으로 처리하기 때문입니다.</p>
 
 <p>컴퓨터는 2진법과 데이터 비트 수의 한계로 정확한 값을 표현하는 정수형 타입과 근사값 을 표현하는 부동소수점 타입으로 구분할 수 있습니다. MySQL에서는 정수의 데이터 타 입을 데이터 비트의 크기별로 다섯 가지로 구분합니다. 
 부동소수형은 크게 float형과 double형으로 구분됩니다.</p>
@@ -203,22 +208,33 @@
 <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">ALTER</span> <span class="k">TABLE</span> <span class="err">테이블명</span> <span class="k">ADD</span> <span class="err">컬럼명</span> <span class="nb">decimal</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">2</span><span class="p">);</span> 
 </code></pre></div></div>
 
+            </section>
         </div>
 
         <!-- Sidebar Column -->
-        <div class="col-md-3"><ul class="list-group">
-    <li class="list-group-item list-group-item-dark">Site Menu</li>
+        <div class="col-md-3">
+            <aside><ul class="list-group">
     <li class="list-group-item"><a href="/data">개념</a></li>
     <li class="list-group-item"><a href="/setup">설치</a></li>
     <li class="list-group-item"><a href="/sql">SQL</a></li>
-    <li class="list-group-item"><a href="/connect">DB연동</a></li>
+    
     <li class="list-group-item"><a href="/injection">인젝션</a></li>
     <li class="list-group-item"><a href="/function">함수</a></li>
 </ul>
-
 <br>
-<script data-ad-client="ca-pub-3321560028329475" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<br></div>
+
+<ul class="list-group">
+    <li class="list-group-item"><a href="/connect">DB연동</a></li>
+    <li class="list-group-item">jinyMysql</li>
+    <li class="list-group-item">jinyMysqlAdmin</li>
+</ul>
+<br>
+
+<ul class="list-group">
+    <li class="list-group-item">WorkBench</li>
+    <li class="list-group-item">phpMyAdmin</li>
+</ul></aside>            
+        </div>
 
     </div>
     <!-- /.row -->

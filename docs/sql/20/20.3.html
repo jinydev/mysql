@@ -4,15 +4,20 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Jiny Mysql</title>
-
-        <!--부트스트랩4-->
+        <!--SEO--><title>JinyDev | 20.3.LEFT 조인</title>
+            <meta name="title" content="20.3.LEFT 조인" /><!--부트스트랩4-->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <style>
             img {
                 max-width:100%;
             }
         </style>
+
+        <link rel="stylesheet" href="/assets/highlight.css">
+        <link rel="stylesheet" href="/assets/style.css">
+
+        <script data-ad-client="ca-pub-3321560028329475" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
         
 
     </head>
@@ -47,20 +52,20 @@
         </ul>
       </div>
     </div>
-  </nav><nav aria-label="breadcrumb">
+  </nav><div class="container"><nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/">Home</a></li>
         <!--breadcrumb loop--></ol>    
-</nav><!-- Page Content -->
+</nav></div>
+
+<!-- Page Content -->
 <div class="container">
     <div class="row">
 
         <!-- Post Content Column -->
         <div class="col-lg-9">
-            <!-- Title -->
-            <h1 class="mt-4">20.3.LEFT 조인</h1>
-            <hr>
-            <p>LEFT 조인은 왼쪽의 테이블의 데이터를 기준으로 오른쪽의 테이블을 결합합니다. 출력 결과는 왼쪽의 데이터를 모두 출력하고, 일치하는 오른쪽 데이터를 추가합니다.</p>
+            <section>
+                <p>LEFT 조인은 왼쪽의 테이블의 데이터를 기준으로 오른쪽의 테이블을 결합합니다. 출력 결과는 왼쪽의 데이터를 모두 출력하고, 일치하는 오른쪽 데이터를 추가합니다.</p>
 
 <p>| 쿼리 문법 |</p>
 <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="err">컬럼</span><span class="mi">1</span><span class="p">,</span> <span class="err">컬럼</span><span class="mi">2</span><span class="p">,</span> <span class="err">컬럼</span><span class="mi">3</span><span class="p">,</span> <span class="err">…</span> <span class="k">from</span> <span class="err">테이블</span><span class="mi">1</span> 
@@ -166,22 +171,33 @@ tables fields = 7
 
 </code></pre></div></div>
 
+            </section>
         </div>
 
         <!-- Sidebar Column -->
-        <div class="col-md-3"><ul class="list-group">
-    <li class="list-group-item list-group-item-dark">Site Menu</li>
+        <div class="col-md-3">
+            <aside><ul class="list-group">
     <li class="list-group-item"><a href="/data">개념</a></li>
     <li class="list-group-item"><a href="/setup">설치</a></li>
     <li class="list-group-item"><a href="/sql">SQL</a></li>
-    <li class="list-group-item"><a href="/connect">DB연동</a></li>
+    
     <li class="list-group-item"><a href="/injection">인젝션</a></li>
     <li class="list-group-item"><a href="/function">함수</a></li>
 </ul>
-
 <br>
-<script data-ad-client="ca-pub-3321560028329475" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<br></div>
+
+<ul class="list-group">
+    <li class="list-group-item"><a href="/connect">DB연동</a></li>
+    <li class="list-group-item">jinyMysql</li>
+    <li class="list-group-item">jinyMysqlAdmin</li>
+</ul>
+<br>
+
+<ul class="list-group">
+    <li class="list-group-item">WorkBench</li>
+    <li class="list-group-item">phpMyAdmin</li>
+</ul></aside>            
+        </div>
 
     </div>
     <!-- /.row -->

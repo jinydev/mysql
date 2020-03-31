@@ -4,15 +4,20 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Jiny Mysql</title>
-
-        <!--부트스트랩4-->
+        <!--SEO--><title>JinyDev | 함수</title>
+            <meta name="title" content="함수" /><!--부트스트랩4-->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <style>
             img {
                 max-width:100%;
             }
         </style>
+
+        <link rel="stylesheet" href="/assets/highlight.css">
+        <link rel="stylesheet" href="/assets/style.css">
+
+        <script data-ad-client="ca-pub-3321560028329475" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
         
 
     </head>
@@ -47,25 +52,29 @@
         </ul>
       </div>
     </div>
-  </nav><nav aria-label="breadcrumb">
+  </nav><div class="container"><nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/">Home</a></li>
         <!--breadcrumb loop--></ol>    
-</nav><!-- Page Content -->
+</nav></div>
+
+<!-- Page Content -->
 <div class="container">
     <div class="row">
 
         <!-- Post Content Column -->
         <div class="col-lg-9">
-            <!-- Title -->
-            <h1 class="mt-4">함수</h1>
-            <hr>
-            <p>MySQL은 쿼리 명령 이외에 데이터를 처리할 수 있는 다양한 함수를 제공하고 있습 니다. MySQL에서는 사용자 함수는 stored function(저장 함수)라고 부르기도 합니다.</p>
-
-<p><br /></p>
+            <section>
+                <h1 id="함수">함수</h1>
 <hr />
 
-<h3 id="함수-만들기">함수 만들기</h3>
+<p>MySQL은 쿼리 명령 이외에 데이터를 처리할 수 있는 다양한 함수를 제공하고 있습 니다. MySQL에서는 사용자 함수는 stored function(저장 함수)라고 부르기도 합니다.</p>
+
+<p><br /></p>
+
+<h2 id="함수-만들기">함수 만들기</h2>
+<hr />
+
 <p>MySQL 5.0 이상 버전에는 사용자가 직접 함수를 생성하고 사용할 수 있는 기능을 제공 합니다.</p>
 
 <ul>
@@ -96,15 +105,20 @@
 </ul>
 
 <p><br /></p>
+
+<h2 id="내장함수">내장함수</h2>
 <hr />
 
-<h3 id="내장함수">내장함수</h3>
 <p>MySQL은 다양한 데이터 가공을 위해서 몇 가지 내장 함수를 제공합니다. 
 내장 함수는 주로 Select 키워드와 함께 사용하지만 몇몇 함수들은 테이블 속성 값이나 검색 조건 값 등으로도 사용할 수 있습니다.</p>
 
 <p>내장 함수는 연산과 관련된 산술 함수, 문자열 함수, 날짜 시간 관련 함수 등이 있습니다.</p>
 
-<h4 id="261-산술-함수">26.1 <a href="26.1">산술 함수</a></h4>
+<p><br /></p>
+
+<h3 id="261-산술-함수">26.1 <a href="26.1">산술 함수</a></h3>
+<hr />
+
 <ul>
   <li>26.1.1 AVG()</li>
   <li>26.1.2 COUNT( )</li>
@@ -120,7 +134,11 @@
   <li>26.1.12 LEAST(숫자1, 숫자2, 숫자3 …)</li>
 </ul>
 
-<h4 id="262-문자열-내장-함수262">26.2 [문자열 내장 함수}(26.2)</h4>
+<p><br /></p>
+
+<h3 id="262-문자열-내장-함수">26.2 <a href="26.2">문자열 내장 함수</a></h3>
+<hr />
+
 <ul>
   <li>26.2.1 CONCAT( )</li>
   <li>26.2.2 LEFT( )/RIGHT( )</li>
@@ -138,9 +156,13 @@
   <li>26.2.14 IFNULL(값1, 값2)</li>
 </ul>
 
-<h4 id="263-sql-날짜-함수">26.3 <a href="26.3">SQL 날짜 함수</a></h4>
+<p><br /></p>
+
+<h3 id="263-sql-날짜-함수">26.3 <a href="26.3">SQL 날짜 함수</a></h3>
+<hr />
+
 <ul>
-  <li>26.3.1 NOW( ), SYSDATE( ), CURRENT_TIMESTAMP( )</li>
+  <li>26.3.1 NOW(), SYSDATE( ), CURRENT_TIMESTAMP( )</li>
   <li>26.3.2 CURDATE( )</li>
   <li>26.3.3 CURTIME( )</li>
   <li>26.3.4 DATE_ADD(날짜, INTERVAL 기준 값)</li>
@@ -162,7 +184,11 @@
   <li>26.3.20 SEC_TO_TIME(N)</li>
 </ul>
 
-<h4 id="264-수학-함수">26.4 <a href="26.4">수학 함수</a></h4>
+<p><br /></p>
+
+<h3 id="264-수학-함수">26.4 <a href="26.4">수학 함수</a></h3>
+<hr />
+
 <ul>
   <li>26.4.1 PI( )</li>
   <li>26.4.2 POW(X,Y) or POWER(X,Y)</li>
@@ -189,7 +215,11 @@
   <li>26.4.23 RAND(), RAND(N).</li>
 </ul>
 
-<h4 id="265-기타">26.5 <a href="26.5">기타</a></h4>
+<p><br /></p>
+
+<h3 id="265-기타">26.5 <a href="26.5">기타</a></h3>
+<hr />
+
 <ul>
   <li>26.5.1 VERSION( )</li>
   <li>26.5.2 DATABASE( )</li>
@@ -199,22 +229,33 @@
 
 <p><br /><br /></p>
 
+            </section>
         </div>
 
         <!-- Sidebar Column -->
-        <div class="col-md-3"><ul class="list-group">
-    <li class="list-group-item list-group-item-dark">Site Menu</li>
+        <div class="col-md-3">
+            <aside><ul class="list-group">
     <li class="list-group-item"><a href="/data">개념</a></li>
     <li class="list-group-item"><a href="/setup">설치</a></li>
     <li class="list-group-item"><a href="/sql">SQL</a></li>
-    <li class="list-group-item"><a href="/connect">DB연동</a></li>
+    
     <li class="list-group-item"><a href="/injection">인젝션</a></li>
     <li class="list-group-item"><a href="/function">함수</a></li>
 </ul>
-
 <br>
-<script data-ad-client="ca-pub-3321560028329475" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<br></div>
+
+<ul class="list-group">
+    <li class="list-group-item"><a href="/connect">DB연동</a></li>
+    <li class="list-group-item">jinyMysql</li>
+    <li class="list-group-item">jinyMysqlAdmin</li>
+</ul>
+<br>
+
+<ul class="list-group">
+    <li class="list-group-item">WorkBench</li>
+    <li class="list-group-item">phpMyAdmin</li>
+</ul></aside>            
+        </div>
 
     </div>
     <!-- /.row -->

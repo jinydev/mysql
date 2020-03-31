@@ -4,15 +4,20 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Jiny Mysql</title>
-
-        <!--부트스트랩4-->
+        <!--SEO--><title>JinyDev | 06.10 테이블 최적화</title>
+            <meta name="title" content="06.10 테이블 최적화" /><!--부트스트랩4-->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <style>
             img {
                 max-width:100%;
             }
         </style>
+
+        <link rel="stylesheet" href="/assets/highlight.css">
+        <link rel="stylesheet" href="/assets/style.css">
+
+        <script data-ad-client="ca-pub-3321560028329475" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
         
 
     </head>
@@ -47,20 +52,20 @@
         </ul>
       </div>
     </div>
-  </nav><nav aria-label="breadcrumb">
+  </nav><div class="container"><nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/">Home</a></li>
         <!--breadcrumb loop--></ol>    
-</nav><!-- Page Content -->
+</nav></div>
+
+<!-- Page Content -->
 <div class="container">
     <div class="row">
 
         <!-- Post Content Column -->
         <div class="col-lg-9">
-            <!-- Title -->
-            <h1 class="mt-4">06.10 테이블 최적화</h1>
-            <hr>
-            <p>테이블은 자료의 삽입과 수정, 삭제 작업이 자주 발생합니다. 이러한 잦은 데이터의 변경 요구는 테이블의 실제 데이터의 구조를 엉키게 만들어 처리 속도를 저하시킵니다.</p>
+            <section>
+                <p>테이블은 자료의 삽입과 수정, 삭제 작업이 자주 발생합니다. 이러한 잦은 데이터의 변경 요구는 테이블의 실제 데이터의 구조를 엉키게 만들어 처리 속도를 저하시킵니다.</p>
 
 <p>예전, 우리가 컴퓨터의 디스크 조각 모음 기능을 실행했던 것처럼 파일의 데이터 링크 구 조가 엉키게 됩니다. 만일 테이블에 가변폭 varchar 형태의 컬럼 데이터 타입을 많이 사 용했다고 한다면 테이블에서는 불연속적인 공간이 더욱 늘어날 것입니다. 불연속적인 공 간이 증가할수록 테이블 데이터 구조는 낭비되고 속도가 저하됩니다.</p>
 
@@ -85,22 +90,33 @@
 
 <p>주의할 점은 최적화 작업 중에는 읽기만 가능하며 새로운 자료의 삽입이나 업데이트가 잠시 지연됩니다.</p>
 
+            </section>
         </div>
 
         <!-- Sidebar Column -->
-        <div class="col-md-3"><ul class="list-group">
-    <li class="list-group-item list-group-item-dark">Site Menu</li>
+        <div class="col-md-3">
+            <aside><ul class="list-group">
     <li class="list-group-item"><a href="/data">개념</a></li>
     <li class="list-group-item"><a href="/setup">설치</a></li>
     <li class="list-group-item"><a href="/sql">SQL</a></li>
-    <li class="list-group-item"><a href="/connect">DB연동</a></li>
+    
     <li class="list-group-item"><a href="/injection">인젝션</a></li>
     <li class="list-group-item"><a href="/function">함수</a></li>
 </ul>
-
 <br>
-<script data-ad-client="ca-pub-3321560028329475" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<br></div>
+
+<ul class="list-group">
+    <li class="list-group-item"><a href="/connect">DB연동</a></li>
+    <li class="list-group-item">jinyMysql</li>
+    <li class="list-group-item">jinyMysqlAdmin</li>
+</ul>
+<br>
+
+<ul class="list-group">
+    <li class="list-group-item">WorkBench</li>
+    <li class="list-group-item">phpMyAdmin</li>
+</ul></aside>            
+        </div>
 
     </div>
     <!-- /.row -->

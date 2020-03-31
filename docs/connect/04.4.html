@@ -4,15 +4,20 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Jiny Mysql</title>
-
-        <!--부트스트랩4-->
+        <!--SEO--><title>JinyDev | 연결 종료</title>
+            <meta name="title" content="연결 종료" /><meta name="keyword" content="jinyphp, mysql" /><!--부트스트랩4-->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <style>
             img {
                 max-width:100%;
             }
         </style>
+
+        <link rel="stylesheet" href="/assets/highlight.css">
+        <link rel="stylesheet" href="/assets/style.css">
+
+        <script data-ad-client="ca-pub-3321560028329475" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
         
 
     </head>
@@ -47,20 +52,21 @@
         </ul>
       </div>
     </div>
-  </nav><nav aria-label="breadcrumb">
+  </nav><div class="container"><nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/">Home</a></li>
-        <!--breadcrumb loop--></ol>    
-</nav><!-- Page Content -->
+        <!--breadcrumb loop--><li class="breadcrumb-item active">연동</li></ol>    
+</nav></div>
+
+<!-- Page Content -->
 <div class="container">
     <div class="row">
 
         <!-- Post Content Column -->
         <div class="col-lg-9">
-            <!-- Title -->
-            <h1 class="mt-4">04.4.연결 종료 </h1>
-            <hr>
-            <p>PHP가 데이터베이스 처리 작업을 모두 한 후에는 연결한 DB를 종료해야 합니다. 물론 스크립트가 종료되면 연결된 DB는 자동으로 종료됩니다. 하지만 정상적인 완료를 위해 서 종료 처리를 하도록 합니다.</p>
+            <section>
+                <h1 id="연결-종료">연결 종료</h1>
+<p>PHP가 데이터베이스 처리 작업을 모두 한 후에는 연결한 DB를 종료해야 합니다. 물론 스크립트가 종료되면 연결된 DB는 자동으로 종료됩니다. 하지만 정상적인 완료를 위해 서 종료 처리를 하도록 합니다.</p>
 
 <ul>
   <li>MySQLi 객체지향
@@ -79,22 +85,35 @@
 
 <p>DB의 연결 종류는 접속한 방식에 따라서 약간씩 차이가 있습니다.</p>
 
+<p><br /><br /></p>
+
+            </section>
         </div>
 
         <!-- Sidebar Column -->
-        <div class="col-md-3"><ul class="list-group">
-    <li class="list-group-item list-group-item-dark">Site Menu</li>
+        <div class="col-md-3">
+            <aside><ul class="list-group">
     <li class="list-group-item"><a href="/data">개념</a></li>
     <li class="list-group-item"><a href="/setup">설치</a></li>
     <li class="list-group-item"><a href="/sql">SQL</a></li>
-    <li class="list-group-item"><a href="/connect">DB연동</a></li>
+    
     <li class="list-group-item"><a href="/injection">인젝션</a></li>
     <li class="list-group-item"><a href="/function">함수</a></li>
 </ul>
-
 <br>
-<script data-ad-client="ca-pub-3321560028329475" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<br></div>
+
+<ul class="list-group">
+    <li class="list-group-item"><a href="/connect">DB연동</a></li>
+    <li class="list-group-item">jinyMysql</li>
+    <li class="list-group-item">jinyMysqlAdmin</li>
+</ul>
+<br>
+
+<ul class="list-group">
+    <li class="list-group-item">WorkBench</li>
+    <li class="list-group-item">phpMyAdmin</li>
+</ul></aside>            
+        </div>
 
     </div>
     <!-- /.row -->

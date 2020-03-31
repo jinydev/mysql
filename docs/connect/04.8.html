@@ -4,15 +4,20 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Jiny Mysql</title>
-
-        <!--부트스트랩4-->
+        <!--SEO--><title>JinyDev | 잠금</title>
+            <meta name="title" content="잠금" /><meta name="keyword" content="jinyphp, mysql" /><!--부트스트랩4-->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <style>
             img {
                 max-width:100%;
             }
         </style>
+
+        <link rel="stylesheet" href="/assets/highlight.css">
+        <link rel="stylesheet" href="/assets/style.css">
+
+        <script data-ad-client="ca-pub-3321560028329475" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
         
 
     </head>
@@ -47,24 +52,31 @@
         </ul>
       </div>
     </div>
-  </nav><nav aria-label="breadcrumb">
+  </nav><div class="container"><nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/">Home</a></li>
-        <!--breadcrumb loop--></ol>    
-</nav><!-- Page Content -->
+        <!--breadcrumb loop--><li class="breadcrumb-item active">연동</li></ol>    
+</nav></div>
+
+<!-- Page Content -->
 <div class="container">
     <div class="row">
 
         <!-- Post Content Column -->
         <div class="col-lg-9">
-            <!-- Title -->
-            <h1 class="mt-4">04.8.잠금 </h1>
-            <hr>
-            <p>데이터베이스 시스템이 파일 시스템보다 효율적이고 향상된 점은 다수의 사용자가 동시 에 접속하여 데이터를 처리할 수 있다는 것입니다. 하지만 아무리 좋은 데이터베이스 관 리 시스템 이어도 순간적으로 여러 사람들이 동일한 데이터를 접근할 때는 문제가 발생할 수 있습니다.</p>
+            <section>
+                <h1 id="잠금">잠금</h1>
+<hr />
+
+<p>데이터베이스 시스템이 파일 시스템보다 효율적이고 향상된 점은 다수의 사용자가 동시 에 접속하여 데이터를 처리할 수 있다는 것입니다. 하지만 아무리 좋은 데이터베이스 관 리 시스템 이어도 순간적으로 여러 사람들이 동일한 데이터를 접근할 때는 문제가 발생할 수 있습니다.</p>
 
 <p>접근의 우선순위에 따라서 데이터가 순간적으로 변경되거나, 데이터의 값에 오류가 발생 할 수 있습니다. 특히 데이터를 변경할 때 동시 접속에 의한 문제가 발생할 수 있습니다.</p>
 
+<p><br /></p>
+
 <h2 id="0481-잠금">04.8.1 잠금</h2>
+<hr />
+
 <p>테이블의 데이터를 조작할 때 권한을 통하여 일부 동작들을 제한할 수 있습니다. 테이블 을 잠금을 설정합니다.</p>
 
 <p>| 쿼리 문법 |</p>
@@ -117,7 +129,11 @@ mysql.class.php 파일에 메서드 예제를 추가합니다.</p>
 
 </code></pre></div></div>
 
+<p><br /></p>
+
 <h2 id="0482-해제">04.8.2 해제</h2>
+<hr />
+
 <p>향후 정상적인 데이터 처리를 위해서 반드시 잠금된 테이블은 사용 후에 해제해야 합 니다. 잠금 해제 쿼리는 잠금 설정과 달리 별도의 테이블을 선택하지 않습니다. 해제 쿼 리는 잠금 설정된 모든 테이블을 동시에 해제하게 됩니다.</p>
 
 <p>| 쿼리 문법 |</p>
@@ -177,27 +193,39 @@ mysql.class.php 파일에 메서드 예제를 추가합니다.</p>
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql connected!
 members LOCK!
 TABLE UNLOCK!
-
 </code></pre></div></div>
 
 <p>항상 데이터를 삽입하거나 변경할 때 테이블을 잠금 설정하는 것은 안전한 데이터 조작을 위해 유용합니다. 또한 모든 조작 처리 후에는 반드시 테이블을 다시 해제하도록 합니다.</p>
 
+<p><br /><br /></p>
+
+            </section>
         </div>
 
         <!-- Sidebar Column -->
-        <div class="col-md-3"><ul class="list-group">
-    <li class="list-group-item list-group-item-dark">Site Menu</li>
+        <div class="col-md-3">
+            <aside><ul class="list-group">
     <li class="list-group-item"><a href="/data">개념</a></li>
     <li class="list-group-item"><a href="/setup">설치</a></li>
     <li class="list-group-item"><a href="/sql">SQL</a></li>
-    <li class="list-group-item"><a href="/connect">DB연동</a></li>
+    
     <li class="list-group-item"><a href="/injection">인젝션</a></li>
     <li class="list-group-item"><a href="/function">함수</a></li>
 </ul>
-
 <br>
-<script data-ad-client="ca-pub-3321560028329475" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<br></div>
+
+<ul class="list-group">
+    <li class="list-group-item"><a href="/connect">DB연동</a></li>
+    <li class="list-group-item">jinyMysql</li>
+    <li class="list-group-item">jinyMysqlAdmin</li>
+</ul>
+<br>
+
+<ul class="list-group">
+    <li class="list-group-item">WorkBench</li>
+    <li class="list-group-item">phpMyAdmin</li>
+</ul></aside>            
+        </div>
 
     </div>
     <!-- /.row -->

@@ -1,0 +1,56 @@
+I"�<h1 id="함수-생성">함수 생성</h1>
+<hr />
+
+<p>내장 함수는 기본적으로 제공되는 함수로 모든 사용자의 원하는 기능을 충족하기에는 부 족한 부분이 있습니다. MySQL은 기본적으로 제공하는 내장 함수 이외에 직접 함수를 정 의하여 생성할 수 있습니다.</p>
+
+<p>CREATE FUNCTION 명령은 사용자 함수를 생성합니다. 생성된 함수는 데이터베이스 시스템에 저장되어 재사용이 가능합니다. 함수를 선언할 때는 함수명, 반환값 타입, SQL 실행 후 RETRUN 값을 반환합니다.</p>
+
+<p>| 쿼리 문법 |</p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="k">FUNCTION</span> <span class="err">함수명</span><span class="p">(</span><span class="err">변수</span> <span class="err">자료형</span><span class="p">)</span> <span class="k">RETURNS</span> <span class="err">반환</span><span class="n">_</span><span class="err">자료형</span>
+<span class="k">BEGIN</span>
+	<span class="k">SQL</span> <span class="err">쿼리</span><span class="mi">1</span><span class="p">;</span>
+	<span class="k">SQL</span> <span class="err">쿼리</span><span class="mi">2</span><span class="p">;</span>
+	<span class="k">RETURN</span> <span class="err">반환값</span>
+<span class="k">END</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="2511-쿼리-실습">25.1.1 쿼리 실습</h3>
+<hr />
+
+<p>간단한 사용자 함수를 하나 생성해 보도록 합니다. 다음 함수는 제곱을 처리하는 함수입니다.</p>
+
+<p>| 예제 쿼리 |</p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="k">FUNCTION</span> <span class="n">square</span><span class="p">(</span><span class="n">a</span> <span class="nb">INT</span><span class="p">)</span> <span class="k">RETURNS</span> <span class="nb">DOUBLE</span>
+<span class="k">BEGIN</span>
+	<span class="k">RETURN</span> <span class="n">a</span> <span class="o">*</span> <span class="n">a</span><span class="p">;</span>
+<span class="k">END</span>
+</code></pre></div></div>
+
+<p>함수를 선언할 때는 입력되는 변수와 타입, 반환되는 데이터 타입을 지정합니다. 직접 콘솔에서 입력하여 실습해 봅니다.</p>
+
+<p>| 콘솔 실습 화면 |</p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">DELIMITER</span> <span class="o">//</span>
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="k">CREATE</span> <span class="k">FUNCTION</span> <span class="n">square</span><span class="p">(</span><span class="n">a</span> <span class="nb">INT</span><span class="p">)</span> <span class="k">RETURNS</span> <span class="nb">DOUBLE</span>
+    <span class="o">-&gt;</span> <span class="k">BEGIN</span>
+    <span class="o">-&gt;</span> <span class="k">RETURN</span> <span class="n">a</span> <span class="o">*</span> <span class="n">a</span><span class="p">;</span>
+    <span class="o">-&gt;</span> <span class="k">END</span>
+    <span class="o">-&gt;</span> <span class="o">//</span>
+<span class="n">Query</span> <span class="n">OK</span><span class="p">,</span> <span class="mi">0</span> <span class="k">rows</span> <span class="n">affected</span> <span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">00</span> <span class="n">sec</span><span class="p">)</span>
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="k">DELIMITER</span> <span class="p">;</span>
+
+<span class="n">mysql</span><span class="o">&gt;</span> <span class="k">SELECT</span> <span class="n">square</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+<span class="o">+</span><span class="c1">-----------+</span>
+<span class="o">|</span> <span class="n">square</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">-----------+</span>
+<span class="o">|</span>        <span class="mi">25</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">-----------+</span>
+<span class="mi">1</span> <span class="k">row</span> <span class="k">in</span> <span class="k">set</span> <span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">00</span> <span class="n">sec</span><span class="p">)</span>
+
+</code></pre></div></div>
+
+<p>함수를 생성시 반환값의 타입 설정 키워드는 복수형 RETURNS입니다. 함수 안에서의 반 환 키워드는 단수형 RETURN입니다. 2개의 철자를 구분하여 작업합니다.</p>
+
+<p><br /><br /></p>
+:ET

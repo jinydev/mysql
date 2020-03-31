@@ -4,15 +4,20 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Jiny Mysql</title>
-
-        <!--부트스트랩4-->
+        <!--SEO--><title>JinyDev | SQL</title>
+            <meta name="title" content="SQL" /><meta name="keyword" content="jinyphp, mysql" /><!--부트스트랩4-->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <style>
             img {
                 max-width:100%;
             }
         </style>
+
+        <link rel="stylesheet" href="/assets/highlight.css">
+        <link rel="stylesheet" href="/assets/style.css">
+
+        <script data-ad-client="ca-pub-3321560028329475" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
         
 
     </head>
@@ -47,29 +52,58 @@
         </ul>
       </div>
     </div>
-  </nav><nav aria-label="breadcrumb">
+  </nav><div class="container"><nav aria-label="breadcrumb">
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="/">Home</a></li>
-        <!--breadcrumb loop--></ol>    
-</nav><!-- Page Content -->
+        <!--breadcrumb loop--><li class="breadcrumb-item active">Sql</li></ol>    
+</nav></div>
+
+<!-- Page Content -->
 <div class="container">
     <div class="row">
 
         <!-- Post Content Column -->
         <div class="col-lg-9">
-            <!-- Title -->
-            <h1 class="mt-4">SQL</h1>
-            <hr>
-            <p>요즘 사용하는 대부분의 데이터베이스 시스템은 관계형 모델을 바탕으로 설계되어 있습 니다. 
+            <section>
+                <h1 id="sql">SQL</h1>
+<hr />
+
+<p>요즘 사용하는 대부분의 데이터베이스 시스템은 관계형 모델을 바탕으로 설계되어 있습 니다. 
 관계형 데이터 베이스 시스템을 사용하기 위해서는 이를 명령하고 처리할 수 있는 별도의 SQL 명령을 학습해야 합니다.</p>
 
 <ul>
   <li><a href="./03">SQL</a></li>
-  <li><a href="./05">데이터베이스</a></li>
+  <li><a href="./29">권한 설정</a></li>
+</ul>
+
+<p>SQL은 데이터베이스의 구조와 데이터를 처리 합니다. SQL 쿼리는 크게 2종류로 구분을 할 수 있습니다.</p>
+
+<ul>
+  <li>DDL</li>
+  <li>DML</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="데이터-정의-쿼리data-definition-language-ddl">데이터 정의 쿼리(Data definition language, DDL)</h2>
+<hr />
+
+<p>DDL는 데이터를 저장하는 구조를 처리하는 쿼리를 말합니다.</p>
+
+<ul>
+  <li><a href="./database">데이터베이스</a></li>
   <li><a href="./06">테이블</a></li>
   <li><a href="./07">데이터 타입</a></li>
   <li><a href="./08">테이블 수정</a></li>
   <li><a href="./09">속성</a></li>
+</ul>
+
+<h2 id="데이터-조작-쿼리-data-manipulation-language-dml">데이터 조작 쿼리 (Data manipulation language, DML)</h2>
+<hr />
+
+<p>DML은 저장된 데이터를 가공하는 쿼리를 말합니다.</p>
+
+<ul>
   <li><a href="./10">데이터 삽입</a></li>
   <li><a href="./11">데이터 조회</a></li>
   <li><a href="./12">조건</a></li>
@@ -85,27 +119,37 @@
   <li><a href="./22">프로시저</a></li>
   <li><a href="./23">트리거</a></li>
   <li><a href="./24">트랜잭션</a></li>
-  <li><a href="./29">권한 설정</a></li>
 </ul>
 
 <p><br /><br /></p>
 
+            </section>
         </div>
 
         <!-- Sidebar Column -->
-        <div class="col-md-3"><ul class="list-group">
-    <li class="list-group-item list-group-item-dark">Site Menu</li>
+        <div class="col-md-3">
+            <aside><ul class="list-group">
     <li class="list-group-item"><a href="/data">개념</a></li>
     <li class="list-group-item"><a href="/setup">설치</a></li>
     <li class="list-group-item"><a href="/sql">SQL</a></li>
-    <li class="list-group-item"><a href="/connect">DB연동</a></li>
+    
     <li class="list-group-item"><a href="/injection">인젝션</a></li>
     <li class="list-group-item"><a href="/function">함수</a></li>
 </ul>
-
 <br>
-<script data-ad-client="ca-pub-3321560028329475" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
-<br></div>
+
+<ul class="list-group">
+    <li class="list-group-item"><a href="/connect">DB연동</a></li>
+    <li class="list-group-item">jinyMysql</li>
+    <li class="list-group-item">jinyMysqlAdmin</li>
+</ul>
+<br>
+
+<ul class="list-group">
+    <li class="list-group-item">WorkBench</li>
+    <li class="list-group-item">phpMyAdmin</li>
+</ul></aside>            
+        </div>
 
     </div>
     <!-- /.row -->
