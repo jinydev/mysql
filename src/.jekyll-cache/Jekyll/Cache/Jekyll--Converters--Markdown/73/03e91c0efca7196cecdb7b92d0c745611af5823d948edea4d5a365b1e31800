@@ -1,4 +1,4 @@
-I"�<p>가상 테이블 VIEW의 일부분만 업데이트하는 방법은 없습니다. 하지만 기존의 가상 테이 블 조건 전체로 덮어쓰기 형태로 업데이트할 수 있습니다.</p>
+I"�<p>가상 테이블 VIEW의 일부분만 업데이트하는 방법은 없습니다. 하지만 기존의 가상 테이 블 조건 전체로 덮어쓰기 형태로 업데이트할 수 있습니다.</p>
 
 <p>| 쿼리 문법 |</p>
 <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="k">OR</span> <span class="k">REPLACE</span> <span class="k">VIEW</span> <span class="n">view_name</span> <span class="k">AS</span> <span class="k">SELECT</span> <span class="n">column1</span><span class="p">,</span> <span class="n">column2</span><span class="p">,</span> <span class="err">…</span> <span class="k">FROM</span> <span class="k">table_name</span> <span class="k">WHERE</span> <span class="n">condition</span><span class="p">;</span> 
@@ -24,7 +24,7 @@ mysql.class.php 파일에 메서드 예제를 추가합니다.</p>
                 <span class="k">if</span> <span class="p">(</span><span class="nv">$selectQuery</span><span class="p">)</span> <span class="p">{</span>
                     <span class="nv">$queryString</span> <span class="o">=</span> <span class="s2">"CREATE OR REPLACE VIEW </span><span class="nv">$view</span><span class="s2"> AS </span><span class="nv">$selectQuery</span><span class="s2">"</span><span class="p">;</span>
                     <span class="c1">// 쿼리를 전송합니다.</span>
-                    <span class="k">if</span> <span class="p">(</span><span class="nx">mysqli_query</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">dbcon</span><span class="p">,</span> <span class="nv">$queryString</span><span class="p">)</span><span class="o">===</span> <span class="k">TRUE</span><span class="p">)</span> <span class="p">{</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="nx">mysqli_query</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">dbcon</span><span class="p">,</span> <span class="nv">$queryString</span><span class="p">)</span><span class="o">===</span> <span class="kc">TRUE</span><span class="p">)</span> <span class="p">{</span>
                         <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="s2">"쿼리성공] "</span><span class="o">.</span><span class="nv">$queryString</span><span class="p">);</span>
                         <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="s2">" 뷰 생성!"</span><span class="p">);</span>
 

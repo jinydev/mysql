@@ -1,4 +1,4 @@
-I"�<p>대부분의 쿼리는 WHERE 절 구문을 통하여 데이터를 필터링합니다. 하지만 악의적인 입 력값은 이러한 WHERE 조건절을 항상 참인 상태로 조작합니다.</p>
+I"�<p>대부분의 쿼리는 WHERE 절 구문을 통하여 데이터를 필터링합니다. 하지만 악의적인 입 력값은 이러한 WHERE 조건절을 항상 참인 상태로 조작합니다.</p>
 
 <p>쿼리 조건문 1=1은 항상 참을 의미합니다. 어떤 조건문에도 or 1=1을 추가하면 모든 쿼 리 조건은 참으로 변경됩니다. 
 만일 위의 예제에서 $ID 값이 100’ or 1=1이라는 문자열을 입력한다면 쿼리는 다음과 같 이 바뀔 수 있습니다.</p>
@@ -13,7 +13,7 @@
 
 <p>와 같이 쿼리문을 작성할 수 있을 것입니다.</p>
 
-<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">SELECT</span> <span class="o">*</span> <span class="nx">FROM</span> <span class="nx">Users</span> <span class="nx">WHERE</span> <span class="nx">Name</span> <span class="o">=</span><span class="s2">""</span> <span class="k">or</span> <span class="s2">""</span><span class="o">=</span><span class="s2">""</span> <span class="nx">AND</span> <span class="nx">Pass</span> <span class="o">=</span><span class="s2">""</span> <span class="k">or</span> <span class="s2">""</span><span class="o">=</span><span class="s2">""</span> 
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">SELECT</span> <span class="o">*</span> <span class="nx">FROM</span> <span class="nx">Users</span> <span class="nx">WHERE</span> <span class="nx">Name</span> <span class="o">=</span><span class="s2">""</span> <span class="k">or</span> <span class="s2">""</span><span class="o">=</span><span class="s2">""</span> <span class="k">AND</span> <span class="nx">Pass</span> <span class="o">=</span><span class="s2">""</span> <span class="k">or</span> <span class="s2">""</span><span class="o">=</span><span class="s2">""</span> 
 </code></pre></div></div>
 
 <p>하지만 인젝션 해커가 사용자 아이디와 패스워드에 or “”=”“라고 입력한다면 쿼리문은, 

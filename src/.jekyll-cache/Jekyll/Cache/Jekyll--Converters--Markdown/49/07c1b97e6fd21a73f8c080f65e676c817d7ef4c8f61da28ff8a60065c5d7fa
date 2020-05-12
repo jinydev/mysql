@@ -1,4 +1,4 @@
-I"e<p>생성한 데이터베이스명 그룹은 삭제할 수 있습니다. 시스템에서 데이터베이스명을 삭제 할 때는 매우 주의해야 합니다.</p>
+I"f<p>생성한 데이터베이스명 그룹은 삭제할 수 있습니다. 시스템에서 데이터베이스명을 삭제 할 때는 매우 주의해야 합니다.</p>
 
 <h2 id="0551-삭제-쿼리">05.5.1 삭제 쿼리</h2>
 <p>생성한 데이터베이스 그룹명을 삭제할 때는 DROP DATABSE 명령을 사용합니다.</p>
@@ -39,7 +39,7 @@ mysql.class.php 파일에 메서드 예제를 추가합니다.</p>
                 <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="nv">$queryString</span><span class="p">);</span>
 
                 <span class="c1">// 쿼리를 전송합니다.</span>
-                <span class="k">if</span> <span class="p">(</span><span class="nx">mysqli_query</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">dbcon</span><span class="p">,</span> <span class="nv">$queryString</span><span class="p">)</span><span class="o">===</span> <span class="k">TRUE</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nx">mysqli_query</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">dbcon</span><span class="p">,</span> <span class="nv">$queryString</span><span class="p">)</span><span class="o">===</span> <span class="kc">TRUE</span><span class="p">)</span> <span class="p">{</span>
                     <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="s2">"쿼리성공] "</span><span class="o">.</span><span class="nv">$queryString</span><span class="p">);</span>
                     <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="s2">" 데이터베이스 삭제!"</span><span class="p">);</span>
 

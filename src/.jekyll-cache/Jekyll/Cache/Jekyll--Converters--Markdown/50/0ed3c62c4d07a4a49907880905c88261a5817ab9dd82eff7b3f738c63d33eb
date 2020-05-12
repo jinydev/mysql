@@ -1,4 +1,4 @@
-I"�E<p>테이블에 컬럼을 새롭게 추가하면 생성된 컬럼은 테이블의 맨 마지막 부분에 위치합니다. 추가적으로 등록한 컬럼 순서는 데이터를 해석하는 데 가독성이 불편할 수 있습니다. 이 런 경우 쿼리 마지막에 위치를 결정하는 키워드를 추가하여 순서를 변경할 수 있습니다. 또는 생성 시 자리를 지정할 수 있습니다.</p>
+I"�E<p>테이블에 컬럼을 새롭게 추가하면 생성된 컬럼은 테이블의 맨 마지막 부분에 위치합니다. 추가적으로 등록한 컬럼 순서는 데이터를 해석하는 데 가독성이 불편할 수 있습니다. 이 런 경우 쿼리 마지막에 위치를 결정하는 키워드를 추가하여 순서를 변경할 수 있습니다. 또는 생성 시 자리를 지정할 수 있습니다.</p>
 
 <h2 id="0821-위치-변경">08.2.1 위치 변경</h2>
 <p>이미 생성된 컬럼의 위치를 변경할 때는 MODIFY 키워드를 이용합니다. 또한 ALTER 쿼 리의 마지막에 위치를 정의합니다.</p>
@@ -106,7 +106,7 @@ mysql.class.php 파일에 메서드 예제를 추가합니다.</p>
                 <span class="p">}</span>
                 
                 <span class="c1">// 쿼리를 전송합니다.</span>
-                <span class="k">if</span> <span class="p">(</span><span class="nx">mysqli_query</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">dbcon</span><span class="p">,</span> <span class="nv">$queryString</span><span class="p">)</span><span class="o">===</span> <span class="k">TRUE</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nx">mysqli_query</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">dbcon</span><span class="p">,</span> <span class="nv">$queryString</span><span class="p">)</span><span class="o">===</span> <span class="kc">TRUE</span><span class="p">)</span> <span class="p">{</span>
                     <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="s2">"쿼리성공] "</span><span class="o">.</span><span class="nv">$queryString</span><span class="p">);</span>
                     <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="s2">" 컬럼변경!"</span><span class="p">);</span>
 

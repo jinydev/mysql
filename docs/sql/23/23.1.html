@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <!--SEO--><title>JinyDev | 23.1.트리거 생성</title>
+        <!--SEO--><title>Mysql - 23.1.트리거 생성</title>
             <meta name="title" content="23.1.트리거 생성" /><!--부트스트랩4-->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <style>
@@ -181,7 +181,7 @@ mysql.class.php 파일에 메서드 예제를 추가합니다.</p>
             <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="nv">$queryString</span> <span class="p">);</span>
 
             <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="nv">$queryTrigger</span><span class="p">);</span>
-            <span class="k">if</span> <span class="p">(</span><span class="nx">mysqli_query</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">dbcon</span><span class="p">,</span> <span class="nv">$queryTrigger</span><span class="p">)</span><span class="o">===</span> <span class="k">TRUE</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">mysqli_query</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">dbcon</span><span class="p">,</span> <span class="nv">$queryTrigger</span><span class="p">)</span><span class="o">===</span> <span class="kc">TRUE</span><span class="p">)</span> <span class="p">{</span>
                 <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="s2">"트리거 성공] "</span><span class="o">.</span><span class="nv">$queryTrigger</span><span class="p">);</span>
 
                 <span class="nv">$queryString</span> <span class="o">=</span> <span class="s2">"DELIMITER ;"</span><span class="p">;</span>
@@ -252,7 +252,7 @@ Trigger 성공!
 
 <ul class="list-group">
     <li class="list-group-item"><a href="/connect">DB연동</a></li>
-    <li class="list-group-item">jinyMysql</li>
+    <li class="list-group-item"><a href="https://jinyphp.github.io/mysql/" target="_blank">SQL빌더</a></li>
     <li class="list-group-item">jinyMysqlAdmin</li>
 </ul>
 <br>

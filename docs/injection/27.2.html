@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <!--SEO--><title>JinyDev | 27.2.참 조건 인젝션</title>
+        <!--SEO--><title>Mysql - 27.2.참 조건 인젝션</title>
             <meta name="title" content="27.2.참 조건 인젝션" /><!--부트스트랩4-->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <style>
@@ -80,7 +80,7 @@
 
 <p>와 같이 쿼리문을 작성할 수 있을 것입니다.</p>
 
-<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">SELECT</span> <span class="o">*</span> <span class="nx">FROM</span> <span class="nx">Users</span> <span class="nx">WHERE</span> <span class="nx">Name</span> <span class="o">=</span><span class="s2">""</span> <span class="k">or</span> <span class="s2">""</span><span class="o">=</span><span class="s2">""</span> <span class="nx">AND</span> <span class="nx">Pass</span> <span class="o">=</span><span class="s2">""</span> <span class="k">or</span> <span class="s2">""</span><span class="o">=</span><span class="s2">""</span> 
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">SELECT</span> <span class="o">*</span> <span class="nx">FROM</span> <span class="nx">Users</span> <span class="nx">WHERE</span> <span class="nx">Name</span> <span class="o">=</span><span class="s2">""</span> <span class="k">or</span> <span class="s2">""</span><span class="o">=</span><span class="s2">""</span> <span class="k">AND</span> <span class="nx">Pass</span> <span class="o">=</span><span class="s2">""</span> <span class="k">or</span> <span class="s2">""</span><span class="o">=</span><span class="s2">""</span> 
 </code></pre></div></div>
 
 <p>하지만 인젝션 해커가 사용자 아이디와 패스워드에 or “”=”“라고 입력한다면 쿼리문은, 
@@ -104,7 +104,7 @@
 
 <ul class="list-group">
     <li class="list-group-item"><a href="/connect">DB연동</a></li>
-    <li class="list-group-item">jinyMysql</li>
+    <li class="list-group-item"><a href="https://jinyphp.github.io/mysql/" target="_blank">SQL빌더</a></li>
     <li class="list-group-item">jinyMysqlAdmin</li>
 </ul>
 <br>

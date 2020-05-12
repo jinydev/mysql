@@ -1,4 +1,4 @@
-I"s+<p>제약사항 ‘NOT NULL ’은 컬럼의 NULL 값에 대한 처리 여부를 지정하는 속성입니다. 보 통 컬럼에 아무런 데이터가 입력되지 않으면 NULL 값으로 설정됩니다.</p>
+I"u+<p>제약사항 ‘NOT NULL ’은 컬럼의 NULL 값에 대한 처리 여부를 지정하는 속성입니다. 보 통 컬럼에 아무런 데이터가 입력되지 않으면 NULL 값으로 설정됩니다.</p>
 
 <p>컬럼의 데이터에 반드시 들어가야 하는 필수 데이터 값은 ‘NOT NULL’ 속성을 부여하는 것이 좋습니다. NOT NULL 제약사항이 설정된 컬럼은 데이터를 필수적으로 입력해야 하기 때문에 데이터 값이 없는 경우 SQL 쿼리 구문은 오류로 실행되지 않습니다.</p>
 
@@ -40,7 +40,7 @@ mysql.class.php 파일에 메서드 예제를 추가합니다.</p>
                 <span class="nv">$queryString</span> <span class="o">=</span> <span class="s2">"ALTER TABLE </span><span class="nv">$tbname</span><span class="s2"> CHANGE COLUMN `</span><span class="nv">$field</span><span class="s2">` `</span><span class="nv">$field</span><span class="s2">` </span><span class="nv">$datatype</span><span class="s2"> NOT NULL"</span><span class="p">;</span> 
 
                 <span class="c1">// 쿼리를 전송합니다.</span>
-                <span class="k">if</span> <span class="p">(</span><span class="nx">mysqli_query</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">dbcon</span><span class="p">,</span> <span class="nv">$queryString</span><span class="p">)</span><span class="o">===</span> <span class="k">TRUE</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nx">mysqli_query</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">dbcon</span><span class="p">,</span> <span class="nv">$queryString</span><span class="p">)</span><span class="o">===</span> <span class="kc">TRUE</span><span class="p">)</span> <span class="p">{</span>
                     <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="s2">"쿼리성공] "</span><span class="o">.</span><span class="nv">$queryString</span><span class="p">);</span>
                     <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="s2">" NOT NULL 설정!"</span><span class="p">);</span>
 
@@ -65,7 +65,7 @@ mysql.class.php 파일에 메서드 예제를 추가합니다.</p>
                 <span class="nv">$queryString</span> <span class="o">=</span> <span class="s2">"ALTER TABLE </span><span class="nv">$tbname</span><span class="s2"> CHANGE COLUMN `</span><span class="nv">$field</span><span class="s2">` `</span><span class="nv">$field</span><span class="s2">` </span><span class="nv">$datatype</span><span class="s2"> NULL"</span><span class="p">;</span> 
 
                 <span class="c1">// 쿼리를 전송합니다.</span>
-                <span class="k">if</span> <span class="p">(</span><span class="nx">mysqli_query</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">dbcon</span><span class="p">,</span> <span class="nv">$queryString</span><span class="p">)</span><span class="o">===</span> <span class="k">TRUE</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nx">mysqli_query</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">dbcon</span><span class="p">,</span> <span class="nv">$queryString</span><span class="p">)</span><span class="o">===</span> <span class="kc">TRUE</span><span class="p">)</span> <span class="p">{</span>
                     <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="s2">"쿼리성공] "</span><span class="o">.</span><span class="nv">$queryString</span><span class="p">);</span>
                     <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="s2">" NULL 설정!"</span><span class="p">);</span>
 

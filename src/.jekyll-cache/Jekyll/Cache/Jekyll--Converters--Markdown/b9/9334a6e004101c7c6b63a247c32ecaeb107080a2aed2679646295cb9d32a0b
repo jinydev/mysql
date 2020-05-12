@@ -1,4 +1,4 @@
-I"�&<p>SQL 명령문을 통하여 실제적인 테이블을 생성해 봅니다. 테이블 생성은 테이블명과 소괄 호( ) 안에 컬럼 정보를 같이 선언하면 됩니다.</p>
+I"�&<p>SQL 명령문을 통하여 실제적인 테이블을 생성해 봅니다. 테이블 생성은 테이블명과 소괄 호( ) 안에 컬럼 정보를 같이 선언하면 됩니다.</p>
 
 <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="err">테이블명</span> <span class="p">(</span>   
 <span class="err">컬럼정보…</span>
@@ -55,7 +55,7 @@ mysql.class.php 파일에 메서드 예제를 추가합니다. 테이블을 생�
             <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="nv">$queryString</span><span class="p">);</span>
 
             <span class="c1">// 쿼리를 전송합니다.</span>
-            <span class="k">if</span> <span class="p">(</span><span class="nx">mysqli_query</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">dbcon</span><span class="p">,</span> <span class="nv">$queryString</span><span class="p">)</span><span class="o">===</span> <span class="k">TRUE</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">mysqli_query</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">dbcon</span><span class="p">,</span> <span class="nv">$queryString</span><span class="p">)</span><span class="o">===</span> <span class="kc">TRUE</span><span class="p">)</span> <span class="p">{</span>
                 <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="s2">"쿼리성공] "</span><span class="o">.</span><span class="nv">$queryString</span><span class="p">);</span>
                 <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="s2">" 테이블 생성!"</span><span class="p">);</span>
 

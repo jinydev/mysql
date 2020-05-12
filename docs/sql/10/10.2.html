@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <!--SEO--><title>JinyDev | 10.2.선택 삽입</title>
+        <!--SEO--><title>Mysql - 10.2.선택 삽입</title>
             <meta name="title" content="10.2.선택 삽입" /><!--부트스트랩4-->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <style>
@@ -112,7 +112,7 @@ mysql.class.php 파일에 메서드 예제를 추가합니다.</p>
 <span class="k">public</span> <span class="k">function</span> <span class="nf">arrQueryInsert</span><span class="p">(</span><span class="nv">$tbname</span><span class="p">,</span> <span class="nv">$arr</span><span class="p">)</span>
 <span class="p">{</span>
             <span class="nv">$arrKey</span> <span class="o">=</span> <span class="nb">array_keys</span><span class="p">(</span><span class="nv">$arr</span><span class="p">);</span>
-            <span class="nx">For</span> <span class="p">(</span><span class="nv">$i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="nv">$i</span><span class="o">&lt;</span><span class="nb">count</span><span class="p">(</span><span class="nv">$arr</span><span class="p">);</span><span class="nv">$i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">For</span> <span class="p">(</span><span class="nv">$i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="nv">$i</span><span class="o">&lt;</span><span class="nb">count</span><span class="p">(</span><span class="nv">$arr</span><span class="p">);</span><span class="nv">$i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
                 <span class="c1">// $key = $arr[$i];</span>
                 <span class="k">echo</span> <span class="nv">$arrKey</span><span class="p">[</span><span class="nv">$i</span><span class="p">]</span><span class="o">.</span><span class="s2">"&lt;br&gt;"</span><span class="p">;</span>
                 <span class="nv">$key</span> <span class="o">=</span> <span class="nv">$arrKey</span><span class="p">[</span><span class="nv">$i</span><span class="p">];</span>
@@ -132,7 +132,7 @@ mysql.class.php 파일에 메서드 예제를 추가합니다.</p>
                 <span class="nv">$queryString</span> <span class="o">=</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">arrQueryInsert</span><span class="p">(</span><span class="nv">$tbname</span><span class="p">,</span> <span class="nv">$arr</span><span class="p">);</span>
 
                 <span class="c1">// 쿼리를 전송합니다.</span>
-                <span class="k">if</span> <span class="p">(</span><span class="nx">mysqli_query</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">dbcon</span><span class="p">,</span> <span class="nv">$queryString</span><span class="p">)</span><span class="o">===</span> <span class="k">TRUE</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nx">mysqli_query</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">dbcon</span><span class="p">,</span> <span class="nv">$queryString</span><span class="p">)</span><span class="o">===</span> <span class="kc">TRUE</span><span class="p">)</span> <span class="p">{</span>
                     <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="s2">"쿼리성공] "</span><span class="o">.</span><span class="nv">$queryString</span><span class="p">);</span>
                     <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="s2">" 데이터 삽입!"</span><span class="p">);</span>
 
@@ -193,7 +193,7 @@ LastName
 
 <ul class="list-group">
     <li class="list-group-item"><a href="/connect">DB연동</a></li>
-    <li class="list-group-item">jinyMysql</li>
+    <li class="list-group-item"><a href="https://jinyphp.github.io/mysql/" target="_blank">SQL빌더</a></li>
     <li class="list-group-item">jinyMysqlAdmin</li>
 </ul>
 <br>

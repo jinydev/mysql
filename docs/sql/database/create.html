@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <!--SEO--><title>JinyDev | 데이터베이스</title>
+        <!--SEO--><title>Mysql - 데이터베이스</title>
             <meta name="title" content="데이터베이스" /><meta name="keyword" content="jinyphp, mysql" /><!--부트스트랩4-->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <style>
@@ -116,7 +116,7 @@ mysql.class.php 파일에 메서드 예제를 추가합니다. 데이터베이�
         <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="nv">$queryString</span><span class="p">);</span>
 
         <span class="c1">// 쿼리를 전송합니다.</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nx">mysqli_query</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">dbcon</span><span class="p">,</span> <span class="nv">$queryString</span><span class="p">)</span><span class="o">===</span> <span class="k">TRUE</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">mysqli_query</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">dbcon</span><span class="p">,</span> <span class="nv">$queryString</span><span class="p">)</span><span class="o">===</span> <span class="kc">TRUE</span><span class="p">)</span> <span class="p">{</span>
             <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="s2">"쿼리성공] "</span><span class="o">.</span><span class="nv">$queryString</span><span class="p">);</span>
             <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="s2">" 데이터베이스 생성!"</span><span class="p">);</span>
 
@@ -242,7 +242,7 @@ CREATE DATABASE jiny123;
 
 <ul class="list-group">
     <li class="list-group-item"><a href="/connect">DB연동</a></li>
-    <li class="list-group-item">jinyMysql</li>
+    <li class="list-group-item"><a href="https://jinyphp.github.io/mysql/" target="_blank">SQL빌더</a></li>
     <li class="list-group-item">jinyMysqlAdmin</li>
 </ul>
 <br>

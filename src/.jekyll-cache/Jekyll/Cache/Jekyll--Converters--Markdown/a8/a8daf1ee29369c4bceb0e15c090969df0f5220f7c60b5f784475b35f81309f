@@ -1,4 +1,4 @@
-I"� <p>제약사항 DEFAULT 속성은 컬럼에 입력되는 데이터의 값이 없을 경우 기본적으로 입력 되는 초기값을 의미합니다. 특정한 컬럼에 데이터를 지정하지 않을 때 NULL로 설정되지 않고 지정한 초기값으로 설정됩니다.</p>
+I"� <p>제약사항 DEFAULT 속성은 컬럼에 입력되는 데이터의 값이 없을 경우 기본적으로 입력 되는 초기값을 의미합니다. 특정한 컬럼에 데이터를 지정하지 않을 때 NULL로 설정되지 않고 지정한 초기값으로 설정됩니다.</p>
 
 <h2 id="0921-쿼리-실습">09.2.1 쿼리 실습</h2>
 <p>테이블에서 City 속성은 기본값이 ‘Seoul’로 되어 있습니다. 만일 City 컬럼의 값이 없는 경우는 기본값 ‘Seoul’을 입력하라는 의미입니다.</p>
@@ -51,7 +51,7 @@ mysql.class.php 파일에 메서드 예제를 추가합니다.</p>
                 <span class="p">}</span>
 
                 <span class="c1">// 쿼리를 전송합니다.</span>
-                <span class="k">if</span> <span class="p">(</span><span class="nx">mysqli_query</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">dbcon</span><span class="p">,</span> <span class="nv">$queryString</span><span class="p">)</span><span class="o">===</span> <span class="k">TRUE</span><span class="p">){</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nx">mysqli_query</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">dbcon</span><span class="p">,</span> <span class="nv">$queryString</span><span class="p">)</span><span class="o">===</span> <span class="kc">TRUE</span><span class="p">){</span>
                     <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="s2">"쿼리성공] "</span><span class="o">.</span><span class="nv">$queryString</span><span class="p">);</span>
                     <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="s2">" 기본값 설정!"</span><span class="p">);</span>
 

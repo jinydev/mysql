@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <!--SEO--><title>JinyDev | 16.2.결과 명칭 </title>
+        <!--SEO--><title>Mysql - 16.2.결과 명칭 </title>
             <meta name="title" content="16.2.결과 명칭 " /><!--부트스트랩4-->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <style>
@@ -72,13 +72,13 @@
 <p>| 예제 쿼리 |</p>
 <div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 테이블 생성</span>
 <span class="nx">CREATE</span> <span class="nx">TABLE</span> <span class="sb">`products`</span> <span class="p">(</span>
-  <span class="sb">`Id`</span> <span class="nx">int</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span> <span class="nx">NOT</span> <span class="k">NULL</span> <span class="nx">AUTO_INCREMENT</span><span class="p">,</span>
-  <span class="sb">`name`</span> <span class="nx">varchar</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span> <span class="nx">DEFAULT</span> <span class="k">NULL</span><span class="p">,</span>
-  <span class="sb">`price`</span> <span class="nx">int</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span> <span class="nx">DEFAULT</span> <span class="k">NULL</span><span class="p">,</span>
-  <span class="sb">`vat`</span> <span class="nx">int</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span> <span class="nx">DEFAULT</span> <span class="k">NULL</span><span class="p">,</span>
-  <span class="sb">`stock`</span> <span class="nx">int</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span> <span class="nx">DEFAULT</span> <span class="k">NULL</span><span class="p">,</span>
-  <span class="nx">PRIMARY</span> <span class="nx">KEY</span> <span class="p">(</span><span class="sb">`Id`</span><span class="p">)</span>
-<span class="p">)</span> <span class="nx">ENGINE</span><span class="o">=</span><span class="nx">InnoDB</span> <span class="nx">DEFAULT</span> <span class="nx">CHARSET</span><span class="o">=</span><span class="nx">utf8</span><span class="p">;</span>
+  <span class="sb">`Id`</span> <span class="kt">int</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span> <span class="nx">NOT</span> <span class="kc">NULL</span> <span class="nx">AUTO_INCREMENT</span><span class="p">,</span>
+  <span class="sb">`name`</span> <span class="nx">varchar</span><span class="p">(</span><span class="mi">255</span><span class="p">)</span> <span class="k">DEFAULT</span> <span class="kc">NULL</span><span class="p">,</span>
+  <span class="sb">`price`</span> <span class="kt">int</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span> <span class="k">DEFAULT</span> <span class="kc">NULL</span><span class="p">,</span>
+  <span class="sb">`vat`</span> <span class="kt">int</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span> <span class="k">DEFAULT</span> <span class="kc">NULL</span><span class="p">,</span>
+  <span class="sb">`stock`</span> <span class="kt">int</span><span class="p">(</span><span class="mi">11</span><span class="p">)</span> <span class="k">DEFAULT</span> <span class="kc">NULL</span><span class="p">,</span>
+  <span class="nx">PRIMARY</span> <span class="nb">KEY</span> <span class="p">(</span><span class="sb">`Id`</span><span class="p">)</span>
+<span class="p">)</span> <span class="nx">ENGINE</span><span class="o">=</span><span class="nx">InnoDB</span> <span class="k">DEFAULT</span> <span class="nx">CHARSET</span><span class="o">=</span><span class="nx">utf8</span><span class="p">;</span>
 
 <span class="c1">// 기초데이터</span>
 <span class="nx">INSERT</span> <span class="nx">INTO</span> <span class="sb">`products`</span> <span class="nx">VALUES</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="s1">'S-827'</span><span class="p">,</span><span class="mi">20000</span><span class="p">,</span><span class="mi">2000</span><span class="p">,</span><span class="mi">5</span><span class="p">),(</span><span class="mi">2</span><span class="p">,</span><span class="s1">'S-532D'</span><span class="p">,</span><span class="mi">36000</span><span class="p">,</span><span class="mi">3600</span><span class="p">,</span><span class="mi">7</span><span class="p">);</span>
@@ -265,7 +265,7 @@ tables fields = 6
 
 <ul class="list-group">
     <li class="list-group-item"><a href="/connect">DB연동</a></li>
-    <li class="list-group-item">jinyMysql</li>
+    <li class="list-group-item"><a href="https://jinyphp.github.io/mysql/" target="_blank">SQL빌더</a></li>
     <li class="list-group-item">jinyMysqlAdmin</li>
 </ul>
 <br>

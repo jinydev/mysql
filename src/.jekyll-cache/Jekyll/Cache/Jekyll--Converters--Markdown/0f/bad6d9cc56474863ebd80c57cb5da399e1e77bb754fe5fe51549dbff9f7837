@@ -1,4 +1,4 @@
-I"+&<h1 id="잠금">잠금</h1>
+I"-&<h1 id="잠금">잠금</h1>
 <hr />
 
 <p>데이터베이스 시스템이 파일 시스템보다 효율적이고 향상된 점은 다수의 사용자가 동시 에 접속하여 데이터를 처리할 수 있다는 것입니다. 하지만 아무리 좋은 데이터베이스 관 리 시스템 이어도 순간적으로 여러 사람들이 동일한 데이터를 접근할 때는 문제가 발생할 수 있습니다.</p>
@@ -45,7 +45,7 @@ mysql.class.php 파일에 메서드 예제를 추가합니다.</p>
                 <span class="nv">$queryString</span> <span class="o">.=</span> <span class="s2">" "</span><span class="o">.</span><span class="nv">$option</span><span class="p">;</span>
                 
                 <span class="c1">// 쿼리를 전송합니다.                </span>
-                <span class="k">if</span> <span class="p">(</span><span class="nx">mysqli_query</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">dbcon</span><span class="p">,</span> <span class="nv">$queryString</span><span class="p">)</span><span class="o">===</span> <span class="k">TRUE</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nx">mysqli_query</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">dbcon</span><span class="p">,</span> <span class="nv">$queryString</span><span class="p">)</span><span class="o">===</span> <span class="kc">TRUE</span><span class="p">)</span> <span class="p">{</span>
                     <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="s2">"쿼리성공] "</span><span class="o">.</span><span class="nv">$queryString</span><span class="p">);</span>
                     <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="nv">$tableName</span><span class="o">.</span><span class="s2">" LOCK!"</span><span class="p">);</span>
                 
@@ -88,7 +88,7 @@ mysql.class.php 파일에 메서드 예제를 추가합니다.</p>
             <span class="nv">$queryString</span> <span class="o">=</span> <span class="s2">"UNLOCK TABLES "</span><span class="p">;</span>
           
             <span class="c1">// 쿼리를 전송합니다.</span>
-            <span class="k">if</span> <span class="p">(</span><span class="nx">mysqli_query</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">dbcon</span><span class="p">,</span> <span class="nv">$queryString</span><span class="p">)</span><span class="o">===</span> <span class="k">TRUE</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">mysqli_query</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">dbcon</span><span class="p">,</span> <span class="nv">$queryString</span><span class="p">)</span><span class="o">===</span> <span class="kc">TRUE</span><span class="p">)</span> <span class="p">{</span>
                 <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="s2">"쿼리성공] "</span><span class="o">.</span><span class="nv">$queryString</span><span class="p">);</span>
                 <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="s2">" TABLE UNLOCK!"</span><span class="p">);</span>
             <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>

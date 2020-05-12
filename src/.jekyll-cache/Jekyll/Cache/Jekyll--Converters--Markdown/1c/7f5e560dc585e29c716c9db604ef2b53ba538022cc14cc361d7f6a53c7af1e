@@ -1,4 +1,4 @@
-I"y2<p>트리거의 선언은 CREATE TRIGGER 명령을 통하여 생성합니다. 트리거는 쿼리 명령에 대해서 트랩을 설정하는 것과 유사합니다. 트리거를 명령 실행 전에 설정할 수도 있고, 명령이 실행 후에 동작을 하도록 선언할 수 있습니다.</p>
+I"z2<p>트리거의 선언은 CREATE TRIGGER 명령을 통하여 생성합니다. 트리거는 쿼리 명령에 대해서 트랩을 설정하는 것과 유사합니다. 트리거를 명령 실행 전에 설정할 수도 있고, 명령이 실행 후에 동작을 하도록 선언할 수 있습니다.</p>
 
 <p>| 쿼리 문법 |</p>
 <div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="k">TRIGGER</span> <span class="err">트리거명</span> <span class="k">BEFORE</span><span class="o">/</span><span class="k">AFTER</span> <span class="err">명령</span> <span class="err">키워드</span> <span class="k">ON</span> <span class="err">테이블명</span> <span class="k">FOR</span> <span class="k">EACH</span> <span class="k">ROW</span> <span class="k">BEGIN</span> 
@@ -114,7 +114,7 @@ mysql.class.php 파일에 메서드 예제를 추가합니다.</p>
             <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="nv">$queryString</span> <span class="p">);</span>
 
             <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="nv">$queryTrigger</span><span class="p">);</span>
-            <span class="k">if</span> <span class="p">(</span><span class="nx">mysqli_query</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">dbcon</span><span class="p">,</span> <span class="nv">$queryTrigger</span><span class="p">)</span><span class="o">===</span> <span class="k">TRUE</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">if</span> <span class="p">(</span><span class="nx">mysqli_query</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">dbcon</span><span class="p">,</span> <span class="nv">$queryTrigger</span><span class="p">)</span><span class="o">===</span> <span class="kc">TRUE</span><span class="p">)</span> <span class="p">{</span>
                 <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="s2">"트리거 성공] "</span><span class="o">.</span><span class="nv">$queryTrigger</span><span class="p">);</span>
 
                 <span class="nv">$queryString</span> <span class="o">=</span> <span class="s2">"DELIMITER ;"</span><span class="p">;</span>

@@ -1,4 +1,4 @@
-I"�<p>MySQL은 데이터를 처리할 수 있는 다수의 데이터베이스 엔진이 존재합니다. 여러 개의 데이터베이스 엔진은 MySQL을 보다 유연하고 확장된 형태로 시스템을 운영할 수 있도 록 환경을 제공합니다.</p>
+I"�<p>MySQL은 데이터를 처리할 수 있는 다수의 데이터베이스 엔진이 존재합니다. 여러 개의 데이터베이스 엔진은 MySQL을 보다 유연하고 확장된 형태로 시스템을 운영할 수 있도 록 환경을 제공합니다.</p>
 
 <p>데이터베이스 엔진의 특성별로 장단점이 있습니다. 자신의 데이터의 성격에 맞는 엔진을 설정하여 사용할 수 있습니다. 
 MySQL은 다음과 같은 엔진을 지원합니다.</p>
@@ -66,7 +66,7 @@ mysql.class.php 파일에 메서드 예제를 추가합니다.</p>
                 <span class="nv">$queryString</span> <span class="o">=</span> <span class="s2">"ALTER TABLE </span><span class="nv">$tbname</span><span class="s2"> ENGINE=</span><span class="nv">$engine</span><span class="s2">"</span><span class="p">;</span>
                 
                 <span class="c1">// 쿼리를 전송합니다.</span>
-                <span class="k">if</span> <span class="p">(</span><span class="nx">mysqli_query</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">dbcon</span><span class="p">,</span> <span class="nv">$queryString</span><span class="p">)</span><span class="o">===</span> <span class="k">TRUE</span><span class="p">)</span> <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="nx">mysqli_query</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">dbcon</span><span class="p">,</span> <span class="nv">$queryString</span><span class="p">)</span><span class="o">===</span> <span class="kc">TRUE</span><span class="p">)</span> <span class="p">{</span>
                     <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="s2">"쿼리성공] "</span><span class="o">.</span><span class="nv">$queryString</span><span class="p">);</span>
                     <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="s2">" 엔진변경(</span><span class="nv">$engine</span><span class="s2">)!"</span><span class="p">);</span>
 

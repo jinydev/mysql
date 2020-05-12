@@ -1,4 +1,4 @@
-I"�/<h1 id="데이터베이스-생성">데이터베이스 생성</h1>
+I"�/<h1 id="데이터베이스-생성">데이터베이스 생성</h1>
 <hr />
 
 <p>데이터베이스 이름은 다수의 테이블을 담고 있는 폴더와 같습니다. 실제적으로 데이터베이스명을 생성하면 MySQL은 해당 데이터 베이스명과 동일한 폴더를 내부적으로 하나 생성하게 됩니다.</p>
@@ -49,7 +49,7 @@ mysql.class.php 파일에 메서드 예제를 추가합니다. 데이터베이�
         <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="nv">$queryString</span><span class="p">);</span>
 
         <span class="c1">// 쿼리를 전송합니다.</span>
-        <span class="k">if</span> <span class="p">(</span><span class="nx">mysqli_query</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">dbcon</span><span class="p">,</span> <span class="nv">$queryString</span><span class="p">)</span><span class="o">===</span> <span class="k">TRUE</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="nx">mysqli_query</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">dbcon</span><span class="p">,</span> <span class="nv">$queryString</span><span class="p">)</span><span class="o">===</span> <span class="kc">TRUE</span><span class="p">)</span> <span class="p">{</span>
             <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="s2">"쿼리성공] "</span><span class="o">.</span><span class="nv">$queryString</span><span class="p">);</span>
             <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">msgEcho</span><span class="p">(</span><span class="s2">" 데이터베이스 생성!"</span><span class="p">);</span>
 
