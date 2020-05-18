@@ -1,0 +1,17 @@
+I"�<h1 id="windows-운영체제에서-mysql-설치하기">windows 운영체제에서 mysql 설치하기</h1>
+<hr />
+<p>공식 사이트에서 mysql 파일을 다운로드 하여 설치하는 방법과 bitnami와 같은 패키지를 이용하여 설치하는 방법이 있습니다.</p>
+
+<p><br /></p>
+
+<h2 id="mysql-단독설치">Mysql 단독설치</h2>
+<hr />
+<p>windows 컴퓨터에 단독으로 mysql을 설치할때에는 직접 공식사이트에서 파일을 다운로드 받아 설치하는 것이 좋습니다.</p>
+
+<p><br /></p>
+
+<h2 id="패키지-설치">패키지 설치</h2>
+<hr />
+<p>인터넷을 검색하면 APM이라 하는 PHP와 MySQL 환경을 동시에 설치하고 설정할 수 있는 설치 프로그램들이 많이 존재합니다. 
+만일 리눅스에 MySQL을 설치하고자 할 경 우 직접 소스를 <code class="highlighter-rouge">다운로드</code>하여 <code class="highlighter-rouge">컴파일</code>해서 설치할 수도 있습니다.</p>
+:ET

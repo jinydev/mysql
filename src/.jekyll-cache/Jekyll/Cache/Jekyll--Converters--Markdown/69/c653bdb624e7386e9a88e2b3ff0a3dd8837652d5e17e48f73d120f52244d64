@@ -1,0 +1,9 @@
+I"5<h1 id="linux-에서-mysql-설치하기">Linux 에서 mysql 설치하기</h1>
+<hr />
+<p>리눅스 운영체제에서 mysql은 이미 컴파일된 패키지를 설치하는 방법과 직접 컴파일 하여 설치하는 방법이 있습니다.</p>
+
+<ul>
+  <li>ubuntu apt</li>
+  <li>컴파일 설치</li>
+</ul>
+:ET

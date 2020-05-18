@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!--SEO--><title>Mysql - Table SQL - learn Mysql | JinyDev</title>
+            <meta name="title" content="Table SQL - learn Mysql | JinyDev" /><!--부트스트랩4-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        
+
+        <link rel="stylesheet" href="/assets/highlight.css">
+        <link rel="stylesheet" href="/assets/style.css">
+
+        <script data-ad-client="ca-pub-3321560028329475" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+        <style>
+            img {
+                max-width:100%;
+            }
+
+            h1 { font-size: 1.6em;}
+            h2 { font-size: 1.5em;}
+            h3 { font-size: 1.4em;}
+            h4 { font-size: 1.3em;}
+            h5 { font-size: 1.2em;}
+            h6 { font-size: 1.1em;}
+      
+        </style>
+
+    </head>
+    <body>
+        <!--네비게이션--><!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="/">Mysql</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/data">개념</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="/setup">설치</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/sql">SQL</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/connect">DB연동</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/injection">인젝션</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/function">함수</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav><div class="container"><nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <!--breadcrumb loop--><li class="breadcrumb-item "><a href="../">Sql</a></li><li class="breadcrumb-item active">Table</li></ol>    
+</nav></div>
+
+<!-- Page Content -->
+<div class="container">
+    <div class="row">
+
+        <!-- Post Content Column -->
+        <div class="col-lg-9">
+            <main>
+                <section>
+                    <h1 id="table-생성-및-관리">Table 생성 및 관리</h1>
+<hr />
+<p>데이터베이스 시스템은 다수의 데이터베이스 이름 그룹과 그룹에 속하는 다수의 테이블 구조의 파일들을 담고 있습니다. 또한 SQL 명령을 통하여 관련 데이터를 조작하고 자료 를 검색합니다.</p>
+
+<p>테이블은 실제적인 데이터를 담고 있는 파일과 같습니다. 우리가 흔히 사용하는 엑셀과 같은 간단한 개인형 데이터베이스 응용프로그램의 경우 <code class="highlighter-rouge">.xls</code> 파일을 생성하여 그 안에 데 이터를 담고 있습니다. 
+그리고 이러한 <code class="highlighter-rouge">.xls</code> 엑셀 파일은 용도에 맞도록 그룹화된 폴더로 관리하고 있을 것입니다.</p>
+
+<p>데이터베이스 이름은 여러 개의 테이블 데이터를 관리하기 위한 그룹과 같습니다. 
+데이 터베이스명의 생성은 테이블을 보관할 수 있는 물리적인 폴더 형태의 디렉터리를 생성합 니다. 
+데이터베이스에는 실제적인 데이터를 가지고 있는 다수의 테이블이 존재합니다. 
+테이블 또한 테이블 생성과 동시에 관련 테이블 파일이 물리적으로 생성됩니다.</p>
+
+<p><br /></p>
+
+<h2 id="테이블"><a href="rows">테이블</a></h2>
+<hr />
+<ul>
+  <li>컬럼과 로우</li>
+  <li>칼럼 이름</li>
+  <li>자료형</li>
+  <li>속성</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="테이블-생성"><a href="create">테이블 생성</a></h2>
+<hr />
+<ul>
+  <li>콘솔 실습</li>
+  <li>PHP 실습</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="테이블-확인"><a href="tablelist">테이블 확인</a></h2>
+<hr />
+<ul>
+  <li>테이블 목록</li>
+  <li>목록 출력</li>
+  <li>테이블 상세 정보</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="테이블-중복"><a href="duplicate">테이블 중복</a></h2>
+<hr />
+<ul>
+  <li>중복 실험</li>
+  <li>중복 확인</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="테이블-삭제"><a href="drop">테이블 삭제</a></h2>
+<hr />
+<ul>
+  <li>삭제 실습</li>
+  <li>PHP 코드</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="truncate"><a href="truncate">TRUNCATE</a></h2>
+<hr />
+<ul>
+  <li>콘솔 실습</li>
+  <li>코드</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="테이블-구조-확인"><a href="desc">테이블 구조 확인</a></h2>
+<hr />
+<ul>
+  <li>콘솔 실습</li>
+  <li>PHP 코드</li>
+  <li>SHOW COLUMNS</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="테이블-데이터"><a href="data">테이블 데이터</a></h2>
+<hr />
+
+<p><br /></p>
+
+<h2 id="엔진-설정"><a href="engine">엔진 설정</a></h2>
+<hr />
+<ul>
+  <li>엔진 확인</li>
+  <li>엔진 변경</li>
+  <li>PHP 코드</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="테이블-최적화"><a href="optimize">테이블 최적화</a></h2>
+<hr />
+<p>테이블 처리 속도를 위해서 최적화 작업을 진행합니다. <a href="optimize">OPTIMIZE</a>는 기존의 테이블을 최적화 하는 작업을 수행합니다.</p>
+
+
+                </section>
+            </main>            
+
+            <!--구글 애드센스1-->
+			<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+			<ins class="adsbygoogle"
+				style="display:block"
+				data-ad-format="fluid"
+				data-ad-layout-key="-fb+5w+4e-db+86"
+				data-ad-client="ca-pub-3321560028329475"
+				data-ad-slot="6043271504"></ins>
+			<script>
+				(adsbygoogle = window.adsbygoogle || []).push({});
+			</script>
+        </div>
+
+        <!-- Sidebar Column -->
+        <div class="col-md-3">
+            <aside><ul class="list-group">
+    <li class="list-group-item"><a href="/data">개념</a></li>
+    <li class="list-group-item"><a href="/setup">설치</a></li>
+    <li class="list-group-item"><a href="/sql">SQL</a></li>
+    
+    <li class="list-group-item"><a href="/injection">인젝션</a></li>
+    <li class="list-group-item"><a href="/function">함수</a></li>
+</ul>
+<br>
+
+<ul class="list-group">
+    <li class="list-group-item"><a href="/connect">DB연동</a></li>
+    <li class="list-group-item"><a href="https://jinyphp.github.io/mysql/" target="_blank">SQL빌더</a></li>
+    <li class="list-group-item">jinyMysqlAdmin</li>
+</ul>
+<br>
+
+<ul class="list-group">
+    <li class="list-group-item">WorkBench</li>
+    <li class="list-group-item">phpMyAdmin</li>
+</ul></aside>
+            
+            <!--구글 애드센스2-->
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-format="fluid"
+                data-ad-layout-key="-ef+6k-30-ac+ty"
+                data-ad-client="ca-pub-3321560028329475"
+                data-ad-slot="7661682925"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+            
+        </div>
+
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+
+        <footer>  <!-- Footer -->
+  <footer class="py-3 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; jinydev 2017~2020</p>
+    </div>
+    <!-- /.container -->
+  </footer></footer>        
+
+        <!--부트스트랩4-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-160048106-1"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'UA-160048106-1');
+        </script>
+
+    </body>
+
+</html>

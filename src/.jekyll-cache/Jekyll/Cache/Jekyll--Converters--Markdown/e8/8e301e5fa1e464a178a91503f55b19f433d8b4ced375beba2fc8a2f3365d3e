@@ -1,0 +1,70 @@
+I"<h1 id="mysql-설치하기">Mysql 설치하기</h1>
+<hr />
+<p><code class="highlighter-rouge">MySQL</code> 관계형 데이터베이스는 무료로 <a href="http://www.mysql.com">다운로드</a>하여 설치할 수 있습니다.<br />
+다운로드는 공식 사이트 <code class="highlighter-rouge">http://www.mysql.com</code>에서 무료로 가능합니다. 
+공식 사이트를 통하여 설치하는 것 외에도 MySQL을 설치하는 다양한 방법이 존재합니다.</p>
+
+<ul>
+  <li><a href="01.6">MySQL</a></li>
+  <li><a href="01.7">MySQL 버전</a></li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="windows-에서-mysql-설치하기">windows 에서 mysql 설치하기</h2>
+<hr />
+<p>공식 사이트에서 mysql 파일을 다운로드 하여 설치하는 방법과 bitnami와 같은 패키지를 이용하여 설치하는 방법이 있습니다.</p>
+
+<ul>
+  <li>단독설치</li>
+  <li>패키지 설치</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="linux-에서-mysql-설치하기">Linux 에서 mysql 설치하기</h2>
+<hr />
+<p>리눅스 운영체제에서 mysql은 이미 컴파일된 패키지를 설치하는 방법과 직접 컴파일 하여 설치하는 방법이 있습니다.</p>
+
+<ul>
+  <li>ubuntu apt</li>
+  <li>컴파일 설치</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="mysql-서버-접속하기">Mysql 서버 접속하기</h2>
+<hr />
+
+<ul>
+  <li><a href="./client/console">콘솔</a> 접속</li>
+  <li>GUI 접속</li>
+</ul>
+
+<h2 id="사용자-환경">사용자 환경</h2>
+<ul>
+  <li>02.1 <a href="02.1">비밀번호</a></li>
+  <li>02.3 <a href="02.3">환경 설정</a></li>
+  <li>02.4 <a href="02.4">실행 화면 저장</a>
+    <ul>
+      <li>02.4.1 출력 설정</li>
+      <li>02.4.2 출력 중지</li>
+    </ul>
+  </li>
+  <li>02.5 <a href="02.5">덤프</a>
+    <ul>
+      <li>02.5.1 백업</li>
+      <li>02.5.2 복원</li>
+    </ul>
+  </li>
+  <li>02.6 <a href="02.6">파일 삽입</a></li>
+  <li>02.7 <a href="02.7">파일 출력</a></li>
+  <li>02.8 <a href="02.8">SOURCE</a>
+    <ul>
+      <li>02.8.1 외부 실행</li>
+    </ul>
+  </li>
+</ul>
+
+<p><br /></p>
+:ET

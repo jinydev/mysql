@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!--SEO--><title>Mysql - 09 속성 </title>
+            <meta name="title" content="09 속성 " /><!--부트스트랩4-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        
+
+        <link rel="stylesheet" href="/assets/highlight.css">
+        <link rel="stylesheet" href="/assets/style.css">
+
+        <script data-ad-client="ca-pub-3321560028329475" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+        <style>
+            img {
+                max-width:100%;
+            }
+
+            h1 { font-size: 1.6em;}
+            h2 { font-size: 1.5em;}
+            h3 { font-size: 1.4em;}
+            h4 { font-size: 1.3em;}
+            h5 { font-size: 1.2em;}
+            h6 { font-size: 1.1em;}
+      
+        </style>
+
+    </head>
+    <body>
+        <!--네비게이션--><!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="/">Mysql</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/data">개념</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="/setup">설치</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/sql">SQL</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/connect">DB연동</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/injection">인젝션</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/function">함수</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav><div class="container"><nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <!--breadcrumb loop--></ol>    
+</nav></div>
+
+<!-- Page Content -->
+<div class="container">
+    <div class="row">
+
+        <!-- Post Content Column -->
+        <div class="col-lg-9">
+            <main>
+                <section>
+                    <p>테이블은 컬럼 데이터형 타입과 별개로 제약사항 속성을 추가할 수 있습니다. 추가된 제 약사항 속성은 컬럼의 데이터를 처리하는 데 별도의 규칙이 적용됩니다.</p>
+
+<p>컬럼의 제약사항 속성은 반드시 사용해야 하는 것은 아닙니다. 옵션과 같은 성격을 띕니다. 
+속성을 설정하게 되면 데이터의 무결성을 보완하고 테이블의 데이터 검색 속도 개 선 등의 이점이 있습니다.</p>
+
+<p>테이블을 생성할 때 기본적으로 많이 사용하는 Primary Key, Auto Increament 등 몇 가지의 속성이 있습니다. 
+제약사항 속성은 CREATE TABLE 명령을 통하여 테이블을 생 성할 때 함께 설정합니다. 또는 ALTER TABLE 명령을 통하여 나중에 추가할 수 있습 니다.</p>
+
+<p>| 쿼리 문법 |</p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="k">TABLE</span> <span class="k">table_name</span> <span class="p">(</span>
+     <span class="n">column1</span> <span class="n">datatype</span> <span class="k">constraint</span><span class="p">,</span>
+     <span class="n">column2</span> <span class="n">datatype</span> <span class="k">constraint</span><span class="p">,</span>
+     <span class="n">column3</span> <span class="n">datatype</span> <span class="k">constraint</span><span class="p">,</span>
+    <span class="p">....</span>
+<span class="p">);</span>
+</code></pre></div></div>
+
+<p>제약사항(constraint)은 컬럼의 데이터 타입 설정 뒤에 위치합니다. 
+MySQL은 일곱 가지의 제약사항 속성을 지원합니다.</p>
+
+<ul>
+  <li>NOT NULL : 컬럼 필드의 NULL 입력을 허용/방지합니다.</li>
+  <li>UNIQUE: 중복값 입력을 방지합니다.</li>
+  <li>PRIMARY KE: NOT NULL 과 UNIQUE 결합된 기본 데이터 키입니다.</li>
+  <li>FOREIGN KEY : 다른 테이블의 값을 참조하여 연결합니다.</li>
+  <li>CHECK: 데이터 입력 유효성을 설정합니다.</li>
+  <li>DEFAULT: 컬럼 필드의 초기값을 설정합니다.</li>
+  <li>INDEX: 빠른 접근을 위한 인덱스입니다.</li>
+</ul>
+
+<h4 id="091-제약사항-not-null">09.1 제약사항 <a href="09.1">NOT NULL</a></h4>
+<ul>
+  <li>09.1.1 쿼리 실습</li>
+  <li>09.1.2 PHP 실습</li>
+</ul>
+
+<h4 id="092-기본값-속성---default">09.2 <a href="09.2">기본값 속성</a> - DEFAULT</h4>
+<ul>
+  <li>09.2.1 쿼리 실습</li>
+  <li>09.2.2 PHP 실습</li>
+</ul>
+
+<h4 id="093-유일값----unique">09.3 <a href="09.3">유일값</a>  - UNIQUE</h4>
+<ul>
+  <li>09.3.1 쿼리 실습</li>
+  <li>09.3.2 PHP 실습</li>
+</ul>
+
+<h4 id="094-프라이머리-키---primary-key">09.4 <a href="09.4">프라이머리 키</a> - PRIMARY KEY</h4>
+<ul>
+  <li>09.4.1 쿼리 실습</li>
+</ul>
+
+<h4 id="095-check">09.5 <a href="09.5">CHECK</a></h4>
+<ul>
+  <li>09.5.1 쿼리 실습</li>
+</ul>
+
+<h4 id="096-자동-증가---auto-increment">09.6 <a href="09.6">자동 증가</a> - AUTO INCREMENT</h4>
+<ul>
+  <li>09.6.1 쿼리 실습</li>
+  <li>09.6.2 PHP 실습</li>
+</ul>
+
+<h4 id="097-색인---index">09.7 <a href="09.7">색인</a> - INDEX</h4>
+<ul>
+  <li>09.7.1 색인 생성</li>
+  <li>09.7.2 색인 확인</li>
+  <li>09.7.3 색인 삭제</li>
+</ul>
+
+<h4 id="098-외래-키---foreign-key">09.8 <a href="09.8">외래 키</a> - FOREIGN KEY</h4>
+<ul>
+  <li>09.8.1 외래 키 설정</li>
+  <li>09.8.2 외래 키 수정</li>
+  <li>09.8.3 외래 키 삭제</li>
+</ul>
+
+                </section>
+            </main>            
+
+            <!--구글 애드센스1-->
+			<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+			<ins class="adsbygoogle"
+				style="display:block"
+				data-ad-format="fluid"
+				data-ad-layout-key="-fb+5w+4e-db+86"
+				data-ad-client="ca-pub-3321560028329475"
+				data-ad-slot="6043271504"></ins>
+			<script>
+				(adsbygoogle = window.adsbygoogle || []).push({});
+			</script>
+        </div>
+
+        <!-- Sidebar Column -->
+        <div class="col-md-3">
+            <aside><ul class="list-group">
+    <li class="list-group-item"><a href="/data">개념</a></li>
+    <li class="list-group-item"><a href="/setup">설치</a></li>
+    <li class="list-group-item"><a href="/sql">SQL</a></li>
+    
+    <li class="list-group-item"><a href="/injection">인젝션</a></li>
+    <li class="list-group-item"><a href="/function">함수</a></li>
+</ul>
+<br>
+
+<ul class="list-group">
+    <li class="list-group-item"><a href="/connect">DB연동</a></li>
+    <li class="list-group-item"><a href="https://jinyphp.github.io/mysql/" target="_blank">SQL빌더</a></li>
+    <li class="list-group-item">jinyMysqlAdmin</li>
+</ul>
+<br>
+
+<ul class="list-group">
+    <li class="list-group-item">WorkBench</li>
+    <li class="list-group-item">phpMyAdmin</li>
+</ul></aside>
+            
+            <!--구글 애드센스2-->
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-format="fluid"
+                data-ad-layout-key="-ef+6k-30-ac+ty"
+                data-ad-client="ca-pub-3321560028329475"
+                data-ad-slot="7661682925"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+            
+        </div>
+
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+
+        <footer>  <!-- Footer -->
+  <footer class="py-3 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; jinydev 2017~2020</p>
+    </div>
+    <!-- /.container -->
+  </footer></footer>        
+
+        <!--부트스트랩4-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-160048106-1"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'UA-160048106-1');
+        </script>
+
+    </body>
+
+</html>

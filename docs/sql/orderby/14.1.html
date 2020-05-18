@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!--SEO--><title>Mysql - 14.1.정렬</title>
+            <meta name="title" content="14.1.정렬" /><!--부트스트랩4-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        
+
+        <link rel="stylesheet" href="/assets/highlight.css">
+        <link rel="stylesheet" href="/assets/style.css">
+
+        <script data-ad-client="ca-pub-3321560028329475" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+        <style>
+            img {
+                max-width:100%;
+            }
+
+            h1 { font-size: 1.6em;}
+            h2 { font-size: 1.5em;}
+            h3 { font-size: 1.4em;}
+            h4 { font-size: 1.3em;}
+            h5 { font-size: 1.2em;}
+            h6 { font-size: 1.1em;}
+      
+        </style>
+
+    </head>
+    <body>
+        <!--네비게이션--><!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="/">Mysql</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/data">개념</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="/setup">설치</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/sql">SQL</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/connect">DB연동</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/injection">인젝션</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/function">함수</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav><div class="container"><nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <!--breadcrumb loop--></ol>    
+</nav></div>
+
+<!-- Page Content -->
+<div class="container">
+    <div class="row">
+
+        <!-- Post Content Column -->
+        <div class="col-lg-9">
+            <main>
+                <section>
+                    <p>쿼리에서 정렬 기능을 추가하기 위해서는 ORDER BY 키워드를 사용합니다. 정렬은 컬 럼 값을 기준으로 오름차순(ASC), 내림차순(DESC) 정렬을 할 수 있습니다.</p>
+
+<p>| 쿼리 문법 |</p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">~</span> <span class="k">ORDER</span> <span class="k">BY</span> <span class="err">컬럼명</span> <span class="err">정렬</span> <span class="err">방식</span><span class="p">;</span> 
+</code></pre></div></div>
+
+<p>SELECT 쿼리 문장 마지막에 ORDER BY 컬럼명을 추가하여 정렬할 수 있습니다.</p>
+
+<ul>
+  <li>ASC: 오름차순</li>
+  <li>DESC: 내림차순</li>
+</ul>
+
+<h2 id="1411-쿼리-실습">14.1.1 쿼리 실습</h2>
+<p>회원 목록 테이블에서 Id 값을 기준으로 내림차순 정렬을 합니다.</p>
+
+<p>| 예제 쿼리 |</p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">members</span> <span class="k">order</span> <span class="k">by</span> <span class="n">Id</span> <span class="k">desc</span><span class="p">;</span> 
+</code></pre></div></div>
+
+<p>| 콘솔 실습 화면 |</p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">mysql</span><span class="o">&gt;</span> <span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">members</span> <span class="k">order</span> <span class="k">by</span> <span class="n">Id</span> <span class="k">desc</span><span class="p">;</span>
+<span class="o">+</span><span class="c1">----+----------+-----------+-------------+-------+---------+</span>
+<span class="o">|</span> <span class="n">Id</span> <span class="o">|</span> <span class="n">LastName</span> <span class="o">|</span> <span class="n">FirstName</span> <span class="o">|</span> <span class="n">Address</span>     <span class="o">|</span> <span class="n">City</span>  <span class="o">|</span> <span class="n">Country</span> <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+-----------+-------------+-------+---------+</span>
+<span class="o">|</span>  <span class="mi">4</span> <span class="o">|</span> <span class="n">eric</span>     <span class="o">|</span> <span class="n">jung</span>      <span class="o">|</span> <span class="n">seocho</span><span class="o">-</span><span class="n">gu</span>   <span class="o">|</span> <span class="n">seoul</span> <span class="o">|</span> <span class="n">korea</span>   <span class="o">|</span>
+<span class="o">|</span>  <span class="mi">3</span> <span class="o">|</span> <span class="n">james</span>    <span class="o">|</span> <span class="n">kim</span>       <span class="o">|</span> <span class="n">youngdun</span><span class="o">-</span><span class="n">po</span> <span class="o">|</span> <span class="n">seoul</span> <span class="o">|</span> <span class="n">korea</span>   <span class="o">|</span>
+<span class="o">|</span>  <span class="mi">2</span> <span class="o">|</span> <span class="n">jiny</span>     <span class="o">|</span> <span class="k">NULL</span>      <span class="o">|</span> <span class="k">NULL</span>        <span class="o">|</span> <span class="k">NULL</span>  <span class="o">|</span> <span class="n">korea</span>   <span class="o">|</span>
+<span class="o">|</span>  <span class="mi">1</span> <span class="o">|</span> <span class="n">hojin</span>    <span class="o">|</span> <span class="n">lee</span>       <span class="o">|</span> <span class="n">shinchon</span>    <span class="o">|</span> <span class="n">seoul</span> <span class="o">|</span> <span class="n">korea</span>   <span class="o">|</span>
+<span class="o">+</span><span class="c1">----+----------+-----------+-------------+-------+---------+</span>
+<span class="mi">4</span> <span class="k">rows</span> <span class="k">in</span> <span class="k">set</span> <span class="p">(</span><span class="mi">0</span><span class="p">.</span><span class="mi">00</span> <span class="n">sec</span><span class="p">)</span>
+
+</code></pre></div></div>
+
+<p>위의 예제는 데이터 출력 시 Id 값 내림차순으로 변경하여 출력합니다.</p>
+
+<p>만일 정렬해야 하는 컬럼이 여러 개일 경우 콤마 (,)를 통하여 정렬할 컬럼을 추가할 수 있 습니다.</p>
+
+<p>| 예제 쿼리 |</p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">members</span> <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">Country</span><span class="p">,</span> <span class="n">City</span><span class="p">;</span> 
+</code></pre></div></div>
+
+<p>또는 여러 컬럼을 정렬할 때 컬럼별로 정렬 방식을 지정할 수도 있습니다.</p>
+
+<p>| 예제 쿼리 |</p>
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">SELECT</span> <span class="o">*</span> <span class="k">FROM</span> <span class="n">members</span> <span class="k">ORDER</span> <span class="k">BY</span> <span class="n">Country</span> <span class="k">ASC</span><span class="p">,</span> <span class="n">City</span> <span class="k">DESC</span><span class="p">;</span> 
+</code></pre></div></div>
+
+<h2 id="1412-php-실습">14.1.2 PHP 실습</h2>
+<p>PHP 코드를 통하여 생성한 쿼리에 정렬을 추가하여 실행하도록 합니다.</p>
+
+<p>| PHP 예제 | 
+mysql.class.php 파일에 메서드 예제를 추가합니다.</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="nf">orderBy</span><span class="p">(</span><span class="nv">$query</span><span class="p">,</span><span class="nv">$by</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="nv">$query</span> <span class="o">.</span> <span class="s2">" ORDER BY "</span> <span class="o">.</span> <span class="nv">$by</span><span class="p">;</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+
+<p>예제 파일 | orderby-01.php</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+
+	<span class="k">include</span> <span class="s2">"dbinfo.php"</span><span class="p">;</span>
+	<span class="k">include</span> <span class="s2">"mysql.class.php"</span><span class="p">;</span>
+ 
+	<span class="c1">// ++ Mysqli DB 연결.</span>
+	<span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">JinyMysql</span><span class="p">();</span>
+
+	<span class="nv">$query</span> <span class="o">=</span> <span class="s2">"select FirstName, LastName, City, Country from members"</span><span class="p">;</span>
+	<span class="nv">$queryString</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">orderBy</span><span class="p">(</span><span class="nv">$query</span><span class="p">,</span><span class="s2">"Country ASC, City DESC"</span><span class="p">);</span>
+
+	<span class="k">if</span> <span class="p">(</span><span class="nv">$rowss</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">selectRowss</span><span class="p">(</span><span class="nv">$queryString</span><span class="p">))</span> <span class="p">{</span>
+		<span class="k">echo</span> <span class="s2">"tables fields = "</span><span class="o">.</span> <span class="nb">count</span><span class="p">(</span><span class="nv">$rowss</span><span class="p">)</span> <span class="o">.</span> <span class="s2">"&lt;br&gt;"</span><span class="p">;</span>
+ 
+		<span class="k">for</span> <span class="p">(</span><span class="nv">$i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="nv">$i</span><span class="o">&lt;</span><span class="nb">count</span><span class="p">(</span><span class="nv">$rowss</span><span class="p">);</span><span class="nv">$i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+			<span class="k">echo</span> <span class="nv">$i</span><span class="o">.</span><span class="s2">"="</span><span class="p">;</span>            
+			<span class="nb">print_r</span><span class="p">(</span><span class="nv">$rowss</span><span class="p">[</span><span class="nv">$i</span><span class="p">]);</span>
+			<span class="k">echo</span> <span class="s2">"&lt;br&gt;"</span><span class="p">;</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+
+<span class="cp">?&gt;</span>
+
+</code></pre></div></div>
+
+<p>화면 출력</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql connected!
+쿼리성공] select FirstName, LastName, City, Country from members ORDER BY Country ASC, City DESC
+tables fields = 6
+0=stdClass Object ( [FirstName] =&gt; lee [LastName] =&gt; hojin [City] =&gt; seoul [Country] =&gt; Korea ) 
+1=stdClass Object ( [FirstName] =&gt; kim [LastName] =&gt; james [City] =&gt; seoul [Country] =&gt; Korea ) 
+2=stdClass Object ( [FirstName] =&gt; hojin [LastName] =&gt; lee [City] =&gt; [Country] =&gt; Korea ) 
+3=stdClass Object ( [FirstName] =&gt; jiny [LastName] =&gt; 1234 [City] =&gt; [Country] =&gt; Korea ) 
+4=stdClass Object ( [FirstName] =&gt; jiny [LastName] =&gt; 1234 [City] =&gt; [Country] =&gt; Korea ) 
+5=stdClass Object ( [FirstName] =&gt; jiny [LastName] =&gt; 123400 [City] =&gt; [Country] =&gt; Korea ) 
+</code></pre></div></div>
+
+                </section>
+            </main>            
+
+            <!--구글 애드센스1-->
+			<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+			<ins class="adsbygoogle"
+				style="display:block"
+				data-ad-format="fluid"
+				data-ad-layout-key="-fb+5w+4e-db+86"
+				data-ad-client="ca-pub-3321560028329475"
+				data-ad-slot="6043271504"></ins>
+			<script>
+				(adsbygoogle = window.adsbygoogle || []).push({});
+			</script>
+        </div>
+
+        <!-- Sidebar Column -->
+        <div class="col-md-3">
+            <aside><ul class="list-group">
+    <li class="list-group-item"><a href="/data">개념</a></li>
+    <li class="list-group-item"><a href="/setup">설치</a></li>
+    <li class="list-group-item"><a href="/sql">SQL</a></li>
+    
+    <li class="list-group-item"><a href="/injection">인젝션</a></li>
+    <li class="list-group-item"><a href="/function">함수</a></li>
+</ul>
+<br>
+
+<ul class="list-group">
+    <li class="list-group-item"><a href="/connect">DB연동</a></li>
+    <li class="list-group-item"><a href="https://jinyphp.github.io/mysql/" target="_blank">SQL빌더</a></li>
+    <li class="list-group-item">jinyMysqlAdmin</li>
+</ul>
+<br>
+
+<ul class="list-group">
+    <li class="list-group-item">WorkBench</li>
+    <li class="list-group-item">phpMyAdmin</li>
+</ul></aside>
+            
+            <!--구글 애드센스2-->
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-format="fluid"
+                data-ad-layout-key="-ef+6k-30-ac+ty"
+                data-ad-client="ca-pub-3321560028329475"
+                data-ad-slot="7661682925"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+            
+        </div>
+
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+
+        <footer>  <!-- Footer -->
+  <footer class="py-3 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; jinydev 2017~2020</p>
+    </div>
+    <!-- /.container -->
+  </footer></footer>        
+
+        <!--부트스트랩4-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-160048106-1"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'UA-160048106-1');
+        </script>
+
+    </body>
+
+</html>
