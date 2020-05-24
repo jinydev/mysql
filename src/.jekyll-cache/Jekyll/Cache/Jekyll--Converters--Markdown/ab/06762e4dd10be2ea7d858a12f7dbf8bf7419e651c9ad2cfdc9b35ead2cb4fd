@@ -1,0 +1,96 @@
+I"�<h1 id="스키마-데이터베이스">스키마 데이터베이스</h1>
+<hr />
+<p>mysql은 다수의 스키마를 생성하여 관리를 할 수 있습니다. 
+<code class="highlighter-rouge">Connection</code> 객체를 통하여 mysql 데이터베이스와 연결을 하게 되면, 
+<code class="highlighter-rouge">schema()</code> 메소드를 통하여 스키마 객체와 관계를 설정할 수 있습니다.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 설정값, 생성자 인자값으로 전달합니다.</span>
+<span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Jiny\Mysql\Connection</span><span class="p">(</span><span class="nv">$dbinfo</span><span class="p">);</span>
+<span class="nv">$schemaObj</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">schema</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">schema()</code> 메소드는 schema 클래스의 객체를 반환합니다.</p>
+<blockquote>
+  <p><a href="code">소스코드</a> 학습하기
+<br /></p>
+</blockquote>
+
+<h2 id="list--스키마-목록">list() : 스키마 목록</h2>
+<hr />
+<p>사용자 계정의 스키마 목록을 확인합니다.</p>
+
+<p>예제코드: ./sample/schema/schema-01.php</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="k">require</span> <span class="s2">"../../loading.php"</span><span class="p">;</span> <span class="c1">// 오토로딩</span>
+
+<span class="c1">// 데이터베이스 설정값</span>
+<span class="nv">$dbinfo</span> <span class="o">=</span> <span class="nx">\jiny\dbinfo</span><span class="p">();</span>
+
+<span class="c1">// 설정값, 생성자 인자값으로 전달합니다.</span>
+<span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Jiny\Mysql\Connection</span><span class="p">(</span><span class="nv">$dbinfo</span><span class="p">);</span>
+
+<span class="c1">// 테이블 구조</span>
+<span class="nv">$rows</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">schema</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">list</span><span class="p">();</span>
+<span class="nb">print_r</span><span class="p">(</span><span class="nv">$rows</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>|출력결과|</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>php schema-01.php 
+<span class="go">Array
+(
+</span><span class="gp">    [0] =&gt;</span><span class="w"> </span>db2020
+<span class="gp">    [1] =&gt;</span><span class="w"> </span>information_schema
+<span class="go">)
+</span></code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="create--스키마-생성">create() : 스키마 생성</h2>
+<hr />
+<p><code class="highlighter-rouge">create()</code> 메소드는 새로운 스키마를 생성합니다. 인자값으로 생성할 스키마명을 전달하면 됩니다.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$name</span> <span class="o">=</span> <span class="s2">"jinyshop"</span><span class="p">;</span>
+<span class="c1">// 스키마 생성</span>
+<span class="nv">$db</span><span class="o">-&gt;</span><span class="na">schema</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">create</span><span class="p">(</span><span class="nv">$name</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>|예제코드| ./sample/schema/schema-02.php</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="k">require</span> <span class="s2">"../../loading.php"</span><span class="p">;</span> <span class="c1">// 오토로딩</span>
+
+<span class="c1">// 데이터베이스 설정값</span>
+<span class="nv">$dbinfo</span> <span class="o">=</span> <span class="nx">\jiny\dbinfo</span><span class="p">();</span>
+
+<span class="c1">// 설정값, 생성자 인자값으로 전달합니다.</span>
+<span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Jiny\Mysql\Connection</span><span class="p">(</span><span class="nv">$dbinfo</span><span class="p">);</span>
+
+<span class="c1">// 스키마 생성</span>
+<span class="nv">$name</span> <span class="o">=</span> <span class="s2">"jinyshop"</span><span class="p">;</span>
+<span class="c1">// 스키마 생성</span>
+<span class="nv">$db</span><span class="o">-&gt;</span><span class="na">schema</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">create</span><span class="p">(</span><span class="nv">$name</span><span class="p">);</span>
+
+<span class="c1">// 스키마 목록</span>
+<span class="nv">$rows</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">schema</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">list</span><span class="p">();</span>
+<span class="nb">print_r</span><span class="p">(</span><span class="nv">$rows</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>하지만 위의 코드를 실행하면 다음과 같은 오류가 발생합니다.</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>php schema-02.php
+<span class="go">PHP Fatal error:  Uncaught PDOException: SQLSTATE[42000]: Syntax error or access violation: 1044 Access denied for user 'db2020'@'%' to database 'jinyshop' in E:\01.jiny\mysqlAdmin\vendor\jiny\mysql\src\Connection.php:131
+Stack trace:
+</span><span class="gp">#</span>0 E:<span class="se">\0</span>1.jiny<span class="se">\m</span>ysqlAdmin<span class="se">\v</span>endor<span class="se">\j</span>iny<span class="se">\m</span>ysql<span class="se">\s</span>rc<span class="se">\C</span>onnection.php<span class="o">(</span>131<span class="o">)</span>: PDO-&gt;query<span class="o">(</span><span class="s1">'create database...'</span><span class="o">)</span>
+<span class="gp">#</span>1 E:<span class="se">\0</span>1.jiny<span class="se">\m</span>ysqlAdmin<span class="se">\v</span>endor<span class="se">\j</span>iny<span class="se">\m</span>ysql<span class="se">\s</span>rc<span class="se">\S</span>chema.php<span class="o">(</span>28<span class="o">)</span>: Jiny<span class="se">\M</span>ysql<span class="se">\C</span>onnection-&gt;query<span class="o">(</span><span class="s1">'create database...'</span><span class="o">)</span>
+<span class="gp">#</span>2 E:<span class="se">\0</span>1.jiny<span class="se">\m</span>ysqlAdmin<span class="se">\v</span>endor<span class="se">\j</span>iny<span class="se">\m</span>ysql<span class="se">\s</span>ample<span class="se">\s</span>chema<span class="se">\s</span>chema-02.php<span class="o">(</span>13<span class="o">)</span>: Jiny<span class="se">\M</span>ysql<span class="se">\S</span>chema-&gt;create<span class="o">(</span><span class="s1">'jinyshop'</span><span class="o">)</span>
+<span class="gp">#</span>3 <span class="o">{</span>main<span class="o">}</span>
+<span class="go">  thrown in E:\01.jiny\mysqlAdmin\vendor\jiny\mysql\src\Connection.php on line 131
+</span></code></pre></div></div>
+
+<p>새로운 스키마를 생성하기 위해서는 스키마 생성을 위한 <code class="highlighter-rouge">접근 권한</code>이 있어야 합니다. 
+DB사용자 계정에 접근권한을 추가한 후에 코드를 다시 실행합니다.</p>
+
+<p><br /></p>
+
+<h2 id="totaltablesschema">totalTables($schema)</h2>
+<hr />
+
+:ET

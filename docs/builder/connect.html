@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!--SEO--><title>Mysql - connection - SQL빌더</title>
+            <meta name="title" content="connection - SQL빌더" /><meta name="keyword" content="mysql, sql, builder, jinyMysql, jinyPHP" /><!--부트스트랩4-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        
+
+        <link rel="stylesheet" href="/assets/highlight.css">
+        <link rel="stylesheet" href="/assets/style.css">
+
+        <script data-ad-client="ca-pub-3321560028329475" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+        <style>
+            img {
+                max-width:100%;
+            }
+
+            h1 { font-size: 1.6em;}
+            h2 { font-size: 1.5em;}
+            h3 { font-size: 1.4em;}
+            h4 { font-size: 1.3em;}
+            h5 { font-size: 1.2em;}
+            h6 { font-size: 1.1em;}
+      
+        </style>
+
+    </head>
+    <body>
+        <!--네비게이션--><!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="/">Mysql</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/data">개념</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="/setup">설치</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/sql">SQL</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/connect">DB연동</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/injection">인젝션</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/function">함수</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav><br>
+<div class="container"><nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <!--breadcrumb loop--><li class="breadcrumb-item "><a href="../">Builder</a></li><li class="breadcrumb-item active">connection</li></ol>    
+</nav></div>
+
+<!-- Page Content -->
+<div class="container">
+    <div class="row">
+
+        <!-- Post Content Column -->
+        <div class="col-lg-9">
+            <main>
+                <section>
+                    <h1 id="데이터베이스-연결">데이터베이스 연결</h1>
+<hr />
+<p>데이터베이스 접속을 하는 방법에 대해서 설명을 합니다.</p>
+
+<p><br /></p>
+
+<h2 id="드라이버">드라이버</h2>
+<hr />
+<p><code class="highlighter-rouge">jinydb</code>는 <code class="highlighter-rouge">PDO</code> 방식을 응용하여 데이터베이스에 접속을 합니다.<br />
+PHP에서 PDO에 접속을 하기 위해서는 PDO 드라이버 활성화 해주어야 합니다. 
+php.ini 파일, 912 라인줄 근처에서 다음과 같이 주석(<code class="highlighter-rouge">;</code>)을 제거합니다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>extension=php_pdo_mysql.dll
+</code></pre></div></div>
+
+<p>드라이버가 활성화 되지 않으면, 코드에서 다음과 같은 오류를 출력 합니다.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="nb">extension_loaded</span><span class="p">(</span><span class="s2">"PDO"</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="nb">extension_loaded</span><span class="p">(</span><span class="s2">"pdo_mysql"</span><span class="p">))</span> <span class="p">{</span>
+    <span class="c1">// 접속코드</span>
+    <span class="c1">// ...      </span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s2">"PDO 드라이버가 활성화 되어 있지 않습니다.</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+    <span class="k">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span> <span class="c1">// 오류 종료</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="초기화-방법1--메서드">초기화 방법1 : 메서드</h2>
+<hr />
+<p><code class="highlighter-rouge">Connection</code> 객체의 메소드를 통하여 데이터 접속 정보를 설정할 수 있습니다.</p>
+
+<p>예제코드: samples/conn/conn-01.php</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="k">require</span> <span class="s2">"../../loading.php"</span><span class="p">;</span> <span class="c1">// 오토로딩</span>
+
+<span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Jiny\Mysql\Connection</span><span class="p">();</span>
+
+<span class="c1">// 메서드 체인으로 DB정보 설정</span>
+<span class="nv">$db</span><span class="o">-&gt;</span><span class="na">setUser</span><span class="p">(</span><span class="s2">"db2020"</span><span class="p">);</span>
+<span class="nv">$db</span><span class="o">-&gt;</span><span class="na">setPassword</span><span class="p">(</span><span class="s2">"123456"</span><span class="p">);</span>
+<span class="nv">$db</span><span class="o">-&gt;</span><span class="na">setSchema</span><span class="p">(</span><span class="s2">"db2020"</span><span class="p">);</span>
+<span class="nv">$db</span><span class="o">-&gt;</span><span class="na">setCharset</span><span class="p">();</span>
+<span class="nv">$db</span><span class="o">-&gt;</span><span class="na">setHost</span><span class="p">();</span> <span class="c1">// 기본값 사용</span>
+
+<span class="c1">// 데이터베이스 연결</span>
+<span class="nv">$conn</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">connect</span><span class="p">();</span>
+<span class="k">if</span> <span class="p">(</span><span class="nv">$conn</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s2">"데이터베이스 접속 성공</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s2">"데이터베이스 접속 실패</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="초기화-방법2--메서드-체인">초기화 방법2 : 메서드 체인</h2>
+<hr />
+<p><code class="highlighter-rouge">Connection</code> 객체의 setter 메소드는 <code class="highlighter-rouge">$this</code>를 반환함으로써 메서드 체인 연결을 통하여 DB접속 정보를 설정할 수 있습니다.</p>
+
+<p>예제코드: samples/conn/conn-02.php</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="k">require</span> <span class="s2">"../../loading.php"</span><span class="p">;</span> <span class="c1">// 오토로딩</span>
+
+<span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Jiny\Mysql\Connection</span><span class="p">();</span>
+
+<span class="c1">// 메서드 체인으로 DB정보 설정</span>
+<span class="nv">$db</span><span class="o">-&gt;</span><span class="na">setUser</span><span class="p">(</span><span class="s2">"db2020"</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">setPassword</span><span class="p">(</span><span class="s2">"123456"</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">setSchema</span><span class="p">(</span><span class="s2">"db2020"</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">setCharset</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">setHost</span><span class="p">();</span> <span class="c1">// 기본값 사용</span>
+
+<span class="c1">// 데이터베이스 연결</span>
+<span class="nv">$conn</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">connect</span><span class="p">();</span>
+<span class="k">if</span> <span class="p">(</span><span class="nv">$conn</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s2">"데이터베이스 접속 성공</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s2">"데이터베이스 접속 실패</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="초기화-방법2">초기화 방법2</h2>
+<hr />
+<p>초기화1 및 2방법은 소스코드상에서 직접 DB설정값을 입력하는 방법으로 접속을 하였습니다.<br />
+DB접속 정보를 외부 파일로 분리하여 데이터베이스 접속을 처리할 수 있습니다.</p>
+
+<p>별도의 설정파일을 만듭니다.</p>
+
+<p>예제코드: samples/dbinfo.php</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="k">return</span> <span class="p">[</span>
+    <span class="s1">'user'</span><span class="o">=&gt;</span><span class="s2">"db2020"</span><span class="p">,</span>
+    <span class="s1">'password'</span><span class="o">=&gt;</span><span class="s2">"123456"</span><span class="p">,</span>
+    <span class="s1">'schema'</span><span class="o">=&gt;</span><span class="s2">"shop"</span><span class="p">,</span>
+    <span class="s1">'host'</span><span class="o">=&gt;</span><span class="s2">"localhost"</span><span class="p">,</span>
+    <span class="s1">'charset'</span><span class="o">=&gt;</span><span class="s2">"utf8"</span>
+<span class="p">];</span>
+</code></pre></div></div>
+
+<p>설정파일은 연상배열 형태로 DB접속 정보를 작성하여 전달 합니다. 또한, 베열값은 return 구문을 통하여 반환됩니다.
+이렇게 분리된 php 설정파일은 include 구문을 통하여 값을 읽어 올 수 있습니다.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 데이터베이스 설정값</span>
+<span class="nv">$dbinfo</span> <span class="o">=</span> <span class="k">include</span><span class="p">(</span><span class="s2">"../dbinfo.php"</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>이를 이용하여 데이터베이스 접속을 처리하는 코드 예제는 다음과 같습니다.</p>
+
+<p>예제코드: samples/conn/conn-03.php</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="k">require</span> <span class="s2">"../loading.php"</span><span class="p">;</span> <span class="c1">// 오토로딩</span>
+
+<span class="c1">// 데이터베이스 설정값</span>
+<span class="nv">$dbinfo</span> <span class="o">=</span> <span class="k">include</span><span class="p">(</span><span class="s2">"../dbinfo.php"</span><span class="p">);</span>
+
+<span class="c1">// 설정값, 생성자 인자값으로 전달합니다.</span>
+<span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Jiny\Mysql\Connection</span><span class="p">(</span><span class="nv">$dbinfo</span><span class="p">);</span>
+
+<span class="c1">// 데이터베이스 연결</span>
+<span class="nv">$conn</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">connect</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="헬퍼함수">헬퍼함수</h2>
+<hr />
+<p>DB설정파일은 외부의 php파일입니다. db설정파일을 보다 쉽게 읽어올 수 있도록 별도의 헬퍼함수를 제공합니다.</p>
+<blockquote>
+  <p>헬퍼 함수는 <code class="highlighter-rouge">src/Helpers/Helper.php</code>에 선언이 되어 있습니다.</p>
+</blockquote>
+
+<p><code class="highlighter-rouge">dbinfo()</code> 헬퍼함수는 배열을 반환하는 php파일을 include하여 값을 반환합니다. 인자로 <code class="highlighter-rouge">파일명</code>을 전달합니다.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nb">function_exists</span><span class="p">(</span><span class="s2">"dbinfo"</span><span class="p">))</span> <span class="p">{</span>
+    <span class="k">function</span> <span class="nf">dbinfo</span><span class="p">(</span><span class="nv">$path</span><span class="o">=</span><span class="s2">"../dbinfo.php"</span><span class="p">)</span>
+    <span class="p">{</span>       
+        <span class="k">return</span> <span class="k">include</span><span class="p">(</span><span class="nv">$path</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>함수의 인자값이 없는 경우 초기값으로 <code class="highlighter-rouge">상위</code>디렉토리의 <code class="highlighter-rouge">dbinfo.php</code>을 읽어 옵니다.</p>
+
+<p>헬퍼함수를 통한 DB접속 처리를 실습해 보도록 합니다.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="k">require</span> <span class="s2">"../../loading.php"</span><span class="p">;</span> <span class="c1">// 오토로딩</span>
+
+<span class="c1">// 데이터베이스 설정값</span>
+<span class="nv">$dbinfo</span> <span class="o">=</span> <span class="nx">\jiny\dbinfo</span><span class="p">();</span>
+
+<span class="c1">// 설정값, 생성자 인자값으로 전달합니다.</span>
+<span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Jiny\Mysql\Connection</span><span class="p">(</span><span class="nv">$dbinfo</span><span class="p">);</span>
+
+<span class="c1">// 데이터베이스 연결</span>
+<span class="nv">$conn</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">connect</span><span class="p">();</span>
+<span class="k">if</span> <span class="p">(</span><span class="nv">$conn</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s2">"데이터베이스 접속 성공</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s2">"데이터베이스 접속 실패</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+                </section>
+            </main>            
+
+            <!--구글 애드센스1-->
+			<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+			<ins class="adsbygoogle"
+				style="display:block"
+				data-ad-format="fluid"
+				data-ad-layout-key="-fb+5w+4e-db+86"
+				data-ad-client="ca-pub-3321560028329475"
+				data-ad-slot="6043271504"></ins>
+			<script>
+				(adsbygoogle = window.adsbygoogle || []).push({});
+			</script>
+        </div>
+
+        <!-- Sidebar Column -->
+        <div class="col-md-3">
+            <aside><ul class="list-group">
+    <li class="list-group-item"><a href="builder">SQL빌더</a></li>
+    <li class="list-group-item">mysqlAdmin</li>
+</ul>
+<br>
+
+<ul class="list-group">
+    <li class="list-group-item"><a href="/data">데이터베이스</a></li>
+    <li class="list-group-item"><a href="/setup">mysql 설치</a></li>
+    <li class="list-group-item"><a href="/sql">SQL</a></li>
+    <li class="list-group-item"><a href="/function">함수</a></li>
+    <li class="list-group-item"><a href="/connect">PHP DB연동</a></li>
+    <li class="list-group-item"><a href="/injection">인젝션</a></li>
+</ul>
+<br>
+
+<ul class="list-group">
+    <li class="list-group-item">WorkBench</li>
+    <li class="list-group-item">phpMyAdmin</li>
+</ul></aside>
+            
+            <!--구글 애드센스2-->
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-format="fluid"
+                data-ad-layout-key="-ef+6k-30-ac+ty"
+                data-ad-client="ca-pub-3321560028329475"
+                data-ad-slot="7661682925"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+            
+        </div>
+
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+
+        <footer>  <!-- Footer -->
+  <footer class="py-3 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; jinydev 2017~2020</p>
+    </div>
+    <!-- /.container -->
+  </footer></footer>        
+
+        <!--부트스트랩4-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-160048106-1"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'UA-160048106-1');
+        </script>
+
+    </body>
+
+</html>

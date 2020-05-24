@@ -1,0 +1,22 @@
+I"O<h1 id="스키마-메소드">스키마 메소드</h1>
+<hr />
+<p>소스코드를 통하여 어떻게 Connection 겍체가 Schema 객체와의 복합구조를 결합하는지에 대해서 알아 봅니다.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cd">/**
+ * 스키마 확장
+ */</span>
+<span class="k">private</span> <span class="nv">$_schema</span><span class="p">;</span>
+<span class="k">public</span> <span class="k">function</span> <span class="nf">schema</span><span class="p">()</span>
+<span class="p">{</span>
+    <span class="c1">// 플라이웨이트 공유객체 관리</span>
+    <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nb">isset</span><span class="p">(</span><span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_schema</span><span class="p">))</span> <span class="p">{</span>
+        <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_schema</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Jiny\Mysql\Schema</span><span class="p">(</span><span class="nv">$this</span><span class="p">);</span> <span class="c1">// 객체를 생성합니다.</span>
+    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+        
+    <span class="p">}</span>
+
+    <span class="c1">// 객체반환</span>
+    <span class="k">return</span> <span class="nv">$this</span><span class="o">-&gt;</span><span class="na">_schema</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+:ET

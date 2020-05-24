@@ -1,0 +1,22 @@
+I"�<h1 id="데이터삽입">데이터삽입</h1>
+<hr />
+<p>insert 쿼리를 이용하여 데이터를 삽입할 수 있습니다.</p>
+
+<p><br /></p>
+
+<h2 id="raw-쿼리를-이용한-직접입력">Raw 쿼리를 이용한 직접입력</h2>
+<hr />
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="nf">insert</span><span class="p">(</span><span class="nv">$query</span><span class="p">)</span>
+</code></pre></div></div>
+<p>예제코드: insert-01.php</p>
+
+<h2 id="bind-데이터-삽입">bind 데이터 삽입</h2>
+
+<p>예제코드: insert-02.php</p>
+
+<h2 id="데이터-삽입">데이터 삽입</h2>
+
+<p>예제코드: insert-03.php</p>
+
+:ET

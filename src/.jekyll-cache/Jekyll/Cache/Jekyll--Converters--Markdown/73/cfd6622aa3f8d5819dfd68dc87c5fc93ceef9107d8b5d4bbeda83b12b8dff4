@@ -1,0 +1,48 @@
+I"�
+<h1 id="데이터삽입">데이터삽입</h1>
+<hr />
+<p>insert 쿼리를 이용하여 데이터를 삽입할 수 있습니다.</p>
+
+<p><br /></p>
+
+<h2 id="raw-쿼리를-이용한-직접입력">Raw 쿼리를 이용한 직접입력</h2>
+<hr />
+
+<p>|예제코드| insert-raw.php</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="k">require</span> <span class="s2">"../../loading.php"</span><span class="p">;</span> <span class="c1">// 오토로딩</span>
+
+<span class="c1">// 데이터베이스 설정값</span>
+<span class="nv">$dbinfo</span> <span class="o">=</span> <span class="nx">\jiny\dbinfo</span><span class="p">();</span>
+
+<span class="c1">// 설정값, 생성자 인자값으로 전달합니다.</span>
+<span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Jiny\Mysql\Connection</span><span class="p">(</span><span class="nv">$dbinfo</span><span class="p">);</span>
+
+<span class="c1">// RawSQL 데이터삽입</span>
+<span class="nv">$query</span> <span class="o">=</span> <span class="s2">"INSERT `db2020`.`members4` SET firstname = 'lee', lastname='hojin';"</span><span class="p">;</span>
+<span class="nv">$db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="nv">$query</span><span class="p">);</span> 
+
+<span class="k">if</span> <span class="p">(</span><span class="nv">$id</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">conn</span><span class="o">-&gt;</span><span class="na">lastInsertId</span><span class="p">())</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s2">"데이터 삽입 성공 = "</span><span class="o">.</span><span class="nv">$id</span><span class="p">;</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s2">"데이터 삽입 실패"</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>|실행결과|</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ php insert-raw.php 
+데이터 삽입 성공 = 1
+</code></pre></div></div>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="k">function</span> <span class="nf">insert</span><span class="p">(</span><span class="nv">$query</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="bind-데이터-삽입">bind 데이터 삽입</h2>
+
+<p>예제코드: insert-02.php</p>
+
+<h2 id="데이터-삽입">데이터 삽입</h2>
+
+<p>예제코드: insert-03.php</p>
+
+:ET

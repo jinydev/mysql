@@ -1,0 +1,578 @@
+I"��<h1 id="테이블-생성">테이블 생성</h1>
+<hr />
+<p>데이터베이스 테이블을 생성합니다.</p>
+
+<p><br /></p>
+
+<h2 id="테이블-기능확장">테이블 기능확장</h2>
+<hr />
+<p>conntection 클래스는 필요한 테이블 데이터 작업을 위해서 클래스를 동적 확장합니다.
+table() 메소드는 테이블 객체를 확장하는 플라이웨이트 패턴 입니다. 인자값으로 테이블명을 전달합니다.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$db</span><span class="o">-&gt;</span><span class="na">table</span><span class="p">(</span><span class="s2">"테이블명"</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="tablelist--테이블-목록">tableList() : 테이블 목록</h2>
+<hr />
+<p>스키마의 테이블 목록을 출력합니다. 반환값은 array 입니다.</p>
+
+<p>|예제코드|: table-list.php</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="k">require</span> <span class="s2">"../../loading.php"</span><span class="p">;</span> <span class="c1">// 오토로딩</span>
+
+<span class="c1">// 데이터베이스 설정값</span>
+<span class="nv">$dbinfo</span> <span class="o">=</span> <span class="nx">\jiny\dbinfo</span><span class="p">();</span>
+
+<span class="c1">// 설정값, 생성자 인자값으로 전달합니다.</span>
+<span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Jiny\Mysql\Connection</span><span class="p">(</span><span class="nv">$dbinfo</span><span class="p">);</span>
+
+<span class="c1">// 테이블 목록출력</span>
+<span class="nb">print_r</span><span class="p">(</span><span class="nv">$db</span><span class="o">-&gt;</span><span class="na">table</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">list</span><span class="p">());</span>
+</code></pre></div></div>
+
+<p>|실행결과|</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>php table-list.php 
+<span class="go">Array
+(
+)
+</span></code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="테이블생성">테이블생성</h2>
+<hr />
+<p>스키마에 새로운 테이블을 생성합니다. 
+테이블은 직접 SQL 쿼리 또는 생성 메소드를 통하여 생성할 수 있습니다.</p>
+
+<h3 id="raw-쿼리를-이용한-생성">Raw 쿼리를 이용한 생성</h3>
+<hr />
+<p>일반적인 sql 쿼리문을 이용하여 데이블을 생성해 봅니다.
+<code class="highlighter-rouge">create</code> 명령은 테이블을 생성하는 쿼리 입니다.</p>
+
+<p>다음과 같이 쿼리문장을 생성하여 전달하면 됩니다.</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 테이블 생성쿼리</span>
+<span class="nv">$query</span> <span class="o">=</span> <span class="s2">"CREATE TABLE `db2020`.`member1` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    primary key(`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;"</span><span class="p">;</span>
+<span class="nv">$db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="nv">$query</span><span class="p">);</span> 
+</code></pre></div></div>
+
+<p>|예제코드| ./sample/tables/table-rawsql.php</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="k">require</span> <span class="s2">"../../loading.php"</span><span class="p">;</span> <span class="c1">// 오토로딩</span>
+
+<span class="c1">// 데이터베이스 설정값</span>
+<span class="nv">$dbinfo</span> <span class="o">=</span> <span class="nx">\jiny\dbinfo</span><span class="p">();</span>
+
+<span class="c1">// 설정값, 생성자 인자값으로 전달합니다.</span>
+<span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Jiny\Mysql\Connection</span><span class="p">(</span><span class="nv">$dbinfo</span><span class="p">);</span>
+
+<span class="c1">// RawSQL 쿼리 예제</span>
+<span class="c1">// 테이블 생성쿼리</span>
+<span class="nv">$query</span> <span class="o">=</span> <span class="s2">"CREATE TABLE `"</span><span class="o">.</span><span class="nv">$dbinfo</span><span class="p">[</span><span class="s1">'schema'</span><span class="p">]</span><span class="o">.</span><span class="s2">"`.`member1` (
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    primary key(`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;"</span><span class="p">;</span>
+
+<span class="nv">$db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="nv">$query</span><span class="p">);</span> 
+
+<span class="c1">// 테이블 목록출력</span>
+<span class="nb">print_r</span><span class="p">(</span><span class="nv">$db</span><span class="o">-&gt;</span><span class="na">table</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">list</span><span class="p">());</span>
+</code></pre></div></div>
+
+<p>|실행결과|</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>php table-rawsql.php
+<span class="go">Array
+(
+</span><span class="gp">    [0] =&gt;</span><span class="w"> </span>Array
+<span class="go">        (
+</span><span class="gp">            [Tables_in_db2020] =&gt;</span><span class="w"> </span>member1
+<span class="go">        )
+
+)
+</span></code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="createempty--테이블-골력생성">createEmpty() : 테이블 골력생성</h3>
+<hr />
+<p><code class="highlighter-rouge">createEmpty</code> 메소드는 기본 골력의 테이블을 생성합니다.<br />
+테이블 기본 골력은 다음과 같은 필드만 포함합니다.</p>
+<ul>
+  <li>id</li>
+  <li>created_at</li>
+  <li>updated_at</li>
+</ul>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 테이블 생성</span>
+<span class="nv">$db</span><span class="o">-&gt;</span><span class="na">table</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">createEmpty</span><span class="p">(</span><span class="s2">"member2"</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>|예제코드| table-empty01.php</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="k">require</span> <span class="s2">"../../loading.php"</span><span class="p">;</span> <span class="c1">// 오토로딩</span>
+
+<span class="c1">// 데이터베이스 설정값</span>
+<span class="nv">$dbinfo</span> <span class="o">=</span> <span class="nx">\jiny\dbinfo</span><span class="p">();</span>
+
+<span class="c1">// 설정값, 생성자 인자값으로 전달합니다.</span>
+<span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Jiny\Mysql\Connection</span><span class="p">(</span><span class="nv">$dbinfo</span><span class="p">);</span>
+
+<span class="c1">// 테이블 생성</span>
+<span class="nv">$db</span><span class="o">-&gt;</span><span class="na">table</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">createEmpty</span><span class="p">(</span><span class="s2">"members2"</span><span class="p">);</span>
+
+<span class="c1">// 테이블 목록출력</span>
+<span class="nb">print_r</span><span class="p">(</span><span class="nv">$db</span><span class="o">-&gt;</span><span class="na">table</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">list</span><span class="p">());</span>
+</code></pre></div></div>
+
+<p>입력한 인자값으로 테이블을 생성합니다.</p>
+
+<p>|실행결과|</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ php table-empty01.php 
+Array
+(
+    [0] =&gt; Array
+        (
+            [Tables_in_db2020] =&gt; member1
+        )
+
+    [1] =&gt; Array
+        (
+            [Tables_in_db2020] =&gt; members2
+        )
+
+)
+</code></pre></div></div>
+
+<p>또는 먼저 테이블 명을 선택한 후에 빈 테이블을 생성할 수도 있습니다.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 테이블 생성</span>
+<span class="nv">$db</span><span class="o">-&gt;</span><span class="na">table</span><span class="p">(</span><span class="s2">"members3"</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">createEmpty</span><span class="p">();</span>
+</code></pre></div></div>
+<p>|예제코드| table-empty02.php</p>
+
+<p><br /></p>
+
+<h3 id="구조생성">구조생성</h3>
+<hr />
+<p>요청한 구조의 테이블을 생성할 수 있습니다.<br />
+테이블은 컬럼명과 필드속성을 한쌍을 가지고 있습니다.</p>
+
+<p>추가되는 테이블을 연상배열로 설정을 합니다.</p>
+
+<table>
+  <tbody>
+    <tr>
+      <td>예제코드</td>
+      <td>: table-05.php</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 테이블 생성</span>
+<span class="nv">$columns</span> <span class="o">=</span> <span class="p">[</span>
+<span class="s1">'firstname'</span> <span class="o">=&gt;</span> <span class="s2">"varchar(50)"</span><span class="p">,</span>
+<span class="s1">'lastname'</span> <span class="o">=&gt;</span> <span class="s2">"varchar(100)"</span><span class="p">,</span>
+<span class="p">];</span>
+
+<span class="nv">$db</span><span class="o">-&gt;</span><span class="na">table</span><span class="p">(</span><span class="s2">"member4"</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">create</span><span class="p">(</span><span class="nv">$columns</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>두번째 인자값으로 컬럼정보의 배열을 전달합니다.</p>
+
+<p>|예제코드| table-create01.php</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="k">require</span> <span class="s2">"../../loading.php"</span><span class="p">;</span> <span class="c1">// 오토로딩</span>
+
+<span class="c1">// 데이터베이스 설정값</span>
+<span class="nv">$dbinfo</span> <span class="o">=</span> <span class="nx">\jiny\dbinfo</span><span class="p">();</span>
+
+<span class="c1">// 설정값, 생성자 인자값으로 전달합니다.</span>
+<span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Jiny\Mysql\Connection</span><span class="p">(</span><span class="nv">$dbinfo</span><span class="p">);</span>
+
+<span class="c1">// 테이블 생성</span>
+<span class="nv">$columns</span> <span class="o">=</span> <span class="p">[</span>
+<span class="s1">'firstname'</span> <span class="o">=&gt;</span> <span class="s2">"varchar(50)"</span><span class="p">,</span>
+<span class="s1">'lastname'</span> <span class="o">=&gt;</span> <span class="s2">"varchar(100)"</span><span class="p">,</span>
+<span class="p">];</span>
+
+<span class="nv">$db</span><span class="o">-&gt;</span><span class="na">table</span><span class="p">(</span><span class="s2">"members4"</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">create</span><span class="p">(</span><span class="nv">$columns</span><span class="p">);</span>
+
+<span class="c1">// 테이블 목록출력</span>
+<span class="nb">print_r</span><span class="p">(</span><span class="nv">$db</span><span class="o">-&gt;</span><span class="na">table</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">list</span><span class="p">());</span>
+</code></pre></div></div>
+
+<p>|실행결과|</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>php table-create01.php 
+<span class="go">Array
+(
+</span><span class="gp">    [0] =&gt;</span><span class="w"> </span>Array
+<span class="go">        (
+</span><span class="gp">            [Tables_in_db2020] =&gt;</span><span class="w"> </span>members1
+<span class="go">        )
+
+</span><span class="gp">    [1] =&gt;</span><span class="w"> </span>Array
+<span class="go">        (
+</span><span class="gp">            [Tables_in_db2020] =&gt;</span><span class="w"> </span>members2
+<span class="go">        )
+
+</span><span class="gp">    [2] =&gt;</span><span class="w"> </span>Array
+<span class="go">        (
+</span><span class="gp">            [Tables_in_db2020] =&gt;</span><span class="w"> </span>members3
+<span class="go">        )
+
+</span><span class="gp">    [3] =&gt;</span><span class="w"> </span>Array
+<span class="go">        (
+</span><span class="gp">            [Tables_in_db2020] =&gt;</span><span class="w"> </span>members4
+<span class="go">        )
+
+)
+</span></code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="테이블-확인">테이블 확인</h2>
+<hr />
+<p>테이블이 존재하는지 확인을 할 수 있습니다.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">public</span> <span class="nx">is</span><span class="p">(</span><span class="nv">$name</span><span class="p">)</span> <span class="o">:</span> <span class="kt">bool</span>
+</code></pre></div></div>
+
+<p>예제코드: table-is.php</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="k">require</span> <span class="s2">"../../loading.php"</span><span class="p">;</span> <span class="c1">// 오토로딩</span>
+
+<span class="c1">// 데이터베이스 설정값</span>
+<span class="nv">$dbinfo</span> <span class="o">=</span> <span class="nx">\jiny\dbinfo</span><span class="p">();</span>
+
+<span class="c1">// 설정값, 생성자 인자값으로 전달합니다.</span>
+<span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Jiny\Mysql\Connection</span><span class="p">(</span><span class="nv">$dbinfo</span><span class="p">);</span>
+
+<span class="c1">// 테이블 목록출력</span>
+<span class="nv">$name</span> <span class="o">=</span> <span class="s2">"members1"</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="nv">$db</span><span class="o">-&gt;</span><span class="na">table</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">is</span><span class="p">(</span><span class="nv">$name</span><span class="p">))</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="nv">$name</span><span class="o">.</span> <span class="s2">"테이블이 존재합니다.</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="nv">$name</span><span class="o">.</span> <span class="s2">"테이블이 없습니다.</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>|실행결과|</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>php table-is.php 
+<span class="go">members1테이블이 존재합니다.
+</span></code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="desc--테이블-구조">desc() : 테이블 구조</h2>
+<hr />
+<p>테이블의 구조를 확인할 수 있습니다.</p>
+
+<p>|예제코드| table-desc.php</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="k">require</span> <span class="s2">"../../loading.php"</span><span class="p">;</span> <span class="c1">// 오토로딩</span>
+
+<span class="c1">// 데이터베이스 설정값</span>
+<span class="nv">$dbinfo</span> <span class="o">=</span> <span class="nx">\jiny\dbinfo</span><span class="p">();</span>
+
+<span class="c1">// 설정값, 생성자 인자값으로 전달합니다.</span>
+<span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Jiny\Mysql\Connection</span><span class="p">(</span><span class="nv">$dbinfo</span><span class="p">);</span>
+
+<span class="c1">// 테이블 구조</span>
+<span class="nv">$rows</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">table</span><span class="p">(</span><span class="s2">"members2"</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">desc</span><span class="p">();</span>
+<span class="nb">print_r</span><span class="p">(</span><span class="nv">$rows</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>|실행결과|</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>php table-desc.php
+<span class="go">Array
+(
+</span><span class="gp">    [0] =&gt;</span><span class="w"> </span>Array
+<span class="go">        (
+</span><span class="gp">            [Field] =&gt;</span><span class="w"> </span><span class="nb">id</span>
+<span class="gp">            [Type] =&gt;</span><span class="w"> </span>int<span class="o">(</span>11<span class="o">)</span>
+<span class="gp">            [Null] =&gt;</span><span class="w"> </span>NO
+<span class="gp">            [Key] =&gt;</span><span class="w"> </span>PRI
+<span class="gp">            [Default] =&gt;</span><span class="w">
+</span><span class="gp">            [Extra] =&gt;</span><span class="w"> </span>auto_increment
+<span class="go">        )
+
+</span><span class="gp">    [1] =&gt;</span><span class="w"> </span>Array
+<span class="go">        (
+</span><span class="gp">            [Field] =&gt;</span><span class="w"> </span>created_at
+<span class="gp">            [Type] =&gt;</span><span class="w"> </span>datetime
+<span class="gp">            [Null] =&gt;</span><span class="w"> </span>YES
+<span class="gp">            [Key] =&gt;</span><span class="w">
+</span><span class="gp">            [Default] =&gt;</span><span class="w">
+</span><span class="gp">            [Extra] =&gt;</span><span class="w">
+</span><span class="go">        )
+
+</span><span class="gp">    [2] =&gt;</span><span class="w"> </span>Array
+<span class="go">        (
+</span><span class="gp">            [Field] =&gt;</span><span class="w"> </span>updated_at
+<span class="gp">            [Type] =&gt;</span><span class="w"> </span>datetime
+<span class="gp">            [Null] =&gt;</span><span class="w"> </span>YES
+<span class="gp">            [Key] =&gt;</span><span class="w">
+</span><span class="gp">            [Default] =&gt;</span><span class="w">
+</span><span class="gp">            [Extra] =&gt;</span><span class="w">
+</span><span class="go">        )
+
+)
+</span></code></pre></div></div>
+<p>실행 결괏값은 2차원 배열로 출력됩니다. 1차 index 배열값은 각 컬럼을 의미합니다.
+2차 연상배열은 컬럼의 정보값을 의미합니다.</p>
+
+<p><br /></p>
+
+<h2 id="addcolums--테이블-필드-추가">addColums() : 테이블 필드 추가</h2>
+<hr />
+<p>생성한 테이블에 필드를 추가할 수 있습니다.</p>
+
+<p>|예제코드| colum-add.php</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="k">require</span> <span class="s2">"../loading.php"</span><span class="p">;</span> <span class="c1">// 오토로딩</span>
+
+<span class="c1">// 데이터베이스 설정값</span>
+<span class="nv">$dbinfo</span> <span class="o">=</span> <span class="k">include</span><span class="p">(</span><span class="s2">"../dbinfo.php"</span><span class="p">);</span>
+
+<span class="c1">// 설정값, 생성자 인자값으로 전달합니다.</span>
+<span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Jiny\Mysql\Connection</span><span class="p">(</span><span class="nv">$dbinfo</span><span class="p">);</span>
+
+<span class="c1">// 테이블 생성</span>
+<span class="nv">$addFields</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">'age'</span> <span class="o">=&gt;</span> <span class="s2">"int(10)"</span><span class="p">,</span>
+    <span class="s1">'address'</span> <span class="o">=&gt;</span> <span class="s2">"varchar(100)"</span><span class="p">,</span>
+<span class="p">];</span>
+
+<span class="nv">$db</span><span class="o">-&gt;</span><span class="na">table</span><span class="p">(</span><span class="s2">"members1"</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">addColums</span><span class="p">(</span><span class="nv">$addFields</span><span class="p">);</span>
+
+<span class="c1">// 테이블 구조</span>
+<span class="nv">$rows</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">tableDesc</span><span class="p">(</span><span class="s2">"member1"</span><span class="p">);</span>
+<span class="nb">print_r</span><span class="p">(</span><span class="nv">$rows</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>|출력결과|</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>php colum-add.php
+<span class="go">Array
+(
+</span><span class="gp">    [0] =&gt;</span><span class="w"> </span>Array
+<span class="go">        (
+</span><span class="gp">            [Field] =&gt;</span><span class="w"> </span><span class="nb">id</span>
+<span class="gp">            [Type] =&gt;</span><span class="w"> </span>int<span class="o">(</span>11<span class="o">)</span>
+<span class="gp">            [Null] =&gt;</span><span class="w"> </span>NO
+<span class="gp">            [Key] =&gt;</span><span class="w"> </span>PRI
+<span class="gp">            [Default] =&gt;</span><span class="w">
+</span><span class="gp">            [Extra] =&gt;</span><span class="w"> </span>auto_increment
+<span class="go">        )
+
+</span><span class="gp">    [1] =&gt;</span><span class="w"> </span>Array
+<span class="go">        (
+</span><span class="gp">            [Field] =&gt;</span><span class="w"> </span>age
+<span class="gp">            [Type] =&gt;</span><span class="w"> </span>int<span class="o">(</span>10<span class="o">)</span>
+<span class="gp">            [Null] =&gt;</span><span class="w"> </span>YES
+<span class="gp">            [Key] =&gt;</span><span class="w">
+</span><span class="gp">            [Default] =&gt;</span><span class="w">
+</span><span class="gp">            [Extra] =&gt;</span><span class="w">
+</span><span class="go">        )
+
+</span><span class="gp">    [2] =&gt;</span><span class="w"> </span>Array
+<span class="go">        (
+</span><span class="gp">            [Field] =&gt;</span><span class="w"> </span>address
+<span class="gp">            [Type] =&gt;</span><span class="w"> </span>varchar<span class="o">(</span>100<span class="o">)</span>
+<span class="gp">            [Null] =&gt;</span><span class="w"> </span>YES
+<span class="gp">            [Key] =&gt;</span><span class="w">
+</span><span class="gp">            [Default] =&gt;</span><span class="w">
+</span><span class="gp">            [Extra] =&gt;</span><span class="w">
+</span><span class="go">        )
+
+)
+</span></code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="modify--테이블-컬럼-변경">modify() : 테이블 컬럼 변경</h2>
+<hr />
+<p>예제코드: colum-modify.php</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="k">require</span> <span class="s2">"../../loading.php"</span><span class="p">;</span> <span class="c1">// 오토로딩</span>
+
+<span class="c1">// 데이터베이스 설정값</span>
+<span class="nv">$dbinfo</span> <span class="o">=</span> <span class="nx">\jiny\dbinfo</span><span class="p">();</span>
+
+<span class="c1">// 설정값, 생성자 인자값으로 전달합니다.</span>
+<span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Jiny\Mysql\Connection</span><span class="p">(</span><span class="nv">$dbinfo</span><span class="p">);</span>
+
+<span class="c1">// 테이블 생성</span>
+<span class="nv">$fields</span> <span class="o">=</span> <span class="p">[</span>
+<span class="s1">'age'</span> <span class="o">=&gt;</span> <span class="s2">"int(6)"</span><span class="p">,</span>
+<span class="s1">'address'</span> <span class="o">=&gt;</span> <span class="s2">"varchar(250)"</span><span class="p">,</span>
+<span class="p">];</span>
+
+<span class="nv">$db</span><span class="o">-&gt;</span><span class="na">table</span><span class="p">(</span><span class="s2">"members1"</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">modifyColums</span><span class="p">(</span><span class="nv">$fields</span><span class="p">);</span>
+
+<span class="c1">// 테이블 구조</span>
+<span class="nv">$rows</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">table</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">desc</span><span class="p">(</span><span class="s2">"members1"</span><span class="p">);</span>
+<span class="nb">print_r</span><span class="p">(</span><span class="nv">$rows</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>|실행결과|</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>php colum-modify.php 
+<span class="go">Array
+(
+</span><span class="gp">    [0] =&gt;</span><span class="w"> </span>Array
+<span class="go">        (
+</span><span class="gp">            [Field] =&gt;</span><span class="w"> </span><span class="nb">id</span>
+<span class="gp">            [Type] =&gt;</span><span class="w"> </span>int<span class="o">(</span>11<span class="o">)</span>
+<span class="gp">            [Null] =&gt;</span><span class="w"> </span>NO
+<span class="gp">            [Key] =&gt;</span><span class="w"> </span>PRI
+<span class="gp">            [Default] =&gt;</span><span class="w">
+</span><span class="gp">            [Extra] =&gt;</span><span class="w"> </span>auto_increment
+<span class="go">        )
+
+</span><span class="gp">    [1] =&gt;</span><span class="w"> </span>Array
+<span class="go">        (
+</span><span class="gp">            [Field] =&gt;</span><span class="w"> </span>age
+<span class="gp">            [Type] =&gt;</span><span class="w"> </span>int<span class="o">(</span>6<span class="o">)</span>
+<span class="gp">            [Null] =&gt;</span><span class="w"> </span>YES
+<span class="gp">            [Key] =&gt;</span><span class="w">
+</span><span class="gp">            [Default] =&gt;</span><span class="w">
+</span><span class="gp">            [Extra] =&gt;</span><span class="w">
+</span><span class="go">        )
+
+</span><span class="gp">    [2] =&gt;</span><span class="w"> </span>Array
+<span class="go">        (
+</span><span class="gp">            [Field] =&gt;</span><span class="w"> </span>address
+<span class="gp">            [Type] =&gt;</span><span class="w"> </span>varchar<span class="o">(</span>250<span class="o">)</span>
+<span class="gp">            [Null] =&gt;</span><span class="w"> </span>YES
+<span class="gp">            [Key] =&gt;</span><span class="w">
+</span><span class="gp">            [Default] =&gt;</span><span class="w">
+</span><span class="gp">            [Extra] =&gt;</span><span class="w">
+</span><span class="go">        )
+
+)
+</span></code></pre></div></div>
+<p><code class="highlighter-rouge">age</code>와 <code class="highlighter-rouge">address</code>의 컬럼 정보가 변경이 된 것을 확인할 수 있습니다.</p>
+
+<p><br /></p>
+
+<h2 id="테이블-컬럼-수정">테이블 컬럼 수정</h2>
+<hr />
+<p>예제코드: colum-change.php</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="k">require</span> <span class="s2">"../../loading.php"</span><span class="p">;</span> <span class="c1">// 오토로딩</span>
+
+<span class="c1">// 데이터베이스 설정값</span>
+<span class="nv">$dbinfo</span> <span class="o">=</span> <span class="nx">\jiny\dbinfo</span><span class="p">();</span>
+
+<span class="c1">// 설정값, 생성자 인자값으로 전달합니다.</span>
+<span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Jiny\Mysql\Connection</span><span class="p">(</span><span class="nv">$dbinfo</span><span class="p">);</span>
+
+<span class="c1">// 컬럼정보 변경</span>
+<span class="nv">$fields</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">'age'</span><span class="o">=&gt;</span><span class="p">[</span><span class="s1">'birth'</span><span class="o">=&gt;</span><span class="s2">"date"</span><span class="p">]</span>
+<span class="p">];</span>
+
+<span class="nv">$db</span><span class="o">-&gt;</span><span class="na">table</span><span class="p">(</span><span class="s2">"members1"</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">changeColums</span><span class="p">(</span><span class="nv">$fields</span><span class="p">);</span>
+
+<span class="c1">// 테이블 구조</span>
+<span class="nv">$rows</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">table</span><span class="p">(</span><span class="s2">"members1"</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">desc</span><span class="p">();</span>
+<span class="nb">print_r</span><span class="p">(</span><span class="nv">$rows</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>|실행결과|</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>php colum-change.php 
+<span class="go">Array
+(
+</span><span class="gp">    [0] =&gt;</span><span class="w"> </span>Array
+<span class="go">        (
+</span><span class="gp">            [Field] =&gt;</span><span class="w"> </span><span class="nb">id</span>
+<span class="gp">            [Type] =&gt;</span><span class="w"> </span>int<span class="o">(</span>11<span class="o">)</span>
+<span class="gp">            [Null] =&gt;</span><span class="w"> </span>NO
+<span class="gp">            [Key] =&gt;</span><span class="w"> </span>PRI
+<span class="gp">            [Default] =&gt;</span><span class="w">
+</span><span class="gp">            [Extra] =&gt;</span><span class="w"> </span>auto_increment
+<span class="go">        )
+
+</span><span class="gp">    [1] =&gt;</span><span class="w"> </span>Array
+<span class="go">        (
+</span><span class="gp">            [Field] =&gt;</span><span class="w"> </span>birth
+<span class="gp">            [Type] =&gt;</span><span class="w"> </span><span class="nb">date</span>
+<span class="gp">            [Null] =&gt;</span><span class="w"> </span>YES
+<span class="gp">            [Key] =&gt;</span><span class="w">
+</span><span class="gp">            [Default] =&gt;</span><span class="w">
+</span><span class="gp">            [Extra] =&gt;</span><span class="w">
+</span><span class="go">        )
+
+</span><span class="gp">    [2] =&gt;</span><span class="w"> </span>Array
+<span class="go">        (
+</span><span class="gp">            [Field] =&gt;</span><span class="w"> </span>address
+<span class="gp">            [Type] =&gt;</span><span class="w"> </span>varchar<span class="o">(</span>250<span class="o">)</span>
+<span class="gp">            [Null] =&gt;</span><span class="w"> </span>YES
+<span class="gp">            [Key] =&gt;</span><span class="w">
+</span><span class="gp">            [Default] =&gt;</span><span class="w">
+</span><span class="gp">            [Extra] =&gt;</span><span class="w">
+</span><span class="go">        )
+
+)
+</span></code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="컬럼-삭제">컬럼 삭제</h2>
+<hr />
+
+<p>예제코드: colum-drop.php</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="k">require</span> <span class="s2">"../../loading.php"</span><span class="p">;</span> <span class="c1">// 오토로딩</span>
+
+<span class="c1">// 데이터베이스 설정값</span>
+<span class="nv">$dbinfo</span> <span class="o">=</span> <span class="nx">\jiny\dbinfo</span><span class="p">();</span>
+
+<span class="c1">// 설정값, 생성자 인자값으로 전달합니다.</span>
+<span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Jiny\Mysql\Connection</span><span class="p">(</span><span class="nv">$dbinfo</span><span class="p">);</span>
+
+<span class="c1">// 삭제 컬럼 (index array)</span>
+<span class="nv">$fields</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'birth'</span> <span class="p">,</span><span class="s1">'address'</span><span class="p">];</span>
+
+<span class="nv">$db</span><span class="o">-&gt;</span><span class="na">table</span><span class="p">(</span><span class="s2">"members1"</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">dropColums</span><span class="p">(</span><span class="nv">$fields</span><span class="p">);</span>
+
+<span class="c1">// 테이블 구조</span>
+<span class="nv">$rows</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">table</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">desc</span><span class="p">(</span><span class="s2">"members1"</span><span class="p">);</span>
+<span class="nb">print_r</span><span class="p">(</span><span class="nv">$rows</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="데이터-갯수-확인">데이터 갯수 확인</h2>
+<hr />
+<p>확장된 테이블 객체를 활용하여 데이터의 갯수를 확인합니다. 데이터의 갯수는 primary key로 설정된 id 컬럼의 갯수를 체크합니다.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cd">/**
+ * 데이터 갯수 확인
+ */</span>
+<span class="nv">$count</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">table</span><span class="p">(</span><span class="s2">"board"</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">count</span><span class="p">();</span>
+<span class="k">echo</span> <span class="s2">"데이터 갯수="</span><span class="o">.</span><span class="nv">$count</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">count()</code> 메소드는 테이블의 전체 데이터의 갯수를 반환합니다.</p>
+
+<p><br /></p>
+
+<h2 id="info">info</h2>
+<hr />
+<p>테이블의 정보를 확인합니다.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">info</span><span class="p">(</span><span class="nv">$name</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h2 id="rename">rename</h2>
+<hr />
+<p>테이블의 이름을 변경합니다.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">rename</span><span class="p">(</span><span class="nv">$old</span><span class="p">,</span> <span class="nv">$new</span><span class="p">);</span>
+</code></pre></div></div>
+:ET
