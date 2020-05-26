@@ -4,8 +4,8 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <!--SEO--><title>Mysql - 27.2.참 조건 인젝션</title>
-            <meta name="title" content="27.2.참 조건 인젝션" /><!--부트스트랩4-->
+        <!--SEO--><title>Mysql - 참 조건 인젝션</title>
+            <meta name="title" content="참 조건 인젝션" /><!--부트스트랩4-->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         
 
@@ -75,7 +75,9 @@
         <div class="col-lg-9">
             <main>
                 <section>
-                    <p>대부분의 쿼리는 WHERE 절 구문을 통하여 데이터를 필터링합니다. 하지만 악의적인 입 력값은 이러한 WHERE 조건절을 항상 참인 상태로 조작합니다.</p>
+                    <h1 id="참-조건-인젝션">참 조건 인젝션</h1>
+<hr />
+<p>대부분의 쿼리는 WHERE 절 구문을 통하여 데이터를 필터링합니다. 하지만 악의적인 입 력값은 이러한 WHERE 조건절을 항상 참인 상태로 조작합니다.</p>
 
 <p>쿼리 조건문 1=1은 항상 참을 의미합니다. 어떤 조건문에도 or 1=1을 추가하면 모든 쿼 리 조건은 참으로 변경됩니다. 
 만일 위의 예제에서 $ID 값이 100’ or 1=1이라는 문자열을 입력한다면 쿼리는 다음과 같 이 바뀔 수 있습니다.</p>
@@ -116,7 +118,7 @@
         <!-- Sidebar Column -->
         <div class="col-md-3">
             <aside><ul class="list-group">
-    <li class="list-group-item"><a href="builder">SQL빌더</a></li>
+    <li class="list-group-item"><a href="/builder">SQL빌더</a></li>
     <li class="list-group-item">mysqlAdmin</li>
 </ul>
 <br>

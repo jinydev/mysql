@@ -1,0 +1,14 @@
+I"�<h1 id="charset문자열">CHARSET(문자열)</h1>
+<hr />
+<p>입력 매개 값(문자열)의 문자 코드 세트 정보를 출력합니다.</p>
+
+<p>| 콘솔 실습 화면 |</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mysql&gt; select charset('jiny');
++-----------------+
+| charset('jiny') |
++-----------------+
+| utf8            |
++-----------------+
+1 row in set (0.00 sec)
+</code></pre></div></div>
+:ET

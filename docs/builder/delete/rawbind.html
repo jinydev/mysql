@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!--SEO--><title>Mysql - update - SQL빌더</title>
+            <meta name="title" content="update - SQL빌더" /><meta name="keyword" content="update, mysql, sql, builder, jinyMysql, jinyPHP" /><!--부트스트랩4-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        
+
+        <link rel="stylesheet" href="/assets/highlight.css">
+        <link rel="stylesheet" href="/assets/style.css">
+
+        <script data-ad-client="ca-pub-3321560028329475" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+        <style>
+            img {
+                max-width:100%;
+            }
+
+            h1 { font-size: 1.6em;}
+            h2 { font-size: 1.5em;}
+            h3 { font-size: 1.4em;}
+            h4 { font-size: 1.3em;}
+            h5 { font-size: 1.2em;}
+            h6 { font-size: 1.1em;}
+      
+        </style>
+
+    </head>
+    <body>
+        <!--네비게이션--><!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="/">Mysql</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/data">개념</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="/setup">설치</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/sql">SQL</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/connect">DB연동</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/injection">인젝션</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/function">함수</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav><br>
+<div class="container"><nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <!--breadcrumb loop--><li class="breadcrumb-item "><a href="../">builder</a></li><li class="breadcrumb-item "><a href="../">delete</a></li><li class="breadcrumb-item active">rawbind</li></ol>    
+</nav></div>
+
+<!-- Page Content -->
+<div class="container">
+    <div class="row">
+
+        <!-- Post Content Column -->
+        <div class="col-lg-9">
+            <main>
+                <section>
+                    <h1 id="raw-쿼리에-데이터-bind-하기">Raw 쿼리에 데이터 bind 하기</h1>
+<hr />
+<p>삭제를 위한 raw SQL 쿼리에 데이터를 bind하여 실행을 할 수 있습니다.</p>
+
+<p><br /></p>
+
+<h2 id="쿼리문-작성">쿼리문 작성</h2>
+<hr />
+<p>다음과 같이 쿼리문장과 bind를 위한 키를 같이 작성합니다.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$query</span> <span class="o">=</span> <span class="s2">"DELETE FROM `db2020`.`members4` where id=:id;"</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>삭제를 위한 조건 id값을 <code class="highlighter-rouge">:id</code> 키로 작성을 하였습니다.</p>
+
+<p><br /></p>
+
+<h2 id="데이터-바인딩">데이터 바인딩</h2>
+<hr />
+<p>작성한 쿼리문에 데이터를 바인딩 처리합니다. 데이터 바인딩은 <code class="highlighter-rouge">Connection</code> 객체의 <code class="highlighter-rouge">binds()</code> 메소드를 이용하면 됩니다.</p>
+
+<p>다음과 같이 bind를 처리합니다. 첫번째 인자값으로는 쿼리문장을 두번째 인자값으로 데이터값을 전달 합니다.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$data</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'id'</span><span class="o">=&gt;</span><span class="mi">2</span><span class="p">];</span>
+<span class="nv">$stmt</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">binds</span><span class="p">(</span><span class="nv">$query</span><span class="p">,</span> <span class="nv">$data</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>바인딩 하는 데이터는 연상배열 형태로 작성을 합니다. 연상배열의 키값은 bind의 키값과 동일하게 지정을 합니다.
+<code class="highlighter-rouge">binds()</code> 메소드는 입력된 연상배열이 키값과 쿼리의 키값을 비교하여 bind 처리를 합니다.</p>
+
+<p><br /></p>
+
+<h2 id="bind된-쿼리-실행하기">bind된 쿼리 실행하기</h2>
+<hr />
+<p>일반적인 쿼리는 <code class="highlighter-rouge">Connection</code> 객체의 <code class="highlighter-rouge">query()</code> 메소드만 호출을 함으로서 실행을 할 수 있습니다. 
+하지만, bind된 쿼리는 별도의 실행 명령을 입력해 주어야 됩니다.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$stmt</span><span class="o">-&gt;</span><span class="na">execute</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="예제코드">예제코드</h2>
+<hr />
+<p>rawSQL에 데이터를 바인딩하여 쿼리를 실행해 보도록 합니다.</p>
+
+<p>예제코드: delete-bind.php</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="k">require</span> <span class="s2">"../../loading.php"</span><span class="p">;</span> <span class="c1">// 오토로딩</span>
+
+<span class="c1">// 데이터베이스 설정값</span>
+<span class="nv">$dbinfo</span> <span class="o">=</span> <span class="nx">\jiny\dbinfo</span><span class="p">();</span>
+
+<span class="c1">// 설정값, 생성자 인자값으로 전달합니다.</span>
+<span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Jiny\Mysql\Connection</span><span class="p">(</span><span class="nv">$dbinfo</span><span class="p">);</span>
+
+<span class="c1">// RawSQL 데이터삭제</span>
+<span class="nv">$query</span> <span class="o">=</span> <span class="s2">"DELETE FROM `db2020`.`members4` where id=:id;"</span><span class="p">;</span>
+<span class="nv">$data</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'id'</span><span class="o">=&gt;</span><span class="mi">2</span><span class="p">];</span>
+
+<span class="nv">$stmt</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">binds</span><span class="p">(</span><span class="nv">$query</span><span class="p">,</span> <span class="nv">$data</span><span class="p">);</span>
+<span class="nv">$stmt</span><span class="o">-&gt;</span><span class="na">execute</span><span class="p">();</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nv">$rows</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">select</span><span class="p">(</span><span class="s2">"members4"</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">fetchObjAll</span><span class="p">())</span> <span class="p">{</span>
+    <span class="k">foreach</span><span class="p">(</span><span class="nv">$rows</span> <span class="k">as</span> <span class="nv">$row</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">foreach</span><span class="p">(</span><span class="nv">$row</span> <span class="k">as</span> <span class="nv">$key</span> <span class="o">=&gt;</span> <span class="nv">$value</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">echo</span> <span class="nv">$key</span><span class="o">.</span> <span class="s2">"="</span><span class="o">.</span> <span class="nv">$value</span><span class="o">.</span> <span class="s2">"</span><span class="se">\t</span><span class="s2">"</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">echo</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s2">"데이터목록이 없습니다."</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+                </section>
+            </main>            
+
+            <!--구글 애드센스1-->
+			<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+			<ins class="adsbygoogle"
+				style="display:block"
+				data-ad-format="fluid"
+				data-ad-layout-key="-fb+5w+4e-db+86"
+				data-ad-client="ca-pub-3321560028329475"
+				data-ad-slot="6043271504"></ins>
+			<script>
+				(adsbygoogle = window.adsbygoogle || []).push({});
+			</script>
+        </div>
+
+        <!-- Sidebar Column -->
+        <div class="col-md-3">
+            <aside><ul class="list-group">
+    <li class="list-group-item"><a href="/builder">SQL빌더</a></li>
+    <li class="list-group-item">mysqlAdmin</li>
+</ul>
+<br>
+
+<ul class="list-group">
+    <li class="list-group-item"><a href="/data">데이터베이스</a></li>
+    <li class="list-group-item"><a href="/setup">mysql 설치</a></li>
+    <li class="list-group-item"><a href="/sql">SQL</a></li>
+    <li class="list-group-item"><a href="/function">함수</a></li>
+    <li class="list-group-item"><a href="/connect">PHP DB연동</a></li>
+    <li class="list-group-item"><a href="/injection">인젝션</a></li>
+</ul>
+<br>
+
+<ul class="list-group">
+    <li class="list-group-item">WorkBench</li>
+    <li class="list-group-item">phpMyAdmin</li>
+</ul></aside>
+            
+            <!--구글 애드센스2-->
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-format="fluid"
+                data-ad-layout-key="-ef+6k-30-ac+ty"
+                data-ad-client="ca-pub-3321560028329475"
+                data-ad-slot="7661682925"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+            
+        </div>
+
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+
+        <footer>  <!-- Footer -->
+  <footer class="py-3 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; jinydev 2017~2020</p>
+    </div>
+    <!-- /.container -->
+  </footer></footer>        
+
+        <!--부트스트랩4-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-160048106-1"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'UA-160048106-1');
+        </script>
+
+    </body>
+
+</html>

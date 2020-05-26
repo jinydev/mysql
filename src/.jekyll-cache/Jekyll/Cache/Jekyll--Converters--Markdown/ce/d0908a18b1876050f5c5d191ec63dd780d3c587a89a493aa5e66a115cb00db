@@ -1,0 +1,142 @@
+I"�-<h1 id="삭제">삭제</h1>
+<hr />
+<p>테이블의 데이터를 삭제합니다. 데이터 삭제는 <code class="highlighter-rouge">delete</code> 쿼리문을 기반으로 합니다.</p>
+
+<ul>
+  <li>raw 쿼리 작성</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="raw-쿼리를-이용한-삭제">Raw 쿼리를 이용한 삭제</h2>
+<hr />
+<p>테이블안에 있는 데이터를 삭제하기 위해서는 sql의 delete 명령을 사용합니다. 
+직접 raw SQL 문장을 작성하여 mysql 데이터베이스에 전송을 할 수 있습니다.</p>
+
+<p>쿼리문 작성
+다음과 같이 쿼리 문장을 작성합니다.</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$query</span> <span class="o">=</span> <span class="s2">"DELETE FROM `db2020`.`members4` where id=1;"</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>작성한 쿼리문장을 빌더의 <code class="highlighter-rouge">query()</code> 메소드를 통하여 전송을 합니다.</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="nv">$query</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h3 id="예제코드">예제코드</h3>
+<hr />
+<p>예제코드를 통하여 간단한 데이터 삭제를 실습해 봅니다.</p>
+
+<p>|예제코드| delete-sql.php</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="k">require</span> <span class="s2">"../../loading.php"</span><span class="p">;</span> <span class="c1">// 오토로딩</span>
+
+<span class="c1">// 데이터베이스 설정값</span>
+<span class="nv">$dbinfo</span> <span class="o">=</span> <span class="nx">\jiny\dbinfo</span><span class="p">();</span>
+
+<span class="c1">// 설정값, 생성자 인자값으로 전달합니다.</span>
+<span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Jiny\Mysql\Connection</span><span class="p">(</span><span class="nv">$dbinfo</span><span class="p">);</span>
+
+<span class="c1">// RawSQL 데이터삭제</span>
+<span class="nv">$query</span> <span class="o">=</span> <span class="s2">"DELETE FROM `db2020`.`members4` where id=1;"</span><span class="p">;</span>
+<span class="nv">$db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="nv">$query</span><span class="p">);</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nv">$rows</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">select</span><span class="p">(</span><span class="s2">"members4"</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">fetchObjAll</span><span class="p">())</span> <span class="p">{</span>
+    <span class="k">foreach</span><span class="p">(</span><span class="nv">$rows</span> <span class="k">as</span> <span class="nv">$row</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">foreach</span><span class="p">(</span><span class="nv">$row</span> <span class="k">as</span> <span class="nv">$key</span> <span class="o">=&gt;</span> <span class="nv">$value</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">echo</span> <span class="nv">$key</span><span class="o">.</span> <span class="s2">"="</span><span class="o">.</span> <span class="nv">$value</span><span class="o">.</span> <span class="s2">"</span><span class="se">\t</span><span class="s2">"</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">echo</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s2">"데이터목록이 없습니다."</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>raw쿼리를 전송한 후에 테이블의 데이터를 확인 출력합니다.</p>
+
+<p><br /></p>
+
+<h2 id="bind-처리">bind 처리</h2>
+<hr />
+
+<p>예제코드: delete-bind.php</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="k">require</span> <span class="s2">"../../loading.php"</span><span class="p">;</span> <span class="c1">// 오토로딩</span>
+
+<span class="c1">// 데이터베이스 설정값</span>
+<span class="nv">$dbinfo</span> <span class="o">=</span> <span class="nx">\jiny\dbinfo</span><span class="p">();</span>
+
+<span class="c1">// 설정값, 생성자 인자값으로 전달합니다.</span>
+<span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Jiny\Mysql\Connection</span><span class="p">(</span><span class="nv">$dbinfo</span><span class="p">);</span>
+
+<span class="c1">// RawSQL 데이터삭제</span>
+<span class="nv">$query</span> <span class="o">=</span> <span class="s2">"DELETE FROM `db2020`.`members4` where id=:id;"</span><span class="p">;</span>
+<span class="nv">$data</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'id'</span><span class="o">=&gt;</span><span class="mi">2</span><span class="p">];</span>
+
+<span class="nv">$stmt</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">binds</span><span class="p">(</span><span class="nv">$query</span><span class="p">,</span> <span class="nv">$data</span><span class="p">);</span>
+<span class="nv">$stmt</span><span class="o">-&gt;</span><span class="na">execute</span><span class="p">();</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nv">$rows</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">select</span><span class="p">(</span><span class="s2">"members4"</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">fetchObjAll</span><span class="p">())</span> <span class="p">{</span>
+    <span class="k">foreach</span><span class="p">(</span><span class="nv">$rows</span> <span class="k">as</span> <span class="nv">$row</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">foreach</span><span class="p">(</span><span class="nv">$row</span> <span class="k">as</span> <span class="nv">$key</span> <span class="o">=&gt;</span> <span class="nv">$value</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">echo</span> <span class="nv">$key</span><span class="o">.</span> <span class="s2">"="</span><span class="o">.</span> <span class="nv">$value</span><span class="o">.</span> <span class="s2">"</span><span class="se">\t</span><span class="s2">"</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">echo</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s2">"데이터목록이 없습니다."</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="클래스-확장">클래스 확장</h2>
+<hr />
+<p>데이터를 삭제할 수 있는 delete 객체를 확장합니다.</p>
+
+<p><br /></p>
+
+<h3 id="객체얻기">객체얻기</h3>
+<hr />
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$dataObj</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">delete</span><span class="p">(</span><span class="s2">"members4"</span><span class="p">);</span>
+</code></pre></div></div>
+
+<h3 id="특정-id-삭제">특정 id 삭제</h3>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$dataObj</span><span class="o">-&gt;</span><span class="na">id</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>|예제코드| delete-id.php</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="k">require</span> <span class="s2">"../../loading.php"</span><span class="p">;</span> <span class="c1">// 오토로딩</span>
+
+<span class="c1">// 데이터베이스 설정값</span>
+<span class="nv">$dbinfo</span> <span class="o">=</span> <span class="nx">\jiny\dbinfo</span><span class="p">();</span>
+<span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Jiny\Mysql\Connection</span><span class="p">(</span><span class="nv">$dbinfo</span><span class="p">);</span>
+
+<span class="nv">$dataObj</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">delete</span><span class="p">(</span><span class="s2">"members4"</span><span class="p">);</span>
+<span class="nv">$dataObj</span><span class="o">-&gt;</span><span class="na">id</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nv">$rows</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">select</span><span class="p">(</span><span class="s2">"members4"</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">fetchObjAll</span><span class="p">())</span> <span class="p">{</span>
+    <span class="k">foreach</span><span class="p">(</span><span class="nv">$rows</span> <span class="k">as</span> <span class="nv">$row</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">foreach</span><span class="p">(</span><span class="nv">$row</span> <span class="k">as</span> <span class="nv">$key</span> <span class="o">=&gt;</span> <span class="nv">$value</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">echo</span> <span class="nv">$key</span><span class="o">.</span> <span class="s2">"="</span><span class="o">.</span> <span class="nv">$value</span><span class="o">.</span> <span class="s2">"</span><span class="se">\t</span><span class="s2">"</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">echo</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s2">"데이터목록이 없습니다."</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="전체삭제">전체삭제</h3>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$dataObj</span><span class="o">-&gt;</span><span class="na">all</span><span class="p">();</span>
+</code></pre></div></div>
+
+<h3 id="바인드-삭제">바인드 삭제</h3>
+<p>쿼리에 특정 조건값을 바인드 하여 삭제를 할 수 있습니다.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$dataObj</span><span class="o">-&gt;</span><span class="na">binds</span><span class="p">(</span><span class="nv">$query</span><span class="p">,</span> <span class="nv">$bind</span><span class="p">);</span>
+</code></pre></div></div>
+:ET

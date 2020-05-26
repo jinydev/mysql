@@ -1,0 +1,157 @@
+I"�*<h1 id="데이터삽입">데이터삽입</h1>
+<hr />
+<p>insert 쿼리를 이용하여 데이터를 삽입할 수 있습니다.</p>
+
+<p><br /></p>
+
+<h2 id="raw-쿼리를-이용한-직접입력">Raw 쿼리를 이용한 직접입력</h2>
+<hr />
+
+<p>|예제코드| insert-raw.php</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="k">require</span> <span class="s2">"../../loading.php"</span><span class="p">;</span> <span class="c1">// 오토로딩</span>
+
+<span class="c1">// 데이터베이스 설정값</span>
+<span class="nv">$dbinfo</span> <span class="o">=</span> <span class="nx">\jiny\dbinfo</span><span class="p">();</span>
+
+<span class="c1">// 설정값, 생성자 인자값으로 전달합니다.</span>
+<span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Jiny\Mysql\Connection</span><span class="p">(</span><span class="nv">$dbinfo</span><span class="p">);</span>
+
+<span class="c1">// RawSQL 데이터삽입</span>
+<span class="nv">$query</span> <span class="o">=</span> <span class="s2">"INSERT `db2020`.`members4` SET firstname = 'lee', lastname='hojin';"</span><span class="p">;</span>
+<span class="nv">$db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="nv">$query</span><span class="p">);</span> 
+
+<span class="k">if</span> <span class="p">(</span><span class="nv">$id</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">conn</span><span class="o">-&gt;</span><span class="na">lastInsertId</span><span class="p">())</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s2">"데이터 삽입 성공 = "</span><span class="o">.</span><span class="nv">$id</span><span class="p">;</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s2">"데이터 삽입 실패"</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>|실행결과|</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ php insert-raw.php 
+데이터 삽입 성공 = 1
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="bind-데이터-삽입">bind 데이터 삽입</h2>
+<hr />
+<p>SQL과 삽입되는 데이터를 bind 하여 쿼리를 전송할 수 있습니다.
+bind를 같이 사용하면, 안전하게 데이터를 삽입할 수 있습니다.</p>
+
+<p>SQL 쿼리를 bind합니다. bind는 PDOStatement를 반환합니다.</p>
+
+<p>|예제코드| insert-bind.php</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="k">require</span> <span class="s2">"../../loading.php"</span><span class="p">;</span> <span class="c1">// 오토로딩</span>
+
+<span class="c1">// 데이터베이스 설정값</span>
+<span class="nv">$dbinfo</span> <span class="o">=</span> <span class="nx">\jiny\dbinfo</span><span class="p">();</span>
+
+<span class="c1">// 설정값, 생성자 인자값으로 전달합니다.</span>
+<span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Jiny\Mysql\Connection</span><span class="p">(</span><span class="nv">$dbinfo</span><span class="p">);</span>
+
+<span class="c1">// bind 데이터삽입</span>
+<span class="nv">$query</span> <span class="o">=</span> <span class="s2">"INSERT `db2020`.`members4` SET firstname=:firstname, lastname=:lastname;"</span><span class="p">;</span>
+<span class="nv">$data</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">'firstname'</span> <span class="o">=&gt;</span> <span class="s2">"이"</span><span class="p">,</span> 
+    <span class="s1">'lastname'</span> <span class="o">=&gt;</span> <span class="s2">"호진"</span>
+<span class="p">];</span>
+
+<span class="nv">$stmt</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">binds</span><span class="p">(</span><span class="nv">$query</span><span class="p">,</span> <span class="nv">$data</span><span class="p">);</span>
+<span class="nv">$stmt</span><span class="o">-&gt;</span><span class="na">execute</span><span class="p">();</span>
+<span class="k">if</span> <span class="p">(</span><span class="nv">$id</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">conn</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">lastInsertId</span><span class="p">())</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s2">"데이터 삽입 성공 = "</span><span class="o">.</span><span class="nv">$id</span><span class="p">;</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s2">"데이터 삽입 실패"</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>데이터를 삽입한 후에, 마지막 id 값을 읽어 올 수 있습니다.
+PDO의 <code class="highlighter-rouge">lastInsertId()</code>를 호출할 수 있습니다.</p>
+
+<p><br /></p>
+
+<h2 id="데이터-삽입">데이터 삽입</h2>
+<hr />
+<p>쿼리빌더 <code class="highlighter-rouge">insert</code> 클래스를 통하여 데이터를 삽입합니다.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$db</span><span class="o">-&gt;</span><span class="na">insert</span><span class="p">(</span><span class="s2">"members4"</span><span class="p">,</span> <span class="nv">$data</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">save</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p>또는</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$db</span><span class="o">-&gt;</span><span class="na">insert</span><span class="p">(</span><span class="s2">"members4"</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">save</span><span class="p">(</span><span class="nv">$data</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>예제코드: insert-save.php</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="k">require</span> <span class="s2">"../../loading.php"</span><span class="p">;</span> <span class="c1">// 오토로딩</span>
+
+<span class="c1">// 데이터베이스 설정값</span>
+<span class="nv">$dbinfo</span> <span class="o">=</span> <span class="nx">\jiny\dbinfo</span><span class="p">();</span>
+
+<span class="c1">// 설정값, 생성자 인자값으로 전달합니다.</span>
+<span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Jiny\Mysql\Connection</span><span class="p">(</span><span class="nv">$dbinfo</span><span class="p">);</span>
+
+<span class="c1">// 데이터삽입</span>
+<span class="nv">$data</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">'firstname'</span> <span class="o">=&gt;</span> <span class="s2">"이"</span>
+<span class="p">];</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nv">$id</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">insert</span><span class="p">(</span><span class="s2">"members4"</span><span class="p">,</span> <span class="nv">$data</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">save</span><span class="p">())</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s2">"데이터 삽입 성공 = "</span><span class="o">.</span><span class="nv">$id</span><span class="p">;</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s2">"데이터 삽입 실패"</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h3 id="save">save()</h3>
+<hr />
+<p>sql 쿼리를 생성하여 배열 데이터를 입력 할 수 있습니다.
+save 메소드는 입력된 배열에 따라 sql insert 쿼리를 생성합니다.</p>
+
+<p>성공적으로 데이터가 삽입이 되면, 마지막에 삽입된 id값을 반환 합니다.</p>
+
+<p><br /></p>
+
+<h3 id="created_at-updated_at">created_at, updated_at</h3>
+<hr />
+<p>쿼리빌더를 이용하여 데이블을 생성하면, row 데이터의 이력을 추적하기 위한 <code class="highlighter-rouge">created_at</code>, <code class="highlighter-rouge">updated_at</code> 필드가 같이 생성이 됩니다.<br />
+데이터 삽입시 <code class="highlighter-rouge">insert</code> 객체의 save 메소드를 이용하면, created_at 과 updated_at을 자동으로 입력할 수 있습니다.</p>
+
+<p><br /></p>
+
+<h2 id="setfields">setFields</h2>
+<hr />
+<p>삽입할 배열 데이터를 지정할 수 있습니다.</p>
+
+<p>|예제코드| insert-field.php</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="k">require</span> <span class="s2">"../../loading.php"</span><span class="p">;</span> <span class="c1">// 오토로딩</span>
+
+<span class="c1">// 데이터베이스 설정값</span>
+<span class="nv">$dbinfo</span> <span class="o">=</span> <span class="nx">\jiny\dbinfo</span><span class="p">();</span>
+<span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Jiny\Mysql\Connection</span><span class="p">(</span><span class="nv">$dbinfo</span><span class="p">);</span>
+
+<span class="c1">// 데이터삽입</span>
+<span class="nv">$data</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">'lastname'</span> <span class="o">=&gt;</span> <span class="s2">"호진"</span>
+<span class="p">];</span>
+
+<span class="nv">$last</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">insert</span><span class="p">(</span><span class="s2">"members4"</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">setFields</span><span class="p">(</span><span class="nv">$data</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">save</span><span class="p">();</span>
+<span class="k">echo</span> <span class="s2">"마지막 삽입="</span><span class="o">.</span><span class="nv">$last</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="마지막-id">마지막 id</h2>
+<hr />
+<p><code class="highlighter-rouge">last()</code> 메소드는 데이터삽입후 마지막 id 값을 확인할 수 있습니다.</p>
+
+<p>last 메소드는 PDO의 <code class="highlighter-rouge">lastInsertId()</code> 메소드의 브리지 입니다.</p>
+
+:ET
