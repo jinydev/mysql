@@ -1,0 +1,45 @@
+I"�
+<h1 id="테이블-삭제">테이블 삭제</h1>
+<hr />
+
+<h2 id="drop-메소드">drop() 메소드</h2>
+<hr />
+<p>table 객체의 drop 메소드는 스키마의 테이블을 삭제합니다.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$db</span><span class="o">-&gt;</span><span class="na">table</span><span class="p">(</span><span class="s2">"테이블명"</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">drop</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p>|예제코드| table-drop01.php</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="k">require</span> <span class="s2">"../../loading.php"</span><span class="p">;</span> <span class="c1">// 오토로딩</span>
+
+<span class="c1">// 데이터베이스 설정값</span>
+<span class="nv">$dbinfo</span> <span class="o">=</span> <span class="nx">\jiny\dbinfo</span><span class="p">();</span>
+
+<span class="c1">// 설정값, 생성자 인자값으로 전달합니다.</span>
+<span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Jiny\Mysql\Connection</span><span class="p">(</span><span class="nv">$dbinfo</span><span class="p">);</span>
+
+<span class="nv">$db</span><span class="o">-&gt;</span><span class="na">table</span><span class="p">(</span><span class="s2">"members4"</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">drop</span><span class="p">();</span>
+
+<span class="c1">// 테이블 목록출력</span>
+<span class="nb">print_r</span><span class="p">(</span><span class="nv">$db</span><span class="o">-&gt;</span><span class="na">table</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">list</span><span class="p">());</span>
+</code></pre></div></div>
+
+<h2 id="삭제할-테이블-지정하기">삭제할 테이블 지정하기</h2>
+<hr />
+<p>기본적으로 drop() 메소드만 호출할 경우에는 객체에 설정된 기본 테이블을 삭제합니다.
+별개의 테이블을 삭제할 경우에는 인자값을 전달할 수 있습니다.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$db</span><span class="o">-&gt;</span><span class="na">table</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">drop</span><span class="p">(</span><span class="s2">"테이블명"</span><span class="p">);</span>
+</code></pre></div></div>
+
+<table>
+  <tbody>
+    <tr>
+      <td>예제코드</td>
+      <td>table-drop02.php</td>
+    </tr>
+  </tbody>
+</table>
+
+:ET

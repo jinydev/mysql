@@ -1,0 +1,29 @@
+I"^<h1 id="테이블-목록">테이블 목록</h1>
+<hr />
+<p>스키마의 테이블 목록을 확인합니다.</p>
+
+<h2 id="tablelist--테이블-목록">tableList() : 테이블 목록</h2>
+<hr />
+<p>스키마의 테이블 목록을 출력합니다. 반환값은 array 입니다.</p>
+
+<p>|예제코드|: table-list.php</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="k">require</span> <span class="s2">"../../loading.php"</span><span class="p">;</span> <span class="c1">// 오토로딩</span>
+
+<span class="c1">// 데이터베이스 설정값</span>
+<span class="nv">$dbinfo</span> <span class="o">=</span> <span class="nx">\jiny\dbinfo</span><span class="p">();</span>
+
+<span class="c1">// 설정값, 생성자 인자값으로 전달합니다.</span>
+<span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Jiny\Mysql\Connection</span><span class="p">(</span><span class="nv">$dbinfo</span><span class="p">);</span>
+
+<span class="c1">// 테이블 목록출력</span>
+<span class="nb">print_r</span><span class="p">(</span><span class="nv">$db</span><span class="o">-&gt;</span><span class="na">table</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">list</span><span class="p">());</span>
+</code></pre></div></div>
+
+<p>|실행결과|</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>php table-list.php 
+<span class="go">Array
+(
+)
+</span></code></pre></div></div>
+:ET
