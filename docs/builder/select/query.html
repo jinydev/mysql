@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!--SEO--><title>Mysql - select - SQL빌더</title>
+            <meta name="title" content="select - SQL빌더" /><meta name="keyword" content="mysql, sql, builder, jinyMysql, jinyPHP" /><!--부트스트랩4-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        
+
+        <link rel="stylesheet" href="/assets/highlight.css">
+        <link rel="stylesheet" href="/assets/style.css">
+
+        <script data-ad-client="ca-pub-3321560028329475" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+        <style>
+            img {
+                max-width:100%;
+            }
+
+            h1 { font-size: 1.6em;}
+            h2 { font-size: 1.5em;}
+            h3 { font-size: 1.4em;}
+            h4 { font-size: 1.3em;}
+            h5 { font-size: 1.2em;}
+            h6 { font-size: 1.1em;}
+      
+        </style>
+
+    </head>
+    <body>
+        <!--네비게이션--><!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="/">Mysql</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/data">개념</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="/setup">설치</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/sql">SQL</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/connect">DB연동</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/injection">인젝션</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/function">함수</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav><br>
+<div class="container"><nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <!--breadcrumb loop--><li class="breadcrumb-item "><a href="../">Builder</a></li><li class="breadcrumb-item "><a href="../">select</a></li><li class="breadcrumb-item active">query</li></ol>    
+</nav></div>
+
+<!-- Page Content -->
+<div class="container">
+    <div class="row">
+
+        <!-- Post Content Column -->
+        <div class="col-lg-9">
+            <main>
+                <section>
+                    <h1 id="쿼리-생성하기">쿼리 생성하기</h1>
+<hr />
+<p>빌더를 통하여 보다 손쉽게 쿼리를 생성할 수 있습니다.</p>
+
+<p><br /></p>
+
+<h2 id="설정하기">설정하기</h2>
+<hr />
+<ul>
+  <li>setQuery() : 직접 쿼리를 설정합니다.</li>
+  <li>getQuery() : 설정된 쿼리 문자열을 읽어 옵니다.</li>
+  <li>clearQuery() : 설정된 쿼리를 초기화 합니다.</li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="빌드하기">빌드하기</h2>
+<hr />
+<p>연상배열의 키를 이용하여 select 쿼리를 생성할 수 있습니다.</p>
+
+<p>build 메소드는 입력된 배열정보를 통하여 select 쿼리를 생성하여 객체에 저장에 설정합니다.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$fields</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"id"</span><span class="p">,</span><span class="s2">"firstname"</span><span class="p">];</span>
+<span class="nv">$query</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">select</span><span class="p">(</span><span class="s2">"members4"</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">build</span><span class="p">(</span><span class="nv">$fields</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">getQuery</span><span class="p">();</span>
+<span class="k">echo</span> <span class="nv">$query</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>설정된 쿼리는 getQuery()를 통하여 읽어 올 수 있습니다.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$fields</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"id"</span><span class="p">,</span><span class="s2">"firstname"</span><span class="p">];</span>
+<span class="nv">$select</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">select</span><span class="p">(</span><span class="s2">"members4"</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">setField</span><span class="p">(</span><span class="s2">"lastname"</span><span class="p">);</span>
+<span class="nv">$query</span> <span class="o">=</span> <span class="nv">$select</span><span class="o">-&gt;</span><span class="na">build</span><span class="p">(</span><span class="nv">$fields</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">getQuery</span><span class="p">();</span>
+<span class="k">echo</span> <span class="nv">$query</span><span class="p">;</span>
+</code></pre></div></div>
+<p>기존에 미리 설정된 필드가 있는 경우 합산되어 처리 됩니다.</p>
+
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>php <span class="k">select</span><span class="nt">-query02</span>.php 
+<span class="gp">SELECT lastname,id,firstname FROM `db2020`.`members4`;</span><span class="w">
+</span></code></pre></div></div>
+
+<h2 id="조건-추가하기">조건 추가하기</h2>
+<hr />
+<p>쿼리에 where 조건을 추가합니다.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$select</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">select</span><span class="p">(</span><span class="s2">"members4"</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">setField</span><span class="p">(</span><span class="s2">"lastname"</span><span class="p">);</span>
+<span class="nv">$select</span><span class="o">-&gt;</span><span class="na">setWhere</span><span class="p">(</span><span class="s2">"id"</span><span class="p">);</span>
+<span class="nv">$select</span><span class="o">-&gt;</span><span class="na">setWhere</span><span class="p">(</span><span class="s2">"firstname"</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>복수 조건 설정</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$fields</span> <span class="o">=</span> <span class="p">[</span><span class="s2">"id"</span><span class="p">,</span><span class="s2">"firstname"</span><span class="p">];</span>
+<span class="nv">$select</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">select</span><span class="p">(</span><span class="s2">"members4"</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">setField</span><span class="p">(</span><span class="s2">"lastname"</span><span class="p">);</span>
+<span class="nv">$select</span><span class="o">-&gt;</span><span class="na">setWheres</span><span class="p">([</span><span class="s2">"id"</span><span class="p">,</span><span class="s2">"firstname"</span><span class="p">]);</span>
+</code></pre></div></div>
+
+<p>조건값 실행하기
+run()을 통하여 쿼리를 실행합니다.</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$query</span> <span class="o">=</span> <span class="nv">$select</span><span class="o">-&gt;</span><span class="na">build</span><span class="p">(</span><span class="nv">$fields</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">getQuery</span><span class="p">();</span>
+<span class="nv">$rows</span> <span class="o">=</span> <span class="nv">$select</span><span class="o">-&gt;</span><span class="na">run</span><span class="p">([</span><span class="s1">'id'</span><span class="o">=&gt;</span><span class="s2">"1"</span><span class="p">])</span><span class="o">-&gt;</span><span class="na">fetchObjAll</span><span class="p">();</span>
+<span class="nb">print_r</span><span class="p">(</span><span class="nv">$rows</span><span class="p">);</span>
+</code></pre></div></div>
+
+                </section>
+            </main>            
+
+            <!--구글 애드센스1-->
+			<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+			<ins class="adsbygoogle"
+				style="display:block"
+				data-ad-format="fluid"
+				data-ad-layout-key="-fb+5w+4e-db+86"
+				data-ad-client="ca-pub-3321560028329475"
+				data-ad-slot="6043271504"></ins>
+			<script>
+				(adsbygoogle = window.adsbygoogle || []).push({});
+			</script>
+        </div>
+
+        <!-- Sidebar Column -->
+        <div class="col-md-3">
+            <aside><ul class="list-group">
+    <li class="list-group-item"><a href="/builder">SQL빌더</a></li>
+    <li class="list-group-item">mysqlAdmin</li>
+</ul>
+<br>
+
+<ul class="list-group">
+    <li class="list-group-item"><a href="/data">데이터베이스</a></li>
+    <li class="list-group-item"><a href="/setup">mysql 설치</a></li>
+    <li class="list-group-item"><a href="/sql">SQL</a></li>
+    <li class="list-group-item"><a href="/function">함수</a></li>
+    <li class="list-group-item"><a href="/connect">PHP DB연동</a></li>
+    <li class="list-group-item"><a href="/injection">인젝션</a></li>
+</ul>
+<br>
+
+<ul class="list-group">
+    <li class="list-group-item">WorkBench</li>
+    <li class="list-group-item">phpMyAdmin</li>
+</ul></aside>
+            
+            <!--구글 애드센스2-->
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-format="fluid"
+                data-ad-layout-key="-ef+6k-30-ac+ty"
+                data-ad-client="ca-pub-3321560028329475"
+                data-ad-slot="7661682925"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+            
+        </div>
+
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+
+        <footer>  <!-- Footer -->
+  <footer class="py-3 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; jinydev 2017~2020</p>
+    </div>
+    <!-- /.container -->
+  </footer></footer>        
+
+        <!--부트스트랩4-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-160048106-1"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'UA-160048106-1');
+        </script>
+
+    </body>
+
+</html>

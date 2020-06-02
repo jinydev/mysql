@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <!--SEO--><title>Mysql - delete object 생성 - SQL빌더</title>
+            <meta name="title" content="delete object 생성 - SQL빌더" /><meta name="keyword" content="delete, mysql, sql, builder, jinyMysql, jinyPHP" /><!--부트스트랩4-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        
+
+        <link rel="stylesheet" href="/assets/highlight.css">
+        <link rel="stylesheet" href="/assets/style.css">
+
+        <script data-ad-client="ca-pub-3321560028329475" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+
+        <style>
+            img {
+                max-width:100%;
+            }
+
+            h1 { font-size: 1.6em;}
+            h2 { font-size: 1.5em;}
+            h3 { font-size: 1.4em;}
+            h4 { font-size: 1.3em;}
+            h5 { font-size: 1.2em;}
+            h6 { font-size: 1.1em;}
+      
+        </style>
+
+    </head>
+    <body>
+        <!--네비게이션--><!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+      <a class="navbar-brand" href="/">Mysql</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarResponsive">
+        <ul class="navbar-nav ml-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/data">개념</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="/setup">설치</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/sql">SQL</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/connect">DB연동</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/injection">인젝션</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/function">함수</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav><br>
+<div class="container"><nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="/">Home</a></li>
+        <!--breadcrumb loop--><li class="breadcrumb-item "><a href="../">builder</a></li><li class="breadcrumb-item "><a href="../">delete</a></li><li class="breadcrumb-item active">object</li></ol>    
+</nav></div>
+
+<!-- Page Content -->
+<div class="container">
+    <div class="row">
+
+        <!-- Post Content Column -->
+        <div class="col-lg-9">
+            <main>
+                <section>
+                    <h1 id="객체생성">객체생성</h1>
+<hr />
+<p><code class="highlighter-rouge">delete 클래스</code>를 통하여 객체를 생성합니다. 
+<code class="highlighter-rouge">delete 객체</code>는 connection의 <code class="highlighter-rouge">delete()</code> 메소드를 통하여 객체의 생성을 요청할 수 있습니다. 
+<code class="highlighter-rouge">delete()</code> 메소드는 심플팩토리 패턴으로 객체의 생성과 공유를 처리합니다.</p>
+
+<p><br /></p>
+
+<h2 id="delete-메소드">delete() 메소드</h2>
+<hr />
+<p>delete 메소드는 connection 클래스 안에 선언이 되어 있습니다. 
+DB Connection 객체를 생성후에 delete 메소드를 호출해 주기만 하면 됩니다.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Jiny\Mysql\Connection</span><span class="p">(</span><span class="nv">$dbinfo</span><span class="p">);</span>
+<span class="nv">$delete</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">delete</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">Connection</code> 객체의 delete 메소드는 delete 클래스의 객체를 생성하기 위한 팩토리 메소드 입니다. 
+간단하게 <code class="highlighter-rouge">delete()</code> 메소드를 호출함으로써 delete 객체를 반환 받을 수 있습니다.</p>
+
+<p><br /></p>
+
+<h3 id="클래스-확장">클래스 확장</h3>
+<hr />
+<p>직접 delete 클래스의 객체를 다음과 같이 생성을 할 수도 있습니다.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Jiny\Mysql\Connection</span><span class="p">(</span><span class="nv">$dbinfo</span><span class="p">);</span>
+<span class="nv">$delete</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Jiny\Mysql\Delete</span><span class="p">(</span><span class="nv">$tablename</span><span class="p">,</span> <span class="nv">$db</span><span class="p">);</span> <span class="c1">// 객체를 생성합니다.</span>
+</code></pre></div></div>
+
+<p>Delete 객체는 connection 객체와 역의존성을 가지고 있습니다. 관계를 설정하기 위해서 생성자 인자값으로 객체 정보를 전달합니다.</p>
+
+<p><br /></p>
+
+<h2 id="테이블명-설정">테이블명 설정</h2>
+<hr />
+<p>delete 객체는 테이블의 데이터를 삭제합니다. 그러기 위해서는 객체 내부에 테이블명을 설정해 주어야 합니다.</p>
+
+<p>메소드의 인자값으로 테이블명을 전달합니다. 입력된 테이블명 객체 생성시에 자동으로 설정합니다.</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$delete</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">delete</span><span class="p">(</span><span class="s2">"members"</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>다음과 같이 테이블 명을 생략한 후에 별도의 setter 메소드를 통하여 테이블을 재설정 할 수 있습니다.</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$delete</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">delete</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">setTablename</span><span class="p">(</span><span class="s2">"members"</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>객체 생성후에 setTablename() 메서드를 통하여 설정을 할 수도 있습니다.</p>
+
+<p><br /></p>
+
+                </section>
+            </main>            
+
+            <!--구글 애드센스1-->
+			<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+			<ins class="adsbygoogle"
+				style="display:block"
+				data-ad-format="fluid"
+				data-ad-layout-key="-fb+5w+4e-db+86"
+				data-ad-client="ca-pub-3321560028329475"
+				data-ad-slot="6043271504"></ins>
+			<script>
+				(adsbygoogle = window.adsbygoogle || []).push({});
+			</script>
+        </div>
+
+        <!-- Sidebar Column -->
+        <div class="col-md-3">
+            <aside><ul class="list-group">
+    <li class="list-group-item"><a href="/builder">SQL빌더</a></li>
+    <li class="list-group-item">mysqlAdmin</li>
+</ul>
+<br>
+
+<ul class="list-group">
+    <li class="list-group-item"><a href="/data">데이터베이스</a></li>
+    <li class="list-group-item"><a href="/setup">mysql 설치</a></li>
+    <li class="list-group-item"><a href="/sql">SQL</a></li>
+    <li class="list-group-item"><a href="/function">함수</a></li>
+    <li class="list-group-item"><a href="/connect">PHP DB연동</a></li>
+    <li class="list-group-item"><a href="/injection">인젝션</a></li>
+</ul>
+<br>
+
+<ul class="list-group">
+    <li class="list-group-item">WorkBench</li>
+    <li class="list-group-item">phpMyAdmin</li>
+</ul></aside>
+            
+            <!--구글 애드센스2-->
+            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-format="fluid"
+                data-ad-layout-key="-ef+6k-30-ac+ty"
+                data-ad-client="ca-pub-3321560028329475"
+                data-ad-slot="7661682925"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+            
+        </div>
+
+    </div>
+    <!-- /.row -->
+</div>
+<!-- /.container -->
+
+        <footer>  <!-- Footer -->
+  <footer class="py-3 bg-dark">
+    <div class="container">
+      <p class="m-0 text-center text-white">Copyright &copy; jinydev 2017~2020</p>
+    </div>
+    <!-- /.container -->
+  </footer></footer>        
+
+        <!--부트스트랩4-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-160048106-1"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'UA-160048106-1');
+        </script>
+
+    </body>
+
+</html>

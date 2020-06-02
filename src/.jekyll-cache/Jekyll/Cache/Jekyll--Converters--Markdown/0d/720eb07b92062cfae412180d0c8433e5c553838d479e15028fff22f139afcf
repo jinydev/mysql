@@ -1,0 +1,44 @@
+I"�<h1 id="전체삭제">전체삭제</h1>
+<hr />
+<p>테이블의 전체 데이터를 삭제합니다.</p>
+
+<p>기본적으로 sql의 <code class="highlighter-rouge">DELETE</code> 쿼리는 검색조건을 지정하지 않는 경우, 테이블의 모든 데이터를 삭제하게 됩니다. 
+이러한 실수를 방지하기 위해서 대부분 id값 또는 조건지정을 필수로 합니다.</p>
+
+<p>빌더에서는 전체 데이터를 삭제할 수 있는 기능을 별도의 <code class="highlighter-rouge">all()</code> 메소드로 제공을 합니다.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// RawSQL 데이터삭제</span>
+<span class="nv">$delete</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">delete</span><span class="p">(</span><span class="s2">"members4"</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">all</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="예제코드">예제코드</h2>
+<hr />
+
+<p>|예제코드| delete-all.php</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="k">require</span> <span class="s2">"../../loading.php"</span><span class="p">;</span> <span class="c1">// 오토로딩</span>
+
+<span class="c1">// 데이터베이스 설정값</span>
+<span class="nv">$dbinfo</span> <span class="o">=</span> <span class="nx">\jiny\dbinfo</span><span class="p">();</span>
+
+<span class="c1">// 설정값, 생성자 인자값으로 전달합니다.</span>
+<span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Jiny\Mysql\Connection</span><span class="p">(</span><span class="nv">$dbinfo</span><span class="p">);</span>
+
+<span class="c1">// RawSQL 데이터삭제</span>
+<span class="nv">$delete</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">delete</span><span class="p">(</span><span class="s2">"members4"</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">all</span><span class="p">();</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nv">$rows</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">select</span><span class="p">(</span><span class="s2">"members4"</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">runObjAll</span><span class="p">())</span> <span class="p">{</span>
+    <span class="k">foreach</span><span class="p">(</span><span class="nv">$rows</span> <span class="k">as</span> <span class="nv">$row</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">foreach</span><span class="p">(</span><span class="nv">$row</span> <span class="k">as</span> <span class="nv">$key</span> <span class="o">=&gt;</span> <span class="nv">$value</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">echo</span> <span class="nv">$key</span><span class="o">.</span> <span class="s2">"="</span><span class="o">.</span> <span class="nv">$value</span><span class="o">.</span> <span class="s2">"</span><span class="se">\t</span><span class="s2">"</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">echo</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s2">"데이터목록이 없습니다."</span><span class="p">;</span>
+<span class="p">}</span>
+
+</code></pre></div></div>
+:ET

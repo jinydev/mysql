@@ -1,0 +1,54 @@
+I"�<h1 id="query-설정-및-실행하기">query 설정 및 실행하기</h1>
+<hr />
+<p>빌더 connection에 raw쿼리를 별도로 설정하고 실행을 할 수 있습니다.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$query</span> <span class="o">=</span> <span class="s2">"SHOW DATABASES"</span><span class="p">;</span>
+<span class="nv">$db</span><span class="o">-&gt;</span><span class="na">setQuery</span><span class="p">(</span><span class="nv">$query</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">setQuery</code>는 쿼리를 실행가능한 준비상태를 설정합니다.</p>
+
+<p><br /></p>
+
+<h2 id="설정된-쿼리-실행하기">설정된 쿼리 실행하기</h2>
+<hr />
+<p>설정된 쿼리를 실행하기 위해서는 별도의 <code class="highlighter-rouge">run</code>메소드를 실행하여야 합니다.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$db</span><span class="o">-&gt;</span><span class="na">run</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="bind-설정">bind 설정</h2>
+<hr />
+<p>설정된 쿼리에 값을 바인드 해야 되는 경우 setBind 메소드를 실행합니다.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$data</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">'firstname'</span> <span class="o">=&gt;</span> <span class="s2">"이"</span><span class="p">,</span> 
+    <span class="s1">'lastname'</span> <span class="o">=&gt;</span> <span class="s2">"호진"</span>
+<span class="p">];</span>
+<span class="nv">$stmt</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">setBinds</span><span class="p">(</span><span class="nv">$data</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>설정한 bind된 쿼리를 실행합니다.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$db</span><span class="o">-&gt;</span><span class="na">run</span><span class="p">();</span>
+</code></pre></div></div>
+<p>예제코드 ./sample/sql/raw-bind01.php</p>
+
+<p>또는 run() 메소드의 인자값으로 bind를 처리 할 수 있습니다.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// bind 데이터삽입</span>
+<span class="nv">$query</span> <span class="o">=</span> <span class="s2">"INSERT `db2020`.`members4` SET firstname=:firstname, lastname=:lastname;"</span><span class="p">;</span>
+<span class="nv">$db</span><span class="o">-&gt;</span><span class="na">setQuery</span><span class="p">(</span><span class="nv">$query</span><span class="p">);</span>
+
+<span class="nv">$data</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">'firstname'</span> <span class="o">=&gt;</span> <span class="s2">"이"</span><span class="p">,</span> 
+    <span class="s1">'lastname'</span> <span class="o">=&gt;</span> <span class="s2">"호진"</span>
+<span class="p">];</span>
+<span class="nv">$db</span><span class="o">-&gt;</span><span class="na">run</span><span class="p">(</span><span class="nv">$data</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>예제코드 ./sample/sql/raw-bind02.php</p>
+
+:ET

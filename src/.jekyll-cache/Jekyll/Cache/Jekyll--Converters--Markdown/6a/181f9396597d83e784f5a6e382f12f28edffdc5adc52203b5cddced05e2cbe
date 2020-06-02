@@ -1,0 +1,38 @@
+I";<h1 id="특정-id-삭제">특정 id 삭제</h1>
+<hr />
+<p>테이블은 고유의 primaryKey인 id값을 가지고 있습니다. 고유한 id값을 이용하여 데이터를 삭제할 수 있습니다.</p>
+
+<p>특정 id값을 가지는 테이블을 삭제할 경우 다음과 같이 <code class="highlighter-rouge">id()</code> 메소드를 호출합니다.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$delete</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">delete</span><span class="p">(</span><span class="s2">"members4"</span><span class="p">);</span>
+<span class="nv">$delete</span><span class="o">-&gt;</span><span class="na">id</span><span class="p">(</span><span class="mi">22</span><span class="p">);</span> <span class="c1">//22번 id를 삭제합니다.</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="예제코드">예제코드</h2>
+<hr />
+
+<p>|예제코드| delete-id.php</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="k">require</span> <span class="s2">"../../loading.php"</span><span class="p">;</span> <span class="c1">// 오토로딩</span>
+
+<span class="c1">// 데이터베이스 설정값</span>
+<span class="nv">$dbinfo</span> <span class="o">=</span> <span class="nx">\jiny\dbinfo</span><span class="p">();</span>
+<span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Jiny\Mysql\Connection</span><span class="p">(</span><span class="nv">$dbinfo</span><span class="p">);</span>
+
+<span class="nv">$dataObj</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">delete</span><span class="p">(</span><span class="s2">"members4"</span><span class="p">);</span>
+<span class="nv">$dataObj</span><span class="o">-&gt;</span><span class="na">id</span><span class="p">(</span><span class="mi">3</span><span class="p">);</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nv">$rows</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">select</span><span class="p">(</span><span class="s2">"members4"</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">runObjAll</span><span class="p">())</span> <span class="p">{</span>
+    <span class="k">foreach</span><span class="p">(</span><span class="nv">$rows</span> <span class="k">as</span> <span class="nv">$row</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">foreach</span><span class="p">(</span><span class="nv">$row</span> <span class="k">as</span> <span class="nv">$key</span> <span class="o">=&gt;</span> <span class="nv">$value</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">echo</span> <span class="nv">$key</span><span class="o">.</span> <span class="s2">"="</span><span class="o">.</span> <span class="nv">$value</span><span class="o">.</span> <span class="s2">"</span><span class="se">\t</span><span class="s2">"</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">echo</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s2">"데이터목록이 없습니다."</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+:ET

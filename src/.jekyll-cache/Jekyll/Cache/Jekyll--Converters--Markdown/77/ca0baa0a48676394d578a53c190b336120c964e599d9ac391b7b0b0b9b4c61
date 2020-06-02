@@ -1,0 +1,46 @@
+I"�<h1 id="테이블-갯수">테이블 갯수</h1>
+<hr />
+<p>선택한 스키마의 테이블 갯수를 확인 합니다.</p>
+
+<p><br /></p>
+
+<h2 id="totaltables">totalTables()</h2>
+<hr />
+<p><code class="highlighter-rouge">totalTables()</code> 메소드는 스키마에 포함된 테이블의 갯수를 반환합니다.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$db</span><span class="o">-&gt;</span><span class="na">schema</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">totalTables</span><span class="p">(</span><span class="s2">"스키마명"</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="예제코드">예제코드</h2>
+<hr />
+
+<p>|예제코드| ./samples/shcema/schema-03.php</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="k">require</span> <span class="s2">"../../loading.php"</span><span class="p">;</span> <span class="c1">// 오토로딩</span>
+
+<span class="c1">// 데이터베이스 설정값</span>
+<span class="nv">$dbinfo</span> <span class="o">=</span> <span class="nx">\jiny\dbinfo</span><span class="p">();</span>
+
+<span class="c1">// 설정값, 생성자 인자값으로 전달합니다.</span>
+<span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Jiny\Mysql\Connection</span><span class="p">(</span><span class="nv">$dbinfo</span><span class="p">);</span>
+
+<span class="c1">// 스키마 목록</span>
+<span class="nv">$schemaObj</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">schema</span><span class="p">();</span>
+<span class="nv">$rows</span> <span class="o">=</span> <span class="nv">$schemaObj</span><span class="o">-&gt;</span><span class="na">list</span><span class="p">();</span>
+<span class="k">foreach</span> <span class="p">(</span><span class="nv">$rows</span> <span class="k">as</span> <span class="nv">$name</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="nv">$name</span><span class="o">.</span> <span class="s2">"="</span><span class="p">;</span>
+    <span class="k">echo</span> <span class="nv">$schemaObj</span><span class="o">-&gt;</span><span class="na">totalTables</span><span class="p">(</span><span class="nv">$name</span><span class="p">)</span><span class="o">.</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+    <span class="c1">//print_r($row);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>|실행결과|</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>php schema-03.php 
+<span class="go">db2020=3
+information_schema=67
+</span></code></pre></div></div>
+
+<p><br /></p>
+:ET

@@ -1,0 +1,35 @@
+I"�<h1 id="갱신">갱신</h1>
+<hr />
+<p>갱신은 update SQL쿼리를 이용하여 기존의 데이터를 변경하는 작업을 말합니다.</p>
+
+<p>jinyMysql은 전형적인 SQL 쿼리문을 직접 작성하여 전송을 하는 방법과 빌더를 이용한 자동 쿼리생성으로 처리할 수 있습니다.</p>
+
+<p><br /></p>
+
+<h2 id="sql-쿼리">SQL 쿼리</h2>
+<hr />
+<ul>
+  <li><a href="raw">raw sql</a></li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="update-builder">Update Builder</h2>
+<hr />
+<p>update 클래스를 통하여 갱신 쿼리를 자동생성 처리 합니다.</p>
+
+<ul>
+  <li>
+    <p><a href="object">update builder</a> 객체</p>
+  </li>
+  <li>
+    <p><a href="query">setQuery</a> / <a href="query">clearQuery</a></p>
+  </li>
+  <li>
+    <p><a href="execute">실행</a></p>
+  </li>
+  <li>
+    <p><a href="inc">inc</a> / <a href="dec">dec</a> : 필드값을 <code class="highlighter-rouge">+1</code> 증가 또는 <code class="highlighter-rouge">-1</code> 감소합니다.</p>
+  </li>
+</ul>
+:ET

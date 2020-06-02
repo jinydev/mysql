@@ -1,0 +1,189 @@
+I"�;<h1 id="데이터-조회">데이터 조회</h1>
+<hr />
+<p>테이블의 데이터를 조회합니다.</p>
+
+<ul>
+  <li><a href="query">쿼리설정</a></li>
+</ul>
+
+<p><br /></p>
+
+<h2 id="raw-쿼리를-이용한-목록출력">Raw 쿼리를 이용한 목록출력</h2>
+<hr />
+
+<p>예제코드: select-raw.php</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="k">require</span> <span class="s2">"../../loading.php"</span><span class="p">;</span> <span class="c1">// 오토로딩</span>
+
+<span class="c1">// 데이터베이스 설정값</span>
+<span class="nv">$dbinfo</span> <span class="o">=</span> <span class="nx">\jiny\dbinfo</span><span class="p">();</span>
+
+<span class="c1">// 설정값, 생성자 인자값으로 전달합니다.</span>
+<span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Jiny\Mysql\Connection</span><span class="p">(</span><span class="nv">$dbinfo</span><span class="p">);</span>
+
+<span class="c1">// RawSQL 데이터삽입</span>
+<span class="nv">$query</span> <span class="o">=</span> <span class="s2">"SELECT * FROM `db2020`.`members4`;"</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="nv">$rows</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">query</span><span class="p">(</span><span class="nv">$query</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">fetchObjAll</span><span class="p">())</span> <span class="p">{</span>
+    <span class="k">foreach</span><span class="p">(</span><span class="nv">$rows</span> <span class="k">as</span> <span class="nv">$row</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">foreach</span><span class="p">(</span><span class="nv">$row</span> <span class="k">as</span> <span class="nv">$key</span> <span class="o">=&gt;</span> <span class="nv">$value</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">echo</span> <span class="nv">$key</span><span class="o">.</span> <span class="s2">"="</span><span class="o">.</span> <span class="nv">$value</span><span class="o">.</span> <span class="s2">"</span><span class="se">\t</span><span class="s2">"</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">echo</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s2">"데이터목록이 없습니다."</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>|실행결과|</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>php <span class="k">select</span><span class="nt">-01</span>.php 
+<span class="go">데이터목록이 없습니다.
+</span></code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="객체-확장하기">객체 확장하기</h2>
+<hr />
+<p>connection 객체는 데이터를 조작할 수 있는 select 객체를 확장합니다.
+확장된 select 객체는 다양한 조건의 데이터를 조회할 수 있습니다.</p>
+
+<p><br /></p>
+<h3 id="select-객체-얻기">select 객체 얻기</h3>
+<hr />
+<p>select() 메소드 호출시 객체를 얻을 수 있습니다.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$dataObj</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">select</span><span class="p">(</span><span class="s2">"테이블명"</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="all--전체-데이터-조회">all() : 전체 데이터 조회</h2>
+<hr />
+<p>데이블의 전체 데이터를 조회 합니다.</p>
+
+<p><code class="highlighter-rouge">SELECT * </code>와 같은 동작결과를 반환합니다.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$dataObj</span><span class="o">-&gt;</span><span class="na">all</span><span class="p">();</span>
+</code></pre></div></div>
+<p>all 메소드는 테이블의 전체 데이터를 조회 합니다.</p>
+
+<p>예제코드: select-all.php</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="k">require</span> <span class="s2">"../../loading.php"</span><span class="p">;</span> <span class="c1">// 오토로딩</span>
+
+<span class="c1">// 데이터베이스 설정값</span>
+<span class="nv">$dbinfo</span> <span class="o">=</span> <span class="nx">\jiny\dbinfo</span><span class="p">();</span>
+<span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Jiny\Mysql\Connection</span><span class="p">(</span><span class="nv">$dbinfo</span><span class="p">);</span>
+
+<span class="c1">// select 객체 얻기</span>
+<span class="nv">$dataObj</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">select</span><span class="p">(</span><span class="s2">"members4"</span><span class="p">);</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nv">$rows</span> <span class="o">=</span> <span class="nv">$dataObj</span><span class="o">-&gt;</span><span class="na">all</span><span class="p">())</span> <span class="p">{</span>
+    <span class="k">foreach</span><span class="p">(</span><span class="nv">$rows</span> <span class="k">as</span> <span class="nv">$row</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">foreach</span><span class="p">(</span><span class="nv">$row</span> <span class="k">as</span> <span class="nv">$key</span> <span class="o">=&gt;</span> <span class="nv">$value</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">echo</span> <span class="nv">$key</span><span class="o">.</span> <span class="s2">"="</span><span class="o">.</span> <span class="nv">$value</span><span class="o">.</span> <span class="s2">"</span><span class="se">\t</span><span class="s2">"</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">echo</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s2">"데이터목록이 없습니다."</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>|출력결과|</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>php <span class="k">select</span><span class="nt">-all</span>.php 
+<span class="go">id=1    firstname=lee   lastname=hojin  created_at=     updated_at=
+id=2    firstname=lee   lastname=hojin  created_at=     updated_at=
+</span></code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="컬럼-선택">컬럼 선택</h2>
+<hr />
+<p>출력할 컬럼을 선택합니다.</p>
+
+<h3 id="setfields">setFields</h3>
+<hr />
+<p>출력할 필드만 선택할 수 있습니다.</p>
+
+<p>|예제코드| select-fields01.php</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="k">require</span> <span class="s2">"../../loading.php"</span><span class="p">;</span> <span class="c1">// 오토로딩</span>
+
+<span class="c1">// 데이터베이스 설정값</span>
+<span class="nv">$dbinfo</span> <span class="o">=</span> <span class="nx">\jiny\dbinfo</span><span class="p">();</span>
+
+<span class="c1">// 설정값, 생성자 인자값으로 전달합니다.</span>
+<span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Jiny\Mysql\Connection</span><span class="p">(</span><span class="nv">$dbinfo</span><span class="p">);</span>
+
+<span class="c1">// 데이터목록</span>
+<span class="nv">$select</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">select</span><span class="p">(</span><span class="s2">"members4"</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">setFields</span><span class="p">([</span><span class="s2">"id"</span><span class="p">,</span><span class="s2">"firstname"</span><span class="p">]);</span>
+<span class="k">if</span> <span class="p">(</span><span class="nv">$rows</span> <span class="o">=</span> <span class="nv">$select</span><span class="o">-&gt;</span><span class="na">fetchObjAll</span><span class="p">())</span> <span class="p">{</span>
+    <span class="k">foreach</span><span class="p">(</span><span class="nv">$rows</span> <span class="k">as</span> <span class="nv">$row</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">foreach</span><span class="p">(</span><span class="nv">$row</span> <span class="k">as</span> <span class="nv">$key</span> <span class="o">=&gt;</span> <span class="nv">$value</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">echo</span> <span class="nv">$key</span><span class="o">.</span> <span class="s2">"="</span><span class="o">.</span> <span class="nv">$value</span><span class="o">.</span> <span class="s2">"</span><span class="se">\t</span><span class="s2">"</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">echo</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s2">"데이터목록이 없습니다."</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>|출력결과|</p>
+<div class="language-console highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gp">$</span><span class="w"> </span>php <span class="k">select</span><span class="nt">-fields01</span>.php 
+<span class="go">id=1    firstname=lee
+id=2    firstname=lee
+</span></code></pre></div></div>
+
+<h3 id="매개변수-전송">매개변수 전송</h3>
+<hr />
+<p>별도의 setField 메소드를 호출하지 않고, select 메소드의 2번째 인자로도 컬럼을 선택할 수 있습니다.</p>
+
+<p>|예제코드| select-fields02.php</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="k">require</span> <span class="s2">"../../loading.php"</span><span class="p">;</span> <span class="c1">// 오토로딩</span>
+
+<span class="c1">// 데이터베이스 설정값</span>
+<span class="nv">$dbinfo</span> <span class="o">=</span> <span class="nx">\jiny\dbinfo</span><span class="p">();</span>
+
+<span class="c1">// 설정값, 생성자 인자값으로 전달합니다.</span>
+<span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Jiny\Mysql\Connection</span><span class="p">(</span><span class="nv">$dbinfo</span><span class="p">);</span>
+
+<span class="c1">// 데이터목록</span>
+<span class="k">if</span> <span class="p">(</span><span class="nv">$rows</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">select</span><span class="p">(</span><span class="s2">"members4"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"id"</span><span class="p">,</span><span class="s2">"firstname"</span><span class="p">])</span><span class="o">-&gt;</span><span class="na">fetchObjAll</span><span class="p">())</span> <span class="p">{</span>
+    <span class="k">foreach</span><span class="p">(</span><span class="nv">$rows</span> <span class="k">as</span> <span class="nv">$row</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">foreach</span><span class="p">(</span><span class="nv">$row</span> <span class="k">as</span> <span class="nv">$key</span> <span class="o">=&gt;</span> <span class="nv">$value</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">echo</span> <span class="nv">$key</span><span class="o">.</span> <span class="s2">"="</span><span class="o">.</span> <span class="nv">$value</span><span class="o">.</span> <span class="s2">"</span><span class="se">\t</span><span class="s2">"</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">echo</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s2">"데이터목록이 없습니다."</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="쿼리-빌더하기">쿼리 빌더하기</h2>
+<hr />
+<p><code class="highlighter-rouge">select</code> 클래스에 설정된 값에 의해서 SQL 쿼리를 빌드합니다.
+<code class="highlighter-rouge">build()</code> 메소드를 호출합니다.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$db</span><span class="o">-&gt;</span><span class="na">select</span><span class="p">(</span><span class="s2">"members4"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"id"</span><span class="p">,</span><span class="s2">"firstname"</span><span class="p">])</span><span class="o">-&gt;</span><span class="na">build</span><span class="p">();</span>
+</code></pre></div></div>
+<p><code class="highlighter-rouge">build()</code>는 단순한 쿼리만을 자동 생성하여 select 객체 내부에 저장합니다.
+생성된 쿼리 문장은 <code class="highlighter-rouge">getQuery()</code> 메소드를 통하여 확인을 할 수 있습니다.</p>
+
+<p>이렇게 생성된 쿼리는 <code class="highlighter-rouge">run()</code> 메소드를 실행하면, stmt 값을 얻을 수 있습니다.
+stmt 값을 통하여 값을 읽어 올 수 있습니다.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$rows</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">select</span><span class="p">(</span><span class="s2">"members4"</span><span class="p">,</span> <span class="p">[</span><span class="s2">"id"</span><span class="p">,</span><span class="s2">"firstname"</span><span class="p">])</span><span class="o">-&gt;</span><span class="na">build</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">run</span><span class="p">()</span><span class="o">-&gt;</span><span class="na">fetchObjAll</span><span class="p">();</span>
+</code></pre></div></div>
+
+<p>|예제코드|
+select-03.php
+select-04.php</p>
+
+<p><br /></p>
+:ET

@@ -11,6 +11,8 @@ breadcrumb:
 ---
 테이블의 데이터를 조회합니다.
 
+* [쿼리설정](query)
+
 <br>
 
 ## Raw 쿼리를 이용한 목록출력
@@ -179,42 +181,26 @@ if ($rows = $db->select("members4", ["id","firstname"])->fetchObjAll()) {
 
 <br>
 
-## 쿼리빌더
+## 쿼리 빌더하기
 ---
-select 클래스를 통하여 설정된 값에 의해서 쿼리를 빌드할 수 있습니다.
-
-먼저 조회할 테이블과 컬럼을 선택한 후에 queryBuild 메소드를 호출합니다.
+`select` 클래스에 설정된 값에 의해서 SQL 쿼리를 빌드합니다.
+`build()` 메소드를 호출합니다.  
 
 ```php
-$query = $db->select("members4", ["id","firstname"])->sqlBuild();
+$db->select("members4", ["id","firstname"])->build();
 ```
+`build()`는 단순한 쿼리만을 자동 생성하여 select 객체 내부에 저장합니다.
+생성된 쿼리 문장은 `getQuery()` 메소드를 통하여 확인을 할 수 있습니다. 
 
-<br>
-
-## 값 읽어오기
----
-select는 전송한 쿼리의 결과값을 반환 합니다.
-결과값은 `배열` 또는 `객체`로 읽어 올 수 있습니다.
-
-### 단일값 읽기
-* fetchObj() : 객체로 읽기
-* fetchAssoc() : 배열로 읽기
-
-### 복수값 데이터
-데이터가 여러개가 있을 경우 반복적인 읽기 작업이 필요합니다.
-이를 쉽게 처리하기 위해서 복수의 결과값을 읽어 올 수 있도록 전용 메소드를 제공합니다.
-
-* fetchObjAll()
-* fetchAssocAll()
-
-<br>
-
-## 데이터 갯수 조회
----
-테이블에 있는 데이터의 갯수를 조회할 수 있습니다.
+이렇게 생성된 쿼리는 `run()` 메소드를 실행하면, stmt 값을 얻을 수 있습니다.
+stmt 값을 통하여 값을 읽어 올 수 있습니다.
 
 ```php
-$count = $db->select("members4")->count();
+$rows = $db->select("members4", ["id","firstname"])->build()->run()->fetchObjAll();
 ```
 
+|예제코드|
+select-03.php
+select-04.php
 
+<br>

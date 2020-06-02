@@ -1,0 +1,7 @@
+I"\<h1 id="전체삭제">전체삭제</h1>
+<hr />
+<p>테이블의 전체 데이터를 삭제할 수 있습니다.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$obj</span><span class="o">-&gt;</span><span class="na">all</span><span class="p">();</span>
+</code></pre></div></div>
+:ET

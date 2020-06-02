@@ -1,0 +1,56 @@
+I"H<h1 id="실행">실행</h1>
+<hr />
+<p>빌더를 통하여 자동생성된 쿼리를 실행합니다.</p>
+
+<p><br /></p>
+
+<h2 id="id-선택">id 선택</h2>
+<hr />
+<p>update 쿼리의 단점은 조건과 일치하는 모든 데이터를 갱신하게 됩니다. 잘못 실수로 자신이 원하지 않는 데이터 까지 수정을 하게 됩니다.
+이를 방지하기 위해서 id를 선택하여 해당 row 데이터만 수정을 하게 합니다.</p>
+
+<p>이를 처리하기 위해서 <code class="highlighter-rouge">id()</code> 메소드를 제공합니다.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">uptate</span><span class="p">(</span><span class="s2">"members"</span><span class="p">,</span> <span class="p">[</span><span class="s1">'firstname'</span><span class="o">=&gt;</span><span class="s2">"1234"</span><span class="p">])</span><span class="o">-&gt;</span><span class="na">id</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>쿼리빌더로 설정된 값을 id=5인 조건으로 쿼리를 실행하게 됩니다.</p>
+
+<p><br /></p>
+
+<h3 id="id-갱신작업">id 갱신작업</h3>
+<hr />
+<p>update 예제코드를 통하여 데이터를 갱신해 보도록 합니다.</p>
+
+<p>|예제코드| update-03.php</p>
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">&lt;?php</span>
+<span class="k">require</span> <span class="s2">"../../loading.php"</span><span class="p">;</span> <span class="c1">// 오토로딩</span>
+
+<span class="c1">// 데이터베이스 설정값</span>
+<span class="nv">$dbinfo</span> <span class="o">=</span> <span class="nx">\jiny\dbinfo</span><span class="p">();</span>
+<span class="nv">$db</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">\Jiny\Mysql\Connection</span><span class="p">(</span><span class="nv">$dbinfo</span><span class="p">);</span>
+
+<span class="c1">// 데이터갱신</span>
+<span class="nv">$db</span><span class="o">-&gt;</span><span class="na">update</span><span class="p">(</span><span class="s2">"members4"</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">setFields</span><span class="p">([</span><span class="s1">'firstname'</span><span class="o">=&gt;</span><span class="s2">"1234"</span><span class="p">])</span><span class="o">-&gt;</span><span class="na">id</span><span class="p">(</span><span class="mi">5</span><span class="p">);</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="nv">$rows</span> <span class="o">=</span> <span class="nv">$db</span><span class="o">-&gt;</span><span class="na">select</span><span class="p">(</span><span class="s2">"members4"</span><span class="p">)</span><span class="o">-&gt;</span><span class="na">runObjAll</span><span class="p">())</span> <span class="p">{</span>
+    <span class="k">foreach</span><span class="p">(</span><span class="nv">$rows</span> <span class="k">as</span> <span class="nv">$row</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">foreach</span><span class="p">(</span><span class="nv">$row</span> <span class="k">as</span> <span class="nv">$key</span> <span class="o">=&gt;</span> <span class="nv">$value</span><span class="p">)</span> <span class="p">{</span>
+            <span class="k">echo</span> <span class="nv">$key</span><span class="o">.</span> <span class="s2">"="</span><span class="o">.</span> <span class="nv">$value</span><span class="o">.</span> <span class="s2">"</span><span class="se">\t</span><span class="s2">"</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="k">echo</span> <span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">;</span>
+    <span class="p">}</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="k">echo</span> <span class="s2">"데이터목록이 없습니다."</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><br /></p>
+
+<h2 id="all">all</h2>
+<hr />
+<p>전체 데이터를 갱신합니다.</p>
+
+<div class="language-php highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">-&gt;</span><span class="na">all</span><span class="p">();</span>
+</code></pre></div></div>
+:ET
